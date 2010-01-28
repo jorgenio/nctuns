@@ -705,7 +705,7 @@ int mac802_16j_NT_PMPRS::recv(ePacket_ *epkt) {
 					exit(1);
 				}
 			} else {
-#define RDVN
+
 				if ((getULRelayDtConn(cid) != NULL)
 						&& LastSignalInfo.burst_type == UL_ACCESS) {
 					//printf("Time:%llu RS(%d) receive cid=%d (UL)\n",GetCurrentTime(),get_nid(),cid);
@@ -717,45 +717,53 @@ int mac802_16j_NT_PMPRS::recv(ePacket_ *epkt) {
 						if ((*iter)->getCid() == cid) {
 							(*iter)->insert(hg, len);
 							while ((ptr2 = (*iter)->getPacket(len)) != NULL) {
-#ifdef RDV
-								struct ip* ip = (struct ip *) ptr2;
-
-								logRidvan(
-										WARN,
-										"RS UL ethernet packet received packet type:%d src:%s dst:%s",
-										hg->type, ipToStr(ip->ip_src), ipToStr(
-												ip->ip_dst));
-								int myCid = 0;
-
-								hash_map<uint32_t, int>::const_iterator viter;
-								viter = routingTable.find(ip->ip_dst);
-								if (viter != routingTable.end()) {
-
-									logRidvan(
-											WARN,
-											"routingTable[ethernet->ip_dst]=%d",
-											viter->second);
-									myCid = viter->second;
-
-									logRidvan(WARN, "getcid %d myCid %d",
-											GHDR_GET_CID(hg), myCid);
-									pDtConn = getDLRelayDtConn(myCid);
-								} else
-#endif
-									pDtConn = getULRelayDtConn(cid);
 								Packet *pkt = asPacket(ptr2, len);
-								pkt->pkt_setflow(PF_SEND);
+								pkt->pkt_addinfo("way", "u", sizeof(char));
+								pkt->pkt_addinfo("cid", (char *) &cid,
+										sizeof(int));
+								pkt->pkt_setflow(PF_RECV);
+								ePacket_ *deliver_epkt = createEvent();
+								deliver_epkt->DataInfo_ = pkt;
+								put(deliver_epkt, recvtarget_);
+								/*
+								 #ifdef RDV
+								 struct ip* ip = (struct ip *) ptr2;
 
-								if (pDtConn->nf_pending_packet()
-										<= static_cast<size_t> (_maxqlen)) {
-									pDtConn->Insert(pkt);
-									deleteFlag = false;
-								}
-								if (deleteFlag) {
-									printf(">>>RS(%d)::Drop Pakcet<<<\n",
-											get_nid());
-									delete pkt;
-								}
+								 logRidvan(
+								 WARN,
+								 "RS UL ethernet packet received packet type:%d src:%s dst:%s",
+								 hg->type, ipToStr(ip->ip_src), ipToStr(
+								 ip->ip_dst));
+								 int myCid = 0;
+
+								 hash_map<uint32_t, int>::const_iterator viter;
+								 viter = routingTable.find(ip->ip_dst);
+								 if (viter != routingTable.end()) {
+
+								 logRidvan(
+								 WARN,
+								 "routingTable[ethernet->ip_dst]=%d",
+								 viter->second);
+								 myCid = viter->second;
+
+								 logRidvan(WARN, "getcid %d myCid %d",
+								 GHDR_GET_CID(hg), myCid);
+								 pDtConn = getDLRelayDtConn(myCid);
+								 } else
+								 #endif
+								 pDtConn = getULRelayDtConn(cid);
+
+								 if (pDtConn->nf_pending_packet()
+								 <= static_cast<size_t> (_maxqlen)) {
+								 pDtConn->Insert(pkt);
+								 deleteFlag = false;
+								 }
+								 if (deleteFlag) {
+								 printf(">>>RS(%d)::Drop Pakcet<<<\n",
+								 get_nid());
+								 delete pkt;
+								 }
+								 */
 							}
 							break;
 						}
@@ -778,28 +786,38 @@ int mac802_16j_NT_PMPRS::recv(ePacket_ *epkt) {
 						if ((*iter)->getCid() == cid) {
 							(*iter)->insert(hg, len);
 							while ((ptr2 = (*iter)->getPacket(len)) != NULL) {
+
 								struct ip* ip = (struct ip *) ptr2;
+
 								logRidvan(
 										WARN,
 										"RS DL ethernet packet received packet type:%d src:%s dst:%s",
 										hg->type, ipToStr(ip->ip_src), ipToStr(
 												ip->ip_dst));
-								routingTable.insert(ipConnPair(ip->ip_dst, cid));
+
 								logRidvan(WARN, "routingTable[ip->ip_dst]=%d",
 										routingTable[ip->ip_dst]);
 								Packet *pkt = asPacket(ptr2, len);
-								pkt->pkt_setflow(PF_SEND);
-								pDtConn = getDLRelayDtConn(cid);
-								if (pDtConn->nf_pending_packet()
-										<= static_cast<size_t> (_maxqlen)) {
-									pDtConn->Insert(pkt);
-									deleteFlag = false;
-								}
-								if (deleteFlag) {
-									printf(">>>RS(%d)::Drop Pakcet<<<\n",
-											get_nid());
-									delete pkt;
-								}
+								pkt->pkt_addinfo("way", "d", sizeof(char));
+								pkt->pkt_addinfo("cid", (char *) &cid,
+										sizeof(int));
+								pkt->pkt_setflow(PF_RECV);
+								ePacket_ *deliver_epkt = createEvent();
+								deliver_epkt->DataInfo_ = pkt;
+								put(deliver_epkt, recvtarget_);
+								/*
+								 pDtConn = getDLRelayDtConn(cid);
+								 if (pDtConn->nf_pending_packet()
+								 <= static_cast<size_t> (_maxqlen)) {
+								 pDtConn->Insert(pkt);
+								 deleteFlag = false;
+								 }
+								 if (deleteFlag) {
+								 printf(">>>RS(%d)::Drop Pakcet<<<\n",
+								 get_nid());
+								 delete pkt;
+								 }
+								 */
 							}
 							break;
 						}
@@ -828,8 +846,36 @@ int mac802_16j_NT_PMPRS::send(ePacket_ *epkt) {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::send State: %x", get_nid(),
 			State);
-
+	DataConnection *pDtConn = NULL;
+	Packet *pkt = (Packet *) epkt->DataInfo_;
+	//Packet *pkt;
 	freePacket(epkt);
+
+	int cid = *((int *) pkt->pkt_getinfo("cid"));
+	char way = *((char *) pkt->pkt_getinfo("way"));
+	bool deleteFlag = true;
+
+	if (way == 'd') {
+		pDtConn = getDLRelayDtConn(cid);
+		if (pDtConn->nf_pending_packet() <= static_cast<size_t> (_maxqlen)) {
+			pDtConn->Insert(pkt);
+			deleteFlag = false;
+		}
+		if (deleteFlag) {
+			printf(">>>RS(%d)::Drop Pakcet<<<\n", get_nid());
+			delete pkt;
+		}
+	} else {
+		pDtConn = getULRelayDtConn(cid);
+		if (pDtConn->nf_pending_packet() <= static_cast<size_t> (_maxqlen)) {
+			pDtConn->Insert(pkt);
+			deleteFlag = false;
+		}
+		if (deleteFlag) {
+			printf(">>>RS(%d)::Drop Pakcet<<<\n", get_nid());
+			delete pkt;
+		}
+	}
 	return 1;
 }
 
