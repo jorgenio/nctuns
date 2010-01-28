@@ -1,0 +1,91 @@
+#
+# Copyright (c) from 2000 to 2009 
+# 
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+# 
+# This source code file is part of the NCTUns 6.0 network simulator.
+#
+# Permission to use, copy, modify, and distribute this software and
+# its documentation is hereby granted (excluding for commercial or
+# for-profit use), provided that both the copyright notice and this
+# permission notice appear in all copies of the software, derivative
+# works, or modified versions, and any portions thereof, and that
+# both notices appear in supporting documentation, and that credit
+# is given to National Chiao Tung University, Taiwan in all publications 
+# reporting on direct or indirect use of this code or its derivatives.
+#
+# National Chiao Tung University, Taiwan makes no representations 
+# about the suitability of this software for any purpose. It is provided 
+# "AS IS" without express or implied warranty.
+#
+# A Web site containing the latest NCTUns 6.0 network simulator software 
+# and its documentations is set up at http://NSL.csie.nctu.edu.tw/nctuns.html.
+#
+# Project Chief-Technology-Officer
+# 
+# Prof. Shie-Yuan Wang <shieyuan@csie.nctu.edu.tw>
+# National Chiao Tung University, Taiwan
+#
+# 09/01/2009
+#/
+
+#   There are 15 PHBs supplied, including BE PHB(Best Effort PHB), 
+# EF PHB(Expedited Forwarding PHB), NC PHB(Network Control PHB),
+# and 12 AF PHB(Assured Forwarding PHB).
+#   The supplied PHBs and their corresponding codepoints are listed
+# as follow.
+
+#  [PHB Group]	[Codepoint]
+#  AF1		001010	001100	001110		(AF11 AF12 AF13)
+#  AF2		010010	010100	010110		(AF21 AF22 AF23)
+#  AF3		011010	011100	011110		(AF31 AF32 AF33)
+#  AF4		100010	100100	100110		(AF41 AF42 AF43)
+#  EF		101110
+#  NC		111000	110000	101000	100000
+#  BE		000000
+
+
+DefineDSDomain
+	Name Domain1
+## Rules
+# sip	source IP address
+# dip	destination IP address
+# sport	source port number
+# dport	destination port number
+# ptc	protocol		6(TCP)/17(UDP)
+# PHB	BE/NC/EF
+#	AF11/AF12/AF13
+#	AF21/AF22/AF23
+#	AF31/AF32/AF33
+#	AF41/AF42/AF43
+#
+# R 	TokenBucket rate  < set 0 to disable tokenbucket >
+# S 	TokenBucket size
+# ql	TokenBucket queue length
+#
+#	RuleAdd [sip] 	[dip] 	[sport]	[dport]	[ptc]	[PHB]	[R:Mbps][S:Mb]	(ql)
+	RuleAdd	1.0.1.2	*	*	*	*	AF11	5	5	50
+	RuleAdd	1.0.2.2 *	*	*	*		3	6 	50
+
+
+## Queues
+#  type = BE/NC/EF/AF1/AF2/AF3/AF4
+#  rate 
+#  maxQL:	max queue length
+#  [AF] ts1:	threshould 1 of AF PHB group
+#  [AF] ts1:	threshould 2 of AF PHB group
+#  [AF] mdr:	max drop rate of low drop precedence PHB (%) 
+#		default value is "80(%)"
+#	QueAdd	[type]	[name]	[rate]	[maxQL]	(ts1)	(ts2)	(mdr)
+	QueAdd	BE	BE	5	50
+	QueAdd	NC	NC	5	50
+	QueAdd	EF	EF	5	50
+	QueAdd	AF1	AF1	5	100	50	70	80
+
+EndDomainDefine
+
+
