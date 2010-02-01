@@ -1,0 +1,3 @@
+#!/bin/sh
+env LANG=C ./nctunsclient.bin $1
+
