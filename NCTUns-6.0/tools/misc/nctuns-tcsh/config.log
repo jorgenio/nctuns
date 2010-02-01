@@ -27,9 +27,9 @@ hostinfo               = unknown
 /usr/bin/oslevel       = unknown
 /bin/universe          = unknown
 
-PATH: /usr/kerberos/sbin
 PATH: /usr/local/nctuns/bin
 PATH: /usr/lib/qt-3.3/bin
+PATH: /usr/kerberos/sbin
 PATH: /usr/kerberos/bin
 PATH: /usr/local/bin
 PATH: /usr/bin
@@ -161,7 +161,7 @@ configure:2795: checking whether gcc needs -traditional
 configure:2837: result: no
 configure:2850: checking for library containing crypt
 configure:2880: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccm7x8dk.o: In function `main':
+/tmp/ccGSVFN9.o: In function `main':
 /home/ridvan/NCTUns-6.0/tools/misc/nctuns-tcsh/conftest.c:20: undefined reference to `crypt'
 collect2: ld returned 1 exit status
 configure:2886: $? = 1
@@ -208,7 +208,7 @@ configure:3025: $? = 0
 configure:3095: result: none required
 configure:3102: checking for library containing tgetent
 configure:3132: gcc -o conftest -g -O2   conftest.c -lcrypt  >&5
-/tmp/ccKxzulF.o: In function `main':
+/tmp/ccKbaM9h.o: In function `main':
 /home/ridvan/NCTUns-6.0/tools/misc/nctuns-tcsh/conftest.c:20: undefined reference to `tgetent'
 collect2: ld returned 1 exit status
 configure:3138: $? = 1

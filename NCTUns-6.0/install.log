@@ -5377,3 +5377,916 @@ rm -f md5c.o rtp_api.o rtp_error.o rtp_member_api.o rtp_member_inner.o rtp_netwo
 **
 **  Thank you.
 -------------------- [Tue 05 Jan 2010 08:39:39 PM EET] End ----------------
+-------------------- [Mon 01 Feb 2010 08:23:33 PM EET] Begin --------------
+ INSTALL: Install the NCTUns Kernel
+   STATE: install new nctuns kernel or upgrade older nctuns kernel
+Preparing...                ##################################################
+kernel-nctuns               ##################################################
+   STATE: modifiy grub configuration to disable hiddenmenu function and extend timeout limit
+  REPORT: install the NCTUns kernel ... ok
+ INSTALL: Install System Libraries
+   STATE: libstdc++.so.6 existed
+   STATE: The tcl library is already installed.
+   STATE: The pcap library is already installed.
+   STATE: configure dynamic linker run time bindings
+  REPORT: install libstdc++.so.6 ... .skip
+  REPORT: install libtcl8.5 ... skip
+  REPORT: install libpcap.so.0.9 ... skip
+ INSTALL: Build the simulation engine and libraries
+   STATE: build nctuns and libawp.so
+  GEN     .version
+  HOSTCC  scripts/basic/fixdep
+  HOSTCC  scripts/basic/config
+  GEN     autoconf.h
+  CXX     agent.o
+  CXX     app_init.o
+  CXX     auto_vehicle_signal.o
+  CXX     command_server.o
+  CXX     commun_gui.o
+  CXX     dispatcher.o
+  CXX     event.o
+  CXX     exportStr.o
+  CXX     gbind.o
+  CXX     heap.o
+  CXX     init.o
+  CXX     maptable.o
+  CXX     mbinder.o
+  CXX     nctuns.o
+  CXX     nctuns_api.o
+  CXX     nodetype.o
+  CXX     object.o
+  CXX     packet.o
+  CXX     random.o
+  CXX     regcom.o
+  CXX     scheduler.o
+  CXX     sock_skel.o
+  CXX     sysrt.o
+  CXX     tclBinder.o
+  CXX     tclObject.o
+  CXX     timer.o
+  CXX     tun_mmap.o
+  CXX     IPC/ns.o
+  LD      IPC/built-in.o
+  CXX     protocol_HEADER/mac-802_11_management_framebody.o
+  CXX     protocol_HEADER/mac-802_11e_management_framebody.o
+  LD      protocol_HEADER/built-in.o
+  LD      built-in.o
+  CXX     module/80211p/mac/mac_80211p.o
+  LD      module/80211p/mac/built-in.o
+  CXX     module/80211p/phy/channel_coding.o
+  CXX     module/80211p/phy/channel_model.o
+  CXX     module/80211p/phy/ofdm_80211p.o
+  CXX     module/80211p/phy/fec/cc/conv_code.o
+  LD      module/80211p/phy/fec/cc/built-in.o
+  LD      module/80211p/phy/fec/built-in.o
+  LD      module/80211p/phy/built-in.o
+  CXX     module/80211p/wme/wme.o
+  LD      module/80211p/wme/built-in.o
+  LD      module/80211p/built-in.o
+  CXX     module/arp/arp.o
+  LD      module/arp/built-in.o
+  CXX     module/gprs/GprsSw/GprsSw.o
+  LD      module/gprs/GprsSw/built-in.o
+  CXX     module/gprs/GtpGmm/GgsnGtp.o
+  CXX     module/gprs/GtpGmm/SgsnGtp.o
+  CXX     module/gprs/GtpGmm/HLR/HLR.o
+  LD      module/gprs/GtpGmm/HLR/built-in.o
+  LD      module/gprs/GtpGmm/built-in.o
+  CXX     module/gprs/SndcpGmm/GprsGmm.o
+  CXX     module/gprs/SndcpGmm/SndcpGmm.o
+  LD      module/gprs/SndcpGmm/built-in.o
+  CXX     module/gprs/bssgp/bss_bssgp.o
+  CXX     module/gprs/bssgp/bssrelay.o
+  CXX     module/gprs/bssgp/leakbucket.o
+  CXX     module/gprs/bssgp/ns.o
+  CXX     module/gprs/bssgp/pdu.o
+  CXX     module/gprs/bssgp/sgsn_bssgp.o
+  LD      module/gprs/bssgp/built-in.o
+  CXX     module/gprs/include/bss_message.o
+  CXX     module/gprs/include/burst_type.o
+  CXX     module/gprs/include/channel_coding.o
+  CXX     module/gprs/include/GprsObject.o
+  CXX     module/gprs/include/GPRS_rlcmac_message.o
+  CXX     module/gprs/include/parser.o
+  CXX     module/gprs/include/partial_queue.o
+  LD      module/gprs/include/built-in.o
+  CXX     module/gprs/llc/llc.o
+  CXX     module/gprs/llc/llc_impl.o
+  LD      module/gprs/llc/built-in.o
+  CXX     module/gprs/mac/GPRS_bts_mac.o
+  CXX     module/gprs/mac/GPRS_ms_mac.o
+  CXX     module/gprs/mac/mac_header.o
+  CXX     module/gprs/mac/two_slot_usf_granted_ind.o
+  LD      module/gprs/mac/built-in.o
+  CXX     module/gprs/radiolink/radiolink.o
+  LD      module/gprs/radiolink/built-in.o
+  CXX     module/gprs/rlc/rlc.o
+  CXX     module/gprs/rlc/state_array.o
+  CXX     module/gprs/rlc/tcb.o
+  LD      module/gprs/rlc/built-in.o
+  LD      module/gprs/built-in.o
+  CXX     module/hub/hub.o
+  LD      module/hub/built-in.o
+  CXX     module/its/road.o
+  CXX     module/its/tactic_api.o
+  CXX     module/its/map.o
+  CXX     module/its/AStar.o
+  LD      module/its/built-in.o
+  CXX     module/mac/hc-scheduler.o
+  CXX     module/mac/mac-802_11-dcf.o
+  CXX     module/mac/mac-80211a-dcf.o
+  CXX     module/mac/mac-802_11e.o
+  CXX     module/mac/mac8023.o
+  CXX     module/mac/mac.o
+  CXX     module/mac/sta-scheduler.o
+  LD      module/mac/built-in.o
+  CXX     module/mesh/bridge.o
+  CXX     module/mesh/mesharp.o
+  CXX     module/mesh/meshospf.o
+  CXX     module/mesh/meshsw.o
+  CC      module/mesh/meshlib/lists.o
+  CXX     module/mesh/meshlib/net_nctuns.o
+  CXX     module/mesh/meshlib/ospf.o
+  CC      module/mesh/meshlib/route.o
+  LD      module/mesh/meshlib/built-in.o
+  LD      module/mesh/built-in.o
+  CXX     module/misc/log/logchktbl.o
+  CXX     module/misc/log/logHeap.o
+  CXX     module/misc/log/logpack.o
+  LD      module/misc/log/built-in.o
+  CXX     module/misc/obs/obstacle.o
+  LD      module/misc/obs/built-in.o
+  LD      module/misc/built-in.o
+  CXX     module/mobile/ap.o
+  CXX     module/mobile/mobilenode.o
+  CXX     module/mobile/qosAP.o
+  CXX     module/mobile/qosMN.o
+  LD      module/mobile/built-in.o
+  CXX     module/nctuns-dep/fakeif.o
+  CXX     module/nctuns-dep/interface.o
+  CXX     module/nctuns-dep/link.o
+  CXX     module/nctuns-dep/multiif.o
+  CXX     module/nctuns-dep/node.o
+  CXX     module/nctuns-dep/pseudoif.o
+  LD      module/nctuns-dep/built-in.o
+  CXX     module/opt/Findport.o
+  CXX     module/opt/readpath.o
+  CXX     module/opt/FIFO/ofifo.o
+  LD      module/opt/FIFO/built-in.o
+  CXX     module/opt/ma/ma.o
+  LD      module/opt/ma/built-in.o
+  CXX     module/opt/obsw/obsw.o
+  LD      module/opt/obsw/built-in.o
+  CXX     module/opt/obwa/obwa.o
+  LD      module/opt/obwa/built-in.o
+  CXX     module/opt/op/op.o
+  LD      module/opt/op/built-in.o
+  CXX     module/opt/ophy/ophy.o
+  LD      module/opt/ophy/built-in.o
+  CXX     module/opt/opmanage/opmanage.o
+  LD      module/opt/opmanage/built-in.o
+  CXX     module/opt/osw/osw.o
+  LD      module/opt/osw/built-in.o
+  CXX     module/opt/wa/rwa.o
+  CXX     module/opt/wa/wa.o
+  LD      module/opt/wa/built-in.o
+  LD      module/opt/built-in.o
+  CXX     module/phy/80211a_phy/ofdm_80211a.o
+  CXX     module/phy/80211a_phy/channel_coding.o
+  CXX     module/phy/80211a_phy/channel_model.o
+  CXX     module/phy/80211a_phy/fec/cc/conv_code.o
+  LD      module/phy/80211a_phy/fec/cc/built-in.o
+  LD      module/phy/80211a_phy/fec/built-in.o
+  LD      module/phy/80211a_phy/built-in.o
+  CXX     module/phy/power/channel_Model.o
+  LD      module/phy/power/built-in.o
+  CXX     module/phy/awphy.o
+  CXX     module/phy/phy.o
+  CXX     module/phy/wphy.o
+  CXX     module/phy/cm.o
+  LD      module/phy/built-in.o
+  CXX     module/phy/modulation/BPSK.o
+  CXX     module/phy/modulation/CCK.o
+  CXX     module/phy/modulation/GMSK.o
+  CXX     module/phy/modulation/modulation.o
+  LIB     module/phy/libawp.so
+  CXX     module/ps/DRR/drr.o
+  LD      module/ps/DRR/built-in.o
+  CXX     module/ps/DS/ds_i.o
+  CXX     module/ps/DS/dsqueue.o
+  CXX     module/ps/DS/remarker.o
+  CXX     module/ps/DS/ruleMgr.o
+  CXX     module/ps/DS/tc.o
+  CXX     module/ps/DS/tokenbucket.o
+  LD      module/ps/DS/built-in.o
+  CXX     module/ps/FIFO/fifo.o
+  LD      module/ps/FIFO/built-in.o
+  CXX     module/ps/GPRS_FIFO/gprsfifo.o
+  LD      module/ps/GPRS_FIFO/built-in.o
+  CXX     module/ps/RED/red.o
+  LD      module/ps/RED/built-in.o
+  CXX     module/ps/WAN/wan.o
+  LD      module/ps/WAN/built-in.o
+  LD      module/ps/built-in.o
+  CXX     module/route/god-routed.o
+  CXX     module/route/myrouted.o
+  CXX     module/route/adv/advd.o
+  LD      module/route/adv/built-in.o
+  CXX     module/route/aodv/AODV.o
+  CXX     module/route/aodv/AODVrt.o
+  LD      module/route/aodv/built-in.o
+  CXX     module/route/dsdv/dsdvd.o
+  LD      module/route/dsdv/built-in.o
+  CXX     module/route/dsr/dsragent.o
+  CXX     module/route/dsr/route.o
+  LD      module/route/dsr/built-in.o
+  LD      module/route/built-in.o
+  CXX     module/satellite/dvb_rcs/common/dvb_pkt.o
+  CXX     module/satellite/dvb_rcs/common/dvbrcs_api.o
+  CXX     module/satellite/dvb_rcs/common/dvb_s2_pls.o
+  CXX     module/satellite/dvb_rcs/common/sac.o
+  CXX     module/satellite/dvb_rcs/common/rcst_info.o
+  CXX     module/satellite/dvb_rcs/common/ncc_config.o
+  CXX     module/satellite/dvb_rcs/common/parse_ncc_config.o
+  CXX     module/satellite/dvb_rcs/common/delay.o
+  CXX     module/satellite/dvb_rcs/common/pcr.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/adaptation_field_data_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/contention_control_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/correction_message_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/data_broadcast_id_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/descriptor_q.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/ip_mac_platform_name_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/ip_mac_platform_provider_name_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/ip_mac_stream_location_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/linkage_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/logon_initialize_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/network_name_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/rcs_content_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/satellite_delivery_system_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/service_move_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/stream_identifier_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/sync_assign_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/table_update_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/target_ip_slash_descriptor.o
+  CXX     module/satellite/dvb_rcs/common/descriptor/target_mac_address_descriptor.o
+  LD      module/satellite/dvb_rcs/common/descriptor/built-in.o
+  CXX     module/satellite/dvb_rcs/common/errormodel/attenuation.o
+  CXX     module/satellite/dvb_rcs/common/errormodel/saterrormodel.o
+  LD      module/satellite/dvb_rcs/common/errormodel/built-in.o
+  CXX     module/satellite/dvb_rcs/common/fec/bch.o
+  CXX     module/satellite/dvb_rcs/common/fec/crc.o
+  CXX     module/satellite/dvb_rcs/common/fec/GaloisField.o
+  CXX     module/satellite/dvb_rcs/common/fec/GaloisFieldElement.o
+  CXX     module/satellite/dvb_rcs/common/fec/GaloisFieldPolynomial.o
+  LD      module/satellite/dvb_rcs/common/fec/built-in.o
+  CXX     module/satellite/dvb_rcs/common/table/dgm_section.o
+  CXX     module/satellite/dvb_rcs/common/table/fct_section.o
+  CXX     module/satellite/dvb_rcs/common/table/fct_table.o
+  CXX     module/satellite/dvb_rcs/common/table/fct_table_q.o
+  CXX     module/satellite/dvb_rcs/common/table/int_section.o
+  CXX     module/satellite/dvb_rcs/common/table/int_table.o
+  CXX     module/satellite/dvb_rcs/common/table/int_table_q.o
+  CXX     module/satellite/dvb_rcs/common/table/nit_section.o
+  CXX     module/satellite/dvb_rcs/common/table/nit_table.o
+  CXX     module/satellite/dvb_rcs/common/table/nit_table_q.o
+  CXX     module/satellite/dvb_rcs/common/table/pat_section.o
+  CXX     module/satellite/dvb_rcs/common/table/pat_table.o
+  CXX     module/satellite/dvb_rcs/common/table/pat_table_q.o
+  CXX     module/satellite/dvb_rcs/common/table/pmt_section.o
+  CXX     module/satellite/dvb_rcs/common/table/pmt_table.o
+  CXX     module/satellite/dvb_rcs/common/table/pmt_table_q.o
+  CXX     module/satellite/dvb_rcs/common/table/sct_section.o
+  CXX     module/satellite/dvb_rcs/common/table/sct_table.o
+  CXX     module/satellite/dvb_rcs/common/table/sct_table_q.o
+  CXX     module/satellite/dvb_rcs/common/table/section_draft.o
+  CXX     module/satellite/dvb_rcs/common/table/table.o
+  CXX     module/satellite/dvb_rcs/common/table/tbtp_section.o
+  CXX     module/satellite/dvb_rcs/common/table/tbtp_table.o
+  CXX     module/satellite/dvb_rcs/common/table/tbtp_table_list.o
+  CXX     module/satellite/dvb_rcs/common/table/tbtp_table_q.o
+  CXX     module/satellite/dvb_rcs/common/table/tct_section.o
+  CXX     module/satellite/dvb_rcs/common/table/tct_table.o
+  CXX     module/satellite/dvb_rcs/common/table/tct_table_q.o
+  CXX     module/satellite/dvb_rcs/common/table/tim_section.o
+  CXX     module/satellite/dvb_rcs/common/table/tim_table.o
+  LD      module/satellite/dvb_rcs/common/table/built-in.o
+  LD      module/satellite/dvb_rcs/common/built-in.o
+  CXX     module/satellite/dvb_rcs/fwd/dvb_s2.o
+  CXX     module/satellite/dvb_rcs/fwd/dvb_s2_fec.o
+  CXX     module/satellite/dvb_rcs/fwd/dvb_s2_feeder.o
+  CXX     module/satellite/dvb_rcs/fwd/dvb_s2_ldpc.o
+  CXX     module/satellite/dvb_rcs/fwd/dvb_s2_rcst.o
+  CXX     module/satellite/dvb_rcs/fwd/mpe.o
+  CXX     module/satellite/dvb_rcs/fwd/mpeg2_ts_ncc.o
+  CXX     module/satellite/dvb_rcs/fwd/mpeg2_ts_rcst.o
+  CXX     module/satellite/dvb_rcs/fwd/mpeg2_ts_sp.o
+  CXX     module/satellite/dvb_rcs/fwd/section.o
+  LD      module/satellite/dvb_rcs/fwd/built-in.o
+  CXX     module/satellite/dvb_rcs/ncc/ncc_ctl.o
+  CXX     module/satellite/dvb_rcs/ncc/timeslot_scheduler.o
+  LD      module/satellite/dvb_rcs/ncc/built-in.o
+  CXX     module/satellite/dvb_rcs/rcst/rcst_ctl.o
+  CXX     module/satellite/dvb_rcs/rcst/rcst_queue_config.o
+  LD      module/satellite/dvb_rcs/rcst/built-in.o
+  CXX     module/satellite/dvb_rcs/ret/dvb_rcs.o
+  CXX     module/satellite/dvb_rcs/ret/dvb_rcs_gw.o
+  CXX     module/satellite/dvb_rcs/ret/dvb_rcs_rcst.o
+  CXX     module/satellite/dvb_rcs/ret/rcs_atm.o
+  CXX     module/satellite/dvb_rcs/ret/rcs_atm_rcst.o
+  CXX     module/satellite/dvb_rcs/ret/rcs_atm_sp.o
+  CXX     module/satellite/dvb_rcs/ret/rcs_mac.o
+  CXX     module/satellite/dvb_rcs/ret/rcs_mac_rcst.o
+  CXX     module/satellite/dvb_rcs/ret/rcs_mac_spncc.o
+  CXX     module/satellite/dvb_rcs/ret/queue/rcst_queue_manager.o
+  CXX     module/satellite/dvb_rcs/ret/queue/rcst_queue_basic.o
+  CXX     module/satellite/dvb_rcs/ret/queue/rcst_queue_ctrl.o
+  CXX     module/satellite/dvb_rcs/ret/queue/rcst_queue_rt.o
+  CXX     module/satellite/dvb_rcs/ret/queue/rcst_queue_vrrt.o
+  CXX     module/satellite/dvb_rcs/ret/queue/rcst_queue_vrjt.o
+  CXX     module/satellite/dvb_rcs/ret/queue/rcst_queue_jt.o
+  LD      module/satellite/dvb_rcs/ret/queue/built-in.o
+  LD      module/satellite/dvb_rcs/ret/built-in.o
+  CXX     module/satellite/dvb_rcs/sat/dvbs2_sat.o
+  LD      module/satellite/dvb_rcs/sat/built-in.o
+  CXX     module/satellite/dvb_rcs/sp/sp_ctl.o
+  LD      module/satellite/dvb_rcs/sp/built-in.o
+  LD      module/satellite/dvb_rcs/built-in.o
+  LD      module/satellite/built-in.o
+  CXX     module/sw/sw.o
+  LD      module/sw/built-in.o
+  CXX     module/tcpdump/tcpdump.o
+  CXX     module/tcpdump/wtcpdump.o
+  LD      module/tcpdump/built-in.o
+  CXX     module/wimax/mac/connection.o
+  CXX     module/wimax/mac/library.o
+  CXX     module/wimax/mac/mac802_16.o
+  CXX     module/wimax/mac/mac_address.o
+  CXX     module/wimax/mac/management_message.o
+  CXX     module/wimax/mac/service_flow.o
+  CXX     module/wimax/mac/timer_mngr.o
+  CXX     module/wimax/mac/mesh/base_station_info.o
+  CXX     module/wimax/mac/mesh/frame_mngr.o
+  CXX     module/wimax/mac/mesh/mac802_16_meshbs.o
+  CXX     module/wimax/mac/mesh/mac802_16_meshss.o
+  CXX     module/wimax/mac/mesh/mesh_connection.o
+  CXX     module/wimax/mac/mesh/mesh_link.o
+  CXX     module/wimax/mac/mesh/mesh_route.o
+  CXX     module/wimax/mac/mesh/msh_dsch.o
+  CXX     module/wimax/mac/mesh/msh_ncfg.o
+  CXX     module/wimax/mac/mesh/msh_nent.o
+  CXX     module/wimax/mac/mesh/neighbor.o
+  CXX     module/wimax/mac/mesh/neighbor_mngr.o
+  CXX     module/wimax/mac/mesh/net_entry_mngr.o
+  CXX     module/wimax/mac/mesh/network_des.o
+  CXX     module/wimax/mac/mesh/node_deg_des.o
+  CXX     module/wimax/mac/mesh/util_map.o
+  CXX     module/wimax/mac/mesh/msh_ncfg/emb_data_hdr.o
+  CXX     module/wimax/mac/mesh/msh_ncfg/emb_ie_network_des.o
+  CXX     module/wimax/mac/mesh/msh_ncfg/emb_ie_net_entry_open.o
+  CXX     module/wimax/mac/mesh/msh_ncfg/emb_ie_net_entry_ack.o
+  CXX     module/wimax/mac/mesh/msh_ncfg/emb_ie_link_est.o
+  LD      module/wimax/mac/mesh/msh_ncfg/built-in.o
+  CXX     module/wimax/mac/mesh/sch/mesh_schedule_info.o
+  CXX     module/wimax/mac/mesh/sch/ctrl/entry_interface.o
+  CXX     module/wimax/mac/mesh/sch/ctrl/ht_assigner.o
+  CXX     module/wimax/mac/mesh/sch/ctrl/info.o
+  CXX     module/wimax/mac/mesh/sch/ctrl/scheduler.o
+  LD      module/wimax/mac/mesh/sch/ctrl/built-in.o
+  CXX     module/wimax/mac/mesh/sch/data/alloc_base.o
+  CXX     module/wimax/mac/mesh/sch/data/bitmap.o
+  CXX     module/wimax/mac/mesh/sch/data/scheduler.o
+  LD      module/wimax/mac/mesh/sch/data/built-in.o
+  LD      module/wimax/mac/mesh/sch/built-in.o
+  LD      module/wimax/mac/mesh/built-in.o
+  CXX     module/wimax/mac/pmp/mac802_16_pmpbs.o
+  CXX     module/wimax/mac/pmp/mac802_16_pmpss.o
+  CXX     module/wimax/mac/pmp/scheduler.o
+  CXX     module/wimax/mac/pmp/ss_base.o
+  CXX     module/wimax/mac/pmp/ssobject.o
+  LD      module/wimax/mac/pmp/built-in.o
+  LD      module/wimax/mac/built-in.o
+  CXX     module/wimax/mac_16e/connection.o
+  CXX     module/wimax/mac_16e/library.o
+  CXX     module/wimax/mac_16e/mac802_16e.o
+  CXX     module/wimax/mac_16e/mac_address.o
+  CXX     module/wimax/mac_16e/management_message.o
+  CXX     module/wimax/mac_16e/service_flow.o
+  CXX     module/wimax/mac_16e/timer_mngr.o
+  CXX     module/wimax/mac_16e/ofdma_map_ie.o
+  CXX     module/wimax/mac_16e/neighbor_bs.o
+  CXX     module/wimax/mac_16e/pmp/mac802_16e_pmpbs.o
+  CXX     module/wimax/mac_16e/pmp/mac802_16e_pmpms.o
+  CXX     module/wimax/mac_16e/pmp/scheduler.o
+  CXX     module/wimax/mac_16e/pmp/ms_base.o
+  CXX     module/wimax/mac_16e/pmp/msobject.o
+  LD      module/wimax/mac_16e/pmp/built-in.o
+  LD      module/wimax/mac_16e/built-in.o
+  CXX     module/wimax/mac_16j/connection.o
+  CXX     module/wimax/mac_16j/library.o
+  CXX     module/wimax/mac_16j/mac802_16j.o
+  CXX     module/wimax/mac_16j/mac_address.o
+  CXX     module/wimax/mac_16j/management_message.o
+  CXX     module/wimax/mac_16j/service_flow.o
+  CXX     module/wimax/mac_16j/timer_mngr.o
+  CXX     module/wimax/mac_16j/ofdma_map_ie.o
+  CXX     module/wimax/mac_16j/neighbor_bs.o
+  CXX     module/wimax/mac_16j/pmp/mac802_16j_pmpbs.o
+  CXX     module/wimax/mac_16j/pmp/mac802_16j_pmpms.o
+  CXX     module/wimax/mac_16j/pmp/scheduler.o
+  CXX     module/wimax/mac_16j/pmp/ms_base.o
+  CXX     module/wimax/mac_16j/pmp/msobject.o
+  CXX     module/wimax/mac_16j/pmp/rs_base.o
+  CXX     module/wimax/mac_16j/pmp/mac802_16j_pmprs.o
+  CXX     module/wimax/mac_16j/pmp/rsobject.o
+  LD      module/wimax/mac_16j/pmp/built-in.o
+  LD      module/wimax/mac_16j/built-in.o
+  CXX     module/wimax/mac_16j_NT/connection.o
+  CXX     module/wimax/mac_16j_NT/library.o
+  CXX     module/wimax/mac_16j_NT/mac802_16j_NT.o
+  CXX     module/wimax/mac_16j_NT/mac_address.o
+  CXX     module/wimax/mac_16j_NT/management_message.o
+  CXX     module/wimax/mac_16j_NT/service_flow.o
+  CXX     module/wimax/mac_16j_NT/timer_mngr.o
+  CXX     module/wimax/mac_16j_NT/ofdma_map_ie.o
+  CXX     module/wimax/mac_16j_NT/neighbor_bs.o
+  CXX     module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmpbs.o
+In file included from /usr/lib/gcc/i586-redhat-linux/4.4.1/../../../../include/c++/4.4.1/backward/hash_map:59,
+                 from module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmprs.h:55,
+                 from module/wimax/mac_16j_NT/pmp/scheduler.h:46,
+                 from module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmpbs.h:54,
+                 from module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmpbs.cc:37:
+/usr/lib/gcc/i586-redhat-linux/4.4.1/../../../../include/c++/4.4.1/backward/backward_warning.h:28:2: warning: #warning This file includes at least one deprecated or antiquated header which may be removed without further notice at a future date. Please use a non-deprecated interface with equivalent functionality instead. For a listing of replacement headers and interfaces, consult the file backward_warning.h. To disable this warning use -Wno-deprecated.
+  CXX     module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmpms.o
+In file included from /usr/lib/gcc/i586-redhat-linux/4.4.1/../../../../include/c++/4.4.1/backward/hash_map:59,
+                 from module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmprs.h:55,
+                 from module/wimax/mac_16j_NT/pmp/rsobject_NT.h:48,
+                 from module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmpbs.h:56,
+                 from module/wimax/mac_16j_NT/pmp/scheduler.h:44,
+                 from module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmpms.h:56,
+                 from module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmpms.cc:36:
+/usr/lib/gcc/i586-redhat-linux/4.4.1/../../../../include/c++/4.4.1/backward/backward_warning.h:28:2: warning: #warning This file includes at least one deprecated or antiquated header which may be removed without further notice at a future date. Please use a non-deprecated interface with equivalent functionality instead. For a listing of replacement headers and interfaces, consult the file backward_warning.h. To disable this warning use -Wno-deprecated.
+  CXX     module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmprs.o
+In file included from /usr/lib/gcc/i586-redhat-linux/4.4.1/../../../../include/c++/4.4.1/backward/hash_map:59,
+                 from module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmprs.h:55,
+                 from module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmprs.cc:36:
+/usr/lib/gcc/i586-redhat-linux/4.4.1/../../../../include/c++/4.4.1/backward/backward_warning.h:28:2: warning: #warning This file includes at least one deprecated or antiquated header which may be removed without further notice at a future date. Please use a non-deprecated interface with equivalent functionality instead. For a listing of replacement headers and interfaces, consult the file backward_warning.h. To disable this warning use -Wno-deprecated.
+module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmprs.cc: In member function ‘virtual int mac802_16j_NT_PMPRS::recv(Event*)’:
+module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmprs.cc:315: warning: unused variable ‘pDtConn’
+module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmprs.cc:317: warning: unused variable ‘deleteFlag’
+  CXX     module/wimax/mac_16j_NT/pmp/cross802_16j_NT_pmprs.o
+In file included from /usr/lib/gcc/i586-redhat-linux/4.4.1/../../../../include/c++/4.4.1/backward/hash_map:59,
+                 from module/wimax/mac_16j_NT/pmp/cross802_16j_NT_pmprs.h:21,
+                 from module/wimax/mac_16j_NT/pmp/cross802_16j_NT_pmprs.cc:1:
+/usr/lib/gcc/i586-redhat-linux/4.4.1/../../../../include/c++/4.4.1/backward/backward_warning.h:28:2: warning: #warning This file includes at least one deprecated or antiquated header which may be removed without further notice at a future date. Please use a non-deprecated interface with equivalent functionality instead. For a listing of replacement headers and interfaces, consult the file backward_warning.h. To disable this warning use -Wno-deprecated.
+module/wimax/mac_16j_NT/pmp/cross802_16j_NT_pmprs.cc: In member function ‘virtual int cross802_16j_NT_PMPRS::recv(Event*)’:
+module/wimax/mac_16j_NT/pmp/cross802_16j_NT_pmprs.cc:58: error: ‘pDtConn’ was not declared in this scope
+module/wimax/mac_16j_NT/pmp/cross802_16j_NT_pmprs.cc:58: error: ‘getDLRelayDtConn’ was not declared in this scope
+make[4]: *** [module/wimax/mac_16j_NT/pmp/cross802_16j_NT_pmprs.o] Error 1
+make[3]: *** [module/wimax/mac_16j_NT/pmp] Error 2
+make[2]: *** [module/wimax/mac_16j_NT] Error 2
+make[1]: *** [module/wimax] Error 2
+make: *** [module] Error 2
+   ERROR: make failed...
+-------------------- [Mon 01 Feb 2010 08:31:11 PM EET] Begin --------------
+ INSTALL: Install the NCTUns Kernel
+   STATE: install new nctuns kernel or upgrade older nctuns kernel
+Preparing...                ##################################################
+kernel-nctuns               ##################################################
+   STATE: modifiy grub configuration to disable hiddenmenu function and extend timeout limit
+  REPORT: install the NCTUns kernel ... ok
+ INSTALL: Install System Libraries
+   STATE: libstdc++.so.6 existed
+   STATE: The tcl library is already installed.
+   STATE: The pcap library is already installed.
+   STATE: configure dynamic linker run time bindings
+  REPORT: install libstdc++.so.6 ... .skip
+  REPORT: install libtcl8.5 ... skip
+  REPORT: install libpcap.so.0.9 ... skip
+ INSTALL: Build the simulation engine and libraries
+   STATE: build nctuns and libawp.so
+  GEN     .version
+  CXX     nctuns.o
+  LD      built-in.o
+  CXX     module/wimax/mac_16j_NT/pmp/cross802_16j_NT_pmprs.o
+In file included from /usr/lib/gcc/i586-redhat-linux/4.4.1/../../../../include/c++/4.4.1/backward/hash_map:59,
+                 from module/wimax/mac_16j_NT/pmp/cross802_16j_NT_pmprs.h:21,
+                 from module/wimax/mac_16j_NT/pmp/cross802_16j_NT_pmprs.cc:1:
+/usr/lib/gcc/i586-redhat-linux/4.4.1/../../../../include/c++/4.4.1/backward/backward_warning.h:28:2: warning: #warning This file includes at least one deprecated or antiquated header which may be removed without further notice at a future date. Please use a non-deprecated interface with equivalent functionality instead. For a listing of replacement headers and interfaces, consult the file backward_warning.h. To disable this warning use -Wno-deprecated.
+  CXX     module/wimax/mac_16j_NT/pmp/scheduler.o
+In file included from /usr/lib/gcc/i586-redhat-linux/4.4.1/../../../../include/c++/4.4.1/backward/hash_map:59,
+                 from module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmprs.h:55,
+                 from module/wimax/mac_16j_NT/pmp/rsobject_NT.h:48,
+                 from module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmpbs.h:56,
+                 from module/wimax/mac_16j_NT/pmp/scheduler.h:44,
+                 from module/wimax/mac_16j_NT/pmp/scheduler.cc:36:
+/usr/lib/gcc/i586-redhat-linux/4.4.1/../../../../include/c++/4.4.1/backward/backward_warning.h:28:2: warning: #warning This file includes at least one deprecated or antiquated header which may be removed without further notice at a future date. Please use a non-deprecated interface with equivalent functionality instead. For a listing of replacement headers and interfaces, consult the file backward_warning.h. To disable this warning use -Wno-deprecated.
+  CXX     module/wimax/mac_16j_NT/pmp/ms_base_NT.o
+  CXX     module/wimax/mac_16j_NT/pmp/rs_base_NT.o
+  CXX     module/wimax/mac_16j_NT/pmp/msobject_NT.o
+In file included from /usr/lib/gcc/i586-redhat-linux/4.4.1/../../../../include/c++/4.4.1/backward/hash_map:59,
+                 from module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmprs.h:55,
+                 from module/wimax/mac_16j_NT/pmp/scheduler.h:46,
+                 from module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmpbs.h:54,
+                 from module/wimax/mac_16j_NT/pmp/msobject_NT.h:47,
+                 from module/wimax/mac_16j_NT/pmp/msobject_NT.cc:36:
+/usr/lib/gcc/i586-redhat-linux/4.4.1/../../../../include/c++/4.4.1/backward/backward_warning.h:28:2: warning: #warning This file includes at least one deprecated or antiquated header which may be removed without further notice at a future date. Please use a non-deprecated interface with equivalent functionality instead. For a listing of replacement headers and interfaces, consult the file backward_warning.h. To disable this warning use -Wno-deprecated.
+  CXX     module/wimax/mac_16j_NT/pmp/rsobject_NT.o
+In file included from /usr/lib/gcc/i586-redhat-linux/4.4.1/../../../../include/c++/4.4.1/backward/hash_map:59,
+                 from module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmprs.h:55,
+                 from module/wimax/mac_16j_NT/pmp/scheduler.h:46,
+                 from module/wimax/mac_16j_NT/pmp/mac802_16j_NT_pmpbs.h:54,
+                 from module/wimax/mac_16j_NT/pmp/rsobject_NT.h:47,
+                 from module/wimax/mac_16j_NT/pmp/rsobject_NT.cc:36:
+/usr/lib/gcc/i586-redhat-linux/4.4.1/../../../../include/c++/4.4.1/backward/backward_warning.h:28:2: warning: #warning This file includes at least one deprecated or antiquated header which may be removed without further notice at a future date. Please use a non-deprecated interface with equivalent functionality instead. For a listing of replacement headers and interfaces, consult the file backward_warning.h. To disable this warning use -Wno-deprecated.
+  LD      module/wimax/mac_16j_NT/pmp/built-in.o
+  LD      module/wimax/mac_16j_NT/built-in.o
+  CXX     module/wimax/phy/channel_coding.o
+  CXX     module/wimax/phy/channel_model.o
+  CXX     module/wimax/phy/ofdm_80216.o
+  CXX     module/wimax/phy/ofdm_mesh.o
+  CXX     module/wimax/phy/ofdm_pmpbs.o
+  CXX     module/wimax/phy/ofdm_pmpss.o
+  CXX     module/wimax/phy/fec/cc/conv_code.o
+  LD      module/wimax/phy/fec/cc/built-in.o
+  CXX     module/wimax/phy/fec/rs/rs_code.o
+  LD      module/wimax/phy/fec/rs/built-in.o
+  LD      module/wimax/phy/fec/built-in.o
+  LD      module/wimax/phy/built-in.o
+  CXX     module/wimax/phy_16e/ofdma_channel_coding.o
+  CXX     module/wimax/phy_16e/ofdma_channel_model.o
+  CXX     module/wimax/phy_16e/ofdma_80216e.o
+  CXX     module/wimax/phy_16e/ofdma_pmpbs.o
+  CXX     module/wimax/phy_16e/ofdma_pmpms.o
+  CXX     module/wimax/phy_16e/fec/cc/ofdma_convo_code.o
+  LD      module/wimax/phy_16e/fec/cc/built-in.o
+  LD      module/wimax/phy_16e/fec/built-in.o
+  LD      module/wimax/phy_16e/built-in.o
+  CXX     module/wimax/phy_16j/ofdma_channel_coding_MR.o
+  CXX     module/wimax/phy_16j/ofdma_channel_model_MR.o
+  CXX     module/wimax/phy_16j/ofdma_80216j.o
+  CXX     module/wimax/phy_16j/ofdma_pmpbs_MR.o
+  CXX     module/wimax/phy_16j/ofdma_pmpms_MR.o
+  CXX     module/wimax/phy_16j/ofdma_pmprs_MR.o
+  CXX     module/wimax/phy_16j/fec/cc/ofdma_convo_code_MR.o
+  LD      module/wimax/phy_16j/fec/cc/built-in.o
+  LD      module/wimax/phy_16j/fec/built-in.o
+  LD      module/wimax/phy_16j/built-in.o
+  CXX     module/wimax/phy_16j_NT/ofdma_channel_coding_NT.o
+  CXX     module/wimax/phy_16j_NT/ofdma_channel_model_NT.o
+  CXX     module/wimax/phy_16j_NT/ofdma_80216j_NT.o
+  CXX     module/wimax/phy_16j_NT/ofdma_pmpbs_NT.o
+  CXX     module/wimax/phy_16j_NT/ofdma_pmpms_NT.o
+  CXX     module/wimax/phy_16j_NT/ofdma_pmprs_NT.o
+  CXX     module/wimax/phy_16j_NT/fec/cc/ofdma_convo_code_NT.o
+  LD      module/wimax/phy_16j_NT/fec/cc/built-in.o
+  LD      module/wimax/phy_16j_NT/fec/built-in.o
+  LD      module/wimax/phy_16j_NT/built-in.o
+  LD      module/wimax/built-in.o
+  LD      module/built-in.o
+  LINK    nctuns
+  CLEAN   module/phy
+  CLEAN   nctuns nctuns.map
+  CLEAN   /home/ridvan/NCTUns-6.0/src/nctuns
+  REPORT: build and install nctuns ... ok
+  REPORT: build and install advanced wireless phy library ... ok
+ INSTALL: Build coordinator & dispatcher
+   STATE: build coordinator
+g++ -g   -c    -o Coordinator.o Coordinator.C 
+g++ -g   -c -I../nctuns   -o Mediator.o Mediator.C 
+g++ -g   -c    -o SocketManager.o SocketManager.C 
+g++ -g   -c    -o DatagramSocket.o DatagramSocket.C 
+g++ -g   -c    -o UnixSocket.o UnixSocket.C 
+g++ -g   -c    -o Socket.o Socket.C 
+g++ -g   -c    -o ServerSocket.o ServerSocket.C 
+g++ -g   -c    -o IOStream.o IOStream.C 
+g++ -g   -c    -o ProcessList.o ProcessList.C 
+g++ -g   -c    -o JobControl.o JobControl.C 
+g++ -g   -c    -o FileManager.o FileManager.C 
+g++ -g   -c    -o SessionList.o SessionList.C 
+g++ -g   -c    -o SessionControl.o SessionControl.C 
+g++ -g   -c    -o ClientList.o ClientList.C 
+g++ -g   -c    -o RunTime.o RunTime.C 
+g++ -g   -c    -o RemoteHandler.o RemoteHandler.C 
+g++ -g   -lcrypt -pthread   -o coordinator Coordinator.o Mediator.o SocketManager.o DatagramSocket.o UnixSocket.o Socket.o ServerSocket.o IOStream.o ProcessList.o JobControl.o FileManager.o SessionList.o SessionControl.o ClientList.o RunTime.o RemoteHandler.o  
+rm -f *.o *~ *.core coordinator
+   STATE: build dispatcher
+g++ -g   -c    -o Dispatcher.o Dispatcher.C 
+g++ -g   -c    -o Mediator.o Mediator.C 
+g++ -g   -c    -o SocketManager.o SocketManager.C 
+g++ -g   -c    -o ServerSocket.o ServerSocket.C 
+g++ -g   -c    -o IOStream.o IOStream.C 
+g++ -g   -c    -o ServerList.o ServerList.C 
+g++ -g   -c    -o SessionList.o SessionList.C 
+g++ -g   -c    -o BackGndJob.o BackGndJob.C 
+g++ -g   -c    -o JobQueue.o JobQueue.C 
+g++ -g   -lcrypt    -o  dispatcher Dispatcher.o Mediator.o SocketManager.o ServerSocket.o IOStream.o ServerList.o SessionList.o BackGndJob.o JobQueue.o  
+rm -f *.o *~ *.core dispatcher 
+  REPORT: build and install coordinator ... ok
+  REPORT: install coordinator configuration file ... ok
+  REPORT: build and install dispatcher ... ok
+  REPORT: install dispatcher configuration file ... ok
+ INSTALL: Create Tunnels
+  REPORT: create rules of udev for nctuns tunnel ... ok
+ INSTALL: Install and enable rsh-server for command console
+   STATE: install Xinetd Internet services daemon
+   STATE: The xinetd daemon is already installed.
+   STATE: install rsh server
+   STATE: The rsh server is already installed.
+   STATE: enable rlogin and rsh
+   STATE: skip rlogin authentication for pam.d
+   STATE: The xterm is already installed.
+   STATE: link /usr/bin/xterm to /usr/local/nctuns/bin/nctunsxterm
+   STATE: build nctuns-tcsh
+grep 'ERR_' ./sh.err.c | grep '^#define' >> sh.err.h
+gcc -E  -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    -D_h_tc_const\
+	    ./tc.const.c | \
+	    sed -n -e 's/^\(Char STR[a-zA-Z0-9_]*\) *\[ *\].*/extern \1[];/p' | \
+	    sort >> tc.const.h
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.dir.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.dol.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.err.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.exec.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.char.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.exp.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.file.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.func.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.glob.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.hist.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.init.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.lex.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.misc.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.parse.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.print.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.proc.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.sem.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.set.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    sh.time.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    glob.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    mi.termios.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    ma.setp.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    vms.termcap.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tw.help.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tw.init.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tw.parse.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tw.spell.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tw.comp.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tw.color.c
+grep '[FV]_' ./ed.defns.c | grep '^#define' >> ed.defns.h
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    ed.chared.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    ed.refresh.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    ed.screen.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    ed.init.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    ed.inputl.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    ed.defns.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    ed.xmap.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    ed.term.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tc.alloc.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tc.bind.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tc.const.c
+rm -f gethost
+gcc  -o gethost  -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'   ./gethost.c -ltermcap -lcrypt 	 			  
+./gethost ./host.defs >> tc.defs.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tc.defs.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tc.disc.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tc.func.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tc.nls.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tc.os.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tc.printf.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tc.prompt.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tc.sched.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tc.sig.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tc.str.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tc.vers.c
+gcc  -c -g -O2		 -I. -I. -D_PATH_TCSHELL='"/usr/local/bin/tcsh"'    tc.who.c
+rm -f tcsh core
+gcc  -o tcsh  -g -O2		 -I. -I. sh.o sh.dir.o sh.dol.o sh.err.o sh.exec.o sh.char.o sh.exp.o sh.file.o sh.func.o sh.glob.o sh.hist.o sh.init.o sh.lex.o sh.misc.o sh.parse.o sh.print.o sh.proc.o sh.sem.o sh.set.o sh.time.o glob.o mi.termios.o ma.setp.o vms.termcap.o tw.help.o tw.init.o tw.parse.o tw.spell.o tw.comp.o tw.color.o ed.chared.o ed.refresh.o ed.screen.o ed.init.o ed.inputl.o ed.defns.o ed.xmap.o ed.term.o tc.alloc.o tc.bind.o tc.const.o tc.defs.o tc.disc.o tc.func.o tc.nls.o tc.os.o tc.printf.o tc.prompt.o tc.sched.o tc.sig.o tc.str.o tc.vers.o tc.who.o  -ltermcap -lcrypt 	 			  
+rm -f a.out strings x.c xs.c tcsh tcsh.a _MAKE_LOG gethost
+rm -f *.o sh.prof.c ed.defns.h tc.const.h sh.err.h tc.defs.c
+rm -f tcsh.*.m tcsh.*.cat
+   STATE: build shell
+  HOSTCC  /home/ridvan/NCTUns-6.0/tools/scripts/basic/fixdep
+  HOSTCC  /home/ridvan/NCTUns-6.0/tools/scripts/basic/config
+  CC      tsetenv.o
+  LINK    tsetenv  tsetenv.o
+  CC      script.o
+  LINK    script  script.o
+  CLEAN   tsetenv script
+  CLEAN   /home/ridvan/NCTUns-6.0/tools/misc/shell
+  REPORT: install Xinetd Internet services daemon ... skip
+  REPORT: install rsh server ... skip
+  REPORT: enable rlogin and rsh ... ok
+  REPORT: skip rlogin authentication for pam.d ... ok
+  REPORT: install xterm ... link
+  REPORT: build and install nctuns-tcsh ... ok
+  REPORT: build and install shell ... ok
+ INSTALL: Build Traffic Generator
+   STATE: build stcp and rtcp
+  CC      stcp.o
+  LINK    stcp  stcp.o
+  CC      rtcp.o
+  LINK    rtcp  rtcp.o
+  CLEAN   stcp rtcp
+  CLEAN   /home/ridvan/NCTUns-6.0/tools/traffic-gen/srtcp
+   STATE: build ttcp
+  CC      ttcp.o
+  LINK    ttcp  ttcp.o
+  CLEAN   ttcp
+  CLEAN   /home/ridvan/NCTUns-6.0/tools/traffic-gen/ttcp
+   STATE: build stg and rtg
+  CC      stg.o
+  LINK    stg  stg.o
+  CC      rtg.o
+  LINK    rtg  rtg.o
+  CLEAN   stg rtg
+  CLEAN   /home/ridvan/NCTUns-6.0/tools/traffic-gen/srtg
+   STATE: build rtp library and rtp example tools
+gcc -Wall -g -shared -fpic   -c -o md5c.o md5c.c
+gcc -Wall -g -shared -fpic   -c -o rtp_api.o rtp_api.c
+gcc -Wall -g -shared -fpic   -c -o rtp_error.o rtp_error.c
+gcc -Wall -g -shared -fpic   -c -o rtp_member_api.o rtp_member_api.c
+gcc -Wall -g -shared -fpic   -c -o rtp_member_inner.o rtp_member_inner.c
+gcc -Wall -g -shared -fpic   -c -o rtp_network_api.o rtp_network_api.c
+gcc -Wall -g -shared -fpic   -c -o rtp_network_inner.o rtp_network_inner.c
+gcc -Wall -g -shared -fpic   -c -o rtp_session_api.o rtp_session_api.c
+gcc -Wall -g -shared -fpic   -c -o rtp_session_inner.o rtp_session_inner.c
+gcc -Wall -g -shared -fpic  -o librtp.so md5c.o rtp_api.o rtp_error.o rtp_member_api.o rtp_member_inner.o rtp_network_api.o rtp_network_inner.o rtp_session_api.o rtp_session_inner.o
+   STATE: configure dynamic linker run time bindings
+make -C ../../../lib/librtp/
+make[1]: Nothing to be done for `all'.
+  CC      adapt_bw.o
+  LINK    adapt_bw  adapt_bw.o
+  CC      rtprecvonly.o
+  LINK    rtprecvonly  rtprecvonly.o
+  CC      rtpsendrecv.o
+  LINK    rtpsendrecv  rtpsendrecv.o
+  CC      adapt_sessionbw.o
+  LINK    adapt_sessionbw  adapt_sessionbw.o
+  CLEAN   adapt_bw rtprecvonly rtpsendrecv adapt_sessionbw
+  CLEAN   /home/ridvan/NCTUns-6.0/tools/traffic-gen/rtp
+rm -f md5c.o rtp_api.o rtp_error.o rtp_member_api.o rtp_member_inner.o rtp_network_api.o rtp_network_inner.o rtp_session_api.o rtp_session_inner.o librtp.so
+  REPORT: build and install stcp and rtcp ... ok
+  REPORT: build and install ttcp ... ok
+  REPORT: build and install stg and rtg ... ok
+  REPORT: build and install rtp library ... ok
+  REPORT: build and install rtp example tools ... ok
+ INSTALL: Build Tactic Network Agent
+   STATE: build Magent* agent
+  CXX     AStar.o
+  CXX     map.o
+  CXX     sock_skel.o
+  CXX     tactic_api.o
+  CXX     auto_vehicle_signal.o
+  CXX     road.o
+  CXX     Magent1.o
+  LINK    Magent1  Magent1.o
+  CXX     Magent2.o
+  LINK    Magent2  Magent2.o
+  CXX     Magent3.o
+  LINK    Magent3  Magent3.o
+  CXX     Magent4.o
+  LINK    Magent4  Magent4.o
+  CXX     Magent5-c.o
+  LINK    Magent5-c  Magent5-c.o
+  CXX     Magent5-t.o
+  LINK    Magent5-t  Magent5-t.o
+  CXX     CarAgent.o
+  LINK    CarAgent  CarAgent.o
+  CXX     CarAgent_Down.o
+  LINK    CarAgent_Down  CarAgent_Down.o
+  CXX     CarAgent_Broken.o
+  LINK    CarAgent_Broken  CarAgent_Broken.o
+  CXX     CarAgent_LaneSwitch.o
+  LINK    CarAgent_LaneSwitch  CarAgent_LaneSwitch.o
+  CXX     CarAgent_SlowDown.o
+  LINK    CarAgent_SlowDown  CarAgent_SlowDown.o
+  CXX     SignalAgent1.o
+  LINK    SignalAgent1  SignalAgent1.o
+  CXX     RSUAgent.o
+  LINK    RSUAgent  RSUAgent.o
+  CXX     WSM.o
+  LINK    WSM  WSM.o
+  CXX     WSM_Forwarding.o
+  LINK    WSM_Forwarding  WSM_Forwarding.o
+  CLEAN   Magent1 Magent2 Magent3 Magent4 Magent5-c Magent5-t CarAgent CarAgent_Down CarAgent_Broken CarAgent_LaneSwitch CarAgent_SlowDown SignalAgent1 RSUAgent WSM WSM_Forwarding
+  CLEAN   /home/ridvan/NCTUns-6.0/tools/tacticMANET/lib
+   STATE: install ITS profile
+  REPORT: build tactic network agent ... ok
+  REPORT: install ITS profile ... ok
+ INSTALL: Build Miscellaneous Tools
+   STATE: build printPtr
+  CXX     printPtr.o
+  LINK    printPtr  printPtr.o
+  CLEAN   printPtr
+  CLEAN   /home/ridvan/NCTUns-6.0/tools/misc/printPtr
+   STATE: copy package trace format file
+   STATE: build ripd
+  CC      myroute.o
+  CC      get_ifs_list.o
+  LINK    rip  myroute.o get_ifs_list.o
+  CLEAN   rip
+  CLEAN   /home/ridvan/NCTUns-6.0/tools/misc/ripd
+   STATE: build ospfd
+  CXX     ospf.o
+  CXX     get_ifs_list.o
+  LINK    ospfd  ospf.o get_ifs_list.o
+  CLEAN   ospfd
+  CLEAN   /home/ridvan/NCTUns-6.0/tools/misc/ospfd
+   STATE: build agent of mipd
+  CC      agent.o
+  CC      nctuns_mip.o
+  CC      parseconf.o
+  CC      linklist.o
+  CC      mnlinklist.o
+  CC      vlinklist.o
+  CC      blinklist.o
+  LINK    agent  agent.o nctuns_mip.o parseconf.o linklist.o mnlinklist.o vlinklist.o blinklist.o
+  CLEAN   agent
+  CLEAN   /home/ridvan/NCTUns-6.0/tools/misc/mipd/agent
+   STATE: build mnd of mipd
+  CC      mnd.o
+  LINK    mnd  mnd.o
+  CLEAN   mnd
+  CLEAN   /home/ridvan/NCTUns-6.0/tools/misc/mipd/mnd
+   STATE: build rod of mipd
+  CC      rod.o
+  CC      nctuns_mip.o
+  CC      parseconf.o
+  CC      linklist.o
+  CC      blinklist.o
+  LINK    rod  rod.o nctuns_mip.o parseconf.o linklist.o blinklist.o
+  CLEAN   rod
+  CLEAN   /home/ridvan/NCTUns-6.0/tools/misc/mipd/rod
+  REPORT: build and install printPtr ... ok
+  REPORT: copy package trace format file ... ok
+  REPORT: build and install ripd ... ok
+  REPORT: build and install ospfd ... ok
+  REPORT: build and install agent of mipd... ok
+  REPORT: build and install mnd of mipd... ok
+  REPORT: build and install rod of mipd... ok
+ INSTALL: Install the Programs of System Utility Commands (e.g., route, ping, etc.)
+   STATE: copy nctuns.csh and nctuns.bash
+   STATE: copy or link route command
+   STATE: copy or link tcpdump command
+   STATE: install ping which be hacked
+   STATE: copy or link ifconfig command
+  REPORT: install nctuns.csh and nctuns.bash ... ok
+  REPORT: install route command ... link
+  REPORT: install tcpdump command ... link
+  REPORT: install ping command ... copy
+  REPORT: install ifconfig command ... link
+ INSTALL: Install GUI And Related Files
+   STATE: install nctunsclient.bin
+   STATE: install GUI related files
+  REPORT: install nctunsclient.bin ... ok
+  REPORT: install nctunsclient ... skip
+  REPORT: install BMP for gui ... ok
+  REPORT: install app.xml for gui ... ok
+  REPORT: install ps.cfg for gui ... ok
+  REPORT: install mdf for gui ... ok
+  REPORT: install agp for gui ... ok
+ INSTALL: Modify the SELinux Configuration
+   STATE: modify the SELinux configuration
+  REPORT: modify the SELinux configuration ... skip
+ INSTALL: Append NCTUns Environment Varables to the Shell Profile
+   STATE: append NCTUns environment variables to profile
+  REPORT: append NCTUns environment variables to the profile of the installing user's account ... skip
+ INSTALL: Create the Default Simulation User Account
+   STATE: create a new user account (nctuns) as the default simulation user account
+  REPORT: create a new user account (ncutns) ... skip
+ INSTALL: Install Modified qtrc File
+   STATE: install modified qtrc file for better looking in the GUI program
+  REPORT: install modified qtrc file for better looking in the GUI program ... skip
+ INSTALL: Final Check
+=====================================================================
+** Before you start using NCTUns, please check whether you have done
+** all of these steps. According to our technical support experiences,
+** most problems are caused by not performing all of these steps.
+=====================================================================
+**
+**     0. The NCTUns programs have been successfully compiled and installed.
+**     1. You have rebooted your system and is using the newly-built kernel.  
+**     2. The rlogin and rsh services in /etc/xinetd.d/rlogin and 
+**        /etc/xinetd.d/rsh have been enabled.
+**     3. The NCTUNSHOME, NCTUNS_TOOLS, and NCTUNS_BIN environment variables
+**        have been set properly.  
+**        You can use the following command to do this job:
+**        [csh/tcsh] # source /usr/local/nctuns/etc/nctuns.csh
+**        [bash]     # source /usr/local/nctuns/etc/nctuns.bash
+**     4. You have stopped the iptables service by executing
+**        "service iptables stop".
+**     5. You have set "SELINUX=disabled" in /etc/sysconfig/selinux
+**
+=====================================================================
+**
+**  If you would like to seek helps or exchange your ideas/questions 
+**  with other NCTUns users, you may check and use the following services:
+**
+**   (1) NCTUns mailing list: http://nsl10.csie.nctu.edu.tw/pipermail/nctuns/
+**   (2) NCTUns forum: http://nsl10.csie.nctu.edu.tw/phpBB/
+**
+**  Thank you.
+-------------------- [Mon 01 Feb 2010 08:32:41 PM EET] End ----------------
+-------------------- [Mon 01 Feb 2010 08:47:13 PM EET] Begin --------------
+-------------------- [Mon 01 Feb 2010 08:47:18 PM EET] End ----------------

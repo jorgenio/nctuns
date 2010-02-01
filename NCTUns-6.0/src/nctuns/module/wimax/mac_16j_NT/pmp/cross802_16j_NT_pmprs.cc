@@ -34,6 +34,11 @@ int cross802_16j_NT_PMPRS::recv(ePacket_ *epkt) {
 
 	epkt->DataInfo_ = NULL;
 	freePacket(epkt);
+	pkt = new Packet();
+
+	char *buf = pkt->pkt_sattach(ip->ip_len);
+	memcpy(buf, ptr2, pLen);
+	pkt->pkt_sprepend(buf, pLen);
 #define RDV
 
 	if(way=='u')
@@ -55,14 +60,18 @@ int cross802_16j_NT_PMPRS::recv(ePacket_ *epkt) {
 			myCid = viter->second;
 
 			pkt->pkt_addinfo("cid",(char *)&myCid,sizeof(int));
-			pDtConn = getDLRelayDtConn(myCid);
+			//pDtConn = getDLRelayDtConn(myCid);
 		}
+		else
+			pkt->pkt_addinfo("cid",(char *)&cid,sizeof(int));
 #endif
 	}
 	else
 	{
 		routingTable.insert(ipConnPair(ip->ip_dst, cid));
+		pkt->pkt_addinfo("cid",(char *)&cid,sizeof(int));
 	}
+	pkt->pkt_addinfo("way",(char *)&way,sizeof(char));
 	logRidvan(WARN,"CROSS put res=");
 	ePacket_ *edeliver = createEvent();
 	logRidvan(WARN,"CROSS put res=");
