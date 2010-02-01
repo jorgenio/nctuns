@@ -1,0 +1,49 @@
+
+**   install the NCTUns kernel ... ok
+**   install libstdc++.so.6 ... .skip
+**   install libtcl8.5 ... skip
+**   install libpcap.so.0.9 ... skip
+**   build and install nctuns ... ok
+**   build and install advanced wireless phy library ... ok
+**   build and install coordinator ... ok
+**   install coordinator configuration file ... ok
+**   build and install dispatcher ... ok
+**   install dispatcher configuration file ... ok
+**   create rules of udev for nctuns tunnel ... ok
+**   install Xinetd Internet services daemon ... skip
+**   install rsh server ... skip
+**   enable rlogin and rsh ... ok
+**   skip rlogin authentication for pam.d ... ok
+**   install xterm ... link
+**   build and install nctuns-tcsh ... ok
+**   build and install shell ... ok
+**   build and install stcp and rtcp ... ok
+**   build and install ttcp ... ok
+**   build and install stg and rtg ... ok
+**   build and install rtp library ... ok
+**   build and install rtp example tools ... ok
+**   build tactic network agent ... ok
+**   install ITS profile ... ok
+**   build and install printPtr ... ok
+**   copy package trace format file ... ok
+**   build and install ripd ... ok
+**   build and install ospfd ... ok
+**   build and install agent of mipd... ok
+**   build and install mnd of mipd... ok
+**   build and install rod of mipd... ok
+**   install nctuns.csh and nctuns.bash ... ok
+**   install route command ... link
+**   install tcpdump command ... link
+**   install ping command ... copy
+**   install ifconfig command ... link
+**   install nctunsclient.bin ... ok
+**   install nctunsclient ... skip
+**   install BMP for gui ... ok
+**   install app.xml for gui ... ok
+**   install ps.cfg for gui ... ok
+**   install mdf for gui ... ok
+**   install agp for gui ... ok
+**   modify the SELinux configuration ... skip
+**   append NCTUns environment variables to the profile of the installing user's account ... skip
+**   create a new user account (ncutns) ... skip
+**   install modified qtrc file for better looking in the GUI program ... skip

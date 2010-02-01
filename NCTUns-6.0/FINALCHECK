@@ -1,0 +1,28 @@
+=====================================================================
+** Before you start using NCTUns, please check whether you have done
+** all of these steps. According to our technical support experiences,
+** most problems are caused by not performing all of these steps.
+=====================================================================
+**
+**     0. The NCTUns programs have been successfully compiled and installed.
+**     1. You have rebooted your system and is using the newly-built kernel.  
+**     2. The rlogin and rsh services in /etc/xinetd.d/rlogin and 
+**        /etc/xinetd.d/rsh have been enabled.
+**     3. The NCTUNSHOME, NCTUNS_TOOLS, and NCTUNS_BIN environment variables
+**        have been set properly.  
+**        You can use the following command to do this job:
+**        [csh/tcsh] # source /usr/local/nctuns/etc/nctuns.csh
+**        [bash]     # source /usr/local/nctuns/etc/nctuns.bash
+**     4. You have stopped the iptables service by executing
+**        "service iptables stop".
+**     5. You have set "SELINUX=disabled" in /etc/sysconfig/selinux
+**
+=====================================================================
+**
+**  If you would like to seek helps or exchange your ideas/questions 
+**  with other NCTUns users, you may check and use the following services:
+**
+**   (1) NCTUns mailing list: http://nsl10.csie.nctu.edu.tw/pipermail/nctuns/
+**   (2) NCTUns forum: http://nsl10.csie.nctu.edu.tw/phpBB/
+**
+**  Thank you.

@@ -1,0 +1,35 @@
+# Installation Configuration Example File
+
+# Install NCTUns kernel
+install_kernel=no
+
+# Install the system libraries which are used by NCTUns engine, traffic
+# generators, or other daemons
+install_system_library=yes
+
+# Compile and install the NCTUns engine
+install_engine=yes
+
+# Compile and install Dispatcher and Coordinator for NCTUns
+install_precede=yes
+
+# Create the rules of udev for nctuns_tun device
+install_tunnel=yes
+
+# Install some packages which are used to invoke the command console function
+install_command_console=yes
+
+# Compile and install traffic generators
+install_traffic_gen=yes
+
+# Compile and install the ITS agents
+install_its=yes
+
+# Compile and install some daemons including ospf and rip. printPtr will also be installed in this procedure.
+install_misc_tools=yes
+
+# Install or link some binary execution file for NCTUns
+install_binary=yes
+
+# Install files related with GUI
+install_gui=yes

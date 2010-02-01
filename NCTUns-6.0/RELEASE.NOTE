@@ -1,0 +1,232 @@
+#
+# NCTUns 6.0 Network Simulator RELEASE.NOTE file
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+#
+#
+Release date: Sep 1, 2009
+This release is the first release of NCTUns 6.0. It contains the following
+major improvements:
+1. Support IEEE 802.16(j) transparent mode and non-transparent mode relay
+   WiMAX networks
+2. Support real-world road maps in shape format for wireless vehicular
+   network research 
+3. Support module-based IEEE 802.11(p) vehicles and traffic light controllers 
+   to allow thousands of them to participate in a simulation case
+4. Support runtime messaging (implemented as a new API function) from 
+   simulation engine to GUI to display important information on the GUI 
+   during simulation
+5. Support distributed emulation of a large network over multiple machines
+6. And many other improvements .....
+
+Note! Because the latest Linux kernel is unstable and buggy, we chose to 
+use the kernel of the 2.6.28.9 version in this release.
+
+Release date: July 9, 2009
+This release contains the following bug fixes:
+1. GUI:
+   |- Fix the bug in creating an intersection of a road map.
+
+Release date: June 16, 2009
+This release contains the following bug fixes:
+1. GUI:
+   |- Fix the bug of using the configure files in 802.11a and 802.11p.
+2. Simulation Engine
+   |- Fix 802.16e MS send ranging bug.
+   |- Fix 802.11a RTS/CTS bug.
+
+Release date: April 1, 2009
+This release contains the following improvements and/or bug fixes:
+1. Kernel:
+   |- Upgrade kernel version to Fedora 10 (2.6.27.7)
+   |- Change the kernel/user space shared memory mapping scheme
+2. GUI: 
+   |- Fix several minor bugs
+3. Simulation Engine
+   |- 802.11p(MAC): give mobile IP control packets a higher priority
+   |- 802.11p(WME): correct WSMP ether type
+   |- 802.11p(PHY): fix a packet log length problem
+   |- WIMAX: fix a periodic ranging code region selection problem
+4. Daemon
+   |- Fix a "null pointer" bug in the OSPF daemon
+
+Release date: September 15, 2008
+This release is the first release of NCTUns 5.0. It contains the following
+major improvements:
+1. Support IEEE 802.16(e) Mobile WiMAX
+2. Support IEEE 802.11p/1609 for wireless vehicular networks
+3. Support easy replacements of various wireless channel models
+4. Support parallel simulations of multi-core machines (using the ELP approach)
+5. Many more features ... 
+
+Release date: Feburary 25, 2008
+This release contains the following improvements and/or bug fixes:
+1. Kernel:
+   |- Upgrade kernel version to Fedora 8 (2.6.24.2)
+2. Simulation Engine
+   |- Fix a WiMAX time slot scheduling bug in wimax/mac/mesh/sch/data/bitmap.cc
+
+
+Release date: Feburary 13, 2008 
+This release contains the following improvements and/or bug fixes:
+1. Document:
+   |- A book chapter to be published by Nova Science Publishers, Inc describing
+      how to use NCTUns to conduct advanced wireless vehicular ad hoc network 
+      research is put into the /doc/BookChapter directory of this package. 
+
+Release date: November 27, 2007 
+
+This release contains the following improvements and/or bug fixes:
+1. Kernel:
+   |- Upgrade kernel version to Fedora 8 (2.6.23.8)
+   |- Support the X.X.subnet.hostID scheme (described above) 
+2. GUI:
+   |- Support the X.X.subnet.hostID scheme, no longer restricted to the default
+      1.0.subnet.hostID address scheme. A GUI user can pop up a node's node 
+      editor to change the IP address that is automatically assigned by 
+      the GUI to an interface. For example, 1.0.1.2 now can be changed to 
+      140.113.17.69, where 17 is the subnet, 69 is the host ID on the 17 
+      subnet, and 140.113 is fixed for all nodes in the simulation case.
+
+      This capability allows a user to map the IP addresses used in a real
+      network to the IP addresses used in the corresponding simulated network.
+      For example, a user may want to simulate a campus network. After drawing
+      up the campus network topology in the GUI, the user can use the IP
+      addresses used in the campus network as the IP addresses used in the
+      simulated network. Doing so may make the user feel more familiar 
+      when configuring/operating the simulated network.
+3. Simulation Engine
+   |- Modify 802.11 and 802.11e code
+   |- Add new 802.11 and 802.11e API functions to support flexible insertions 
+      of various 802.11 management information elements
+
+
+Release date: October 30, 2007
+
+This release contains the following improvements and bug fixes:
+1. GUI:
+   |- Fix a bug where WiMax transmission range does not change according to the
+      user's TX power settings
+   |- Fix a background job problem 
+   |- Change the ARP table scheme so that more than 256 nodes can exist in
+      an ad hoc subnet and be able to communicate among one another
+2. Simulation Engine:
+   |- Fix a bug where a tactic mobile node goes through a wall in the play mode
+   |- Fix a tcpdump bug where tunX (X >= 10) cannot work correctly
+   |- Improve the convergence speed of rip and ospf routing daemons 
+   |- Fix a bug so that the number of entries in an ARP table can be > 256
+   |- Extends the maximum simulated time from 4,200 sec to unlimited 
+      (with kernel)
+3. Kernel:
+   |- Extends the maximum simulated time from 4,200 sec to unlimited (with 
+      simulation engine)
+
+
+Release date: September 28, 2007
+
+This release contains the following new features and improvement:
+
+1. Rewrite a big portion of car agent API functions and car agent programs 
+   so that vehicles will not be trapped and circulate in a crossroad for a 
+   few times.
+2. Fix two minor bugs of GUI.
+     2.1 If there is no link between two hosts and the user saves the case 
+         in the topology mode, a segmentation fault will occur.
+     2.2 When the dispatcher and coordinator are run on the same computer 
+         but nctunsclient is run on another computer, the nctunsclient cannot 
+         connect to the coordinator.
+3. Fix an IEEE 802.16(d) PMP mode memory leaking bug.
+4. Modify the examples cases of wireless vehicular networks (Intelligent 
+   Transportation Systems).
+
+
+Release date: July 1, 2007
+
+This release contains the following new features and improvement:
+
+0. This is the initial release of NCTUns 4.0.
+1. The new main features include:
+    - IEEE 802.16(d) WiMAX networks (support both PMP and mesh modes)
+    - DVB-RCS satellite networks
+    - Wireless vehicular networks (Intelligent Transportation Systems)
+    - Multi-interface mobile nodes 
+    - A re-organized GUI program for easily managing various networks
+
+
+Release date: May 3, 2006
+
+This release contains the following new features and improvements:
+
+1. Fix the accept() socket system call in the kernel so that it can
+   return the correct peer IP address. This bug was detected when trying to
+   run P2P BitTorrent client and seed applications on NCTUns. Now, such
+   applications can correctly run on NCTUns.
+2. Improve install.sh so that it removes the hiddenmenu option and enlarges
+   the auto boot timeout value in grub.conf. Doing so allows a user to
+   have a better chance to select the NCTUns kernel when the machine reboots. 
+3. Fix two IEEE 802.11(e) minor bugs about packet trace logging.
+4. Improve dispatcher and coordinator programs so that they can detect whether
+   the currently running kernel is the NCTUns kernel. If not, they issue
+   a warning message and then stop. Doing so prevent a user from mistakenly
+   running up a simulation on a non-NCTUns kernel.
+5. Fix an example explanation mistake in stg's Example.Config.
+6. Add a new option -seed for stg so that it can use the specified random
+   number seed to generate a random traffic pattern. This means that 
+   multiple stg(s) running with different seeds will not generate identical
+   random traffic pattern.
+
+
+Release date: March 1, 2006
+
+This release contains the following new features and improvements:
+
+0. This is the initial release of NCTUns 3.0.
+1. The new features include:
+    - 802.11(b) wireless mesh networks, 
+    - 802.11(e) QoS wireless networks, 
+    - Tactic and active mobile ad hoc networks, 
+    - 3dB beamwidth 60-degree and 120-degree directional and steerable antennas,
+    - Obstacles with configurable wireless signal attenuation.
+2. Two emulation daemon bugs have been fixed.
+3. Several minor GUI bugs have been fixed.
+4. Several minor bugs in protocol modules have been fixed.
+
+
+Release date: June 13, 2005
+
+This release contains the following improvements based on users' feedback:
+
+1. The Protocol Module Writer manual is updated to include a subsection
+   (2.4) on how to run simulations without the use of the GUI program.
+2. One journal paper (to be published in Wiley's Wireless Communication
+   and Mobile Computing) and one book chapter (to be published by Nova
+   Science Publisher) about NCTUns have been put into the doc/BookChapter
+   directory.
+3. Several minor GUI bugs have been fixed.
+4. Several minor bugs in protocol modules have been fixed.
+5. One piece of code in the kernel is modified to support connect() with
+   UDP sockets. 
+
+
+Release date: March 25, 2005
+
+The main differences between NCTUns 2.0 and NCTUns 1.0 are summarized below:
+
+1. NCTUns 2.0 now runs on Linux (Fedora 3.0). FreeBSD is not longer supported.
+2. It suports GPRS cellular networks, optical circuit-switching and 
+   optical burst switching (OBS) networks, and QoS Diffserv networks. 
+3. It supports RTP/RTCP/SDP protocols for real-time audio/video applications.
+4. Its GUI functionality is greatly improved. 
+5. Its simulation speed is more than 200% improved for large mobile ad hoc 
+   (sensor) network cases.
+6. The maximum time that can be simulated is increased from 2,100 seconds
+   to 4,200 seconds.
+7. Several bugs reported by its users have been corrected in NCTUns 2.0.
+
+End

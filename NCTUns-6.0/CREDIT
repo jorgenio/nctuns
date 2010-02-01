@@ -1,0 +1,32 @@
+PORJECT MEMBERS:
+
+CTO:
+
+  Prof. Shie-Yuan Wang
+
+Core Team Members:
+
+  Chih-Liang Chou, Chih-Chyuan Hwang, Chih-Che Lin, Kai-Feng Chou, 
+  Ao-Jan Su, Kuo-Chiang Liao, Meng-Cheng Yu, Hsi-Yun Chen, David Tao,
+  Chia-Ming Chou, Hung-Ju Tsai, Yen-Ting Chen, Chen-Yuan Hwang, 
+  Yu-Wen Huang, Chang-Ching Chiou, Xiang-Rui Wang, Chih-Hua Huang, 
+  Zong-Ming Yang, Xiang-Rui Wang, Se-Ying Lin, Han-Wei Chu, Ming-Wan Hsu,
+  Yan-Shiun Tseng, Teng-Wei Hsu, Kai-Chieh Chuang, Ku-Han Fang, Yao-Hung Chiu,
+  Cheng-Kai Lai, Wen-Gao Huang, Yu-Chi Chang, Kuang-Che Liu,
+  Ming-Sheng Hsu, Yow-Wei Cheng, Wei-Lun Liu, Ting-Wei Ho, Wei-Jun Hung,
+  Hsin-Yu Chen, Yu-Ming Huang, Po-Hsi Ku, Chao-Chan Huang, Shih-Wei Chuang,
+
+Contributors:
+
+  Chien-Long Chen, Yang-Chun Liu, Tz-Hung Yan, Tzu-Han Thtsao, Zhe-Min Lin,
+  Huai-Hsien Chen, Jun-Xian Lee, Chi-Cheng Li, I-Chien Yang.
+
+----------------------------------------------------------------------------
+CITATION:
+
+If you use the NCTUns network simulator for your work, please cite
+the following paper (which is the first NCTUns paper) in your report:
+
+S.Y. Wang, C.L. Chou, C.H. Huang, C.C. Hwang, Z.M. Yang, C.C. Chiou, and
+C.C. Lin, "The Design and Implementation of the NCTUns 1.0 Network Simulator,"
+Computer Networks, Vol. 42, Issue 2, June 2003, pp. 175-197.

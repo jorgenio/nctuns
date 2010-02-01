@@ -1,0 +1,42 @@
+#
+# NCTUns 6.0 Network Simulator INSTALL file
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+I. REQUIREMENT
+
+    1. OS Platform: Fedora 11 Linux (with gcc compiler installed)
+    2. X window system (GNOME/KDE window manager is recommended.)
+    3. Root privilege
+    4. bash/tcsh assigned as the user's login shell (for command console 
+       function)
+
+    NOTE: You must be the root user to successfully run install.sh!
+
+II. Run install.sh
+
+    In the shell, you can run the script program by the following command:
+
+    ./install.sh
+
+    The install.sh program will ask you several questions during the
+    installation. For a normal installation, you can simply answer "Yes" or 
+    "Y" to all of these questions.
+
+    It will take a few minutes to finish the installation.
+    The programs in the package will be installed in /usr/local/nctuns 
+    by default. You may use "install.sh -h" to see more information.
+   
+III. Then you should reboot your system to use the newly-built kernel.
+     When the Linux boot loader asks you to choose a kernel to boot,
+     you should choose the new kernel, which has "NCTUns" as its name.
+
+IV.  When the machine is up again, the installation is done.
+
+END

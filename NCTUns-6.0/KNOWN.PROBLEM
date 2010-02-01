@@ -1,0 +1,37 @@
+#
+# NCTUns 6.0 Network Simulator KNOWN.PROBLEM file
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+  1. If you have some IP firewall settings on your machine, you MUST clean
+     up all rules before you run any simulation case. This is for correctly
+     using divert sockets in the kernel, which are needed in Mobile IP-related
+     simulation cases. If after flushing all rules, you still encounter
+     kernel panic problem when running these cases, it is recommended that
+     you re-install a new Fedora and choose to disable the "Firewall"
+     option during the installation.
+
+     You can use the following command to see your IP firewall settings:
+
+          iptables -L
+
+     You can use the following command to clean up all rules:
+
+          iptables -F
+
+     You can also use the following command to stop iptables service:
+
+          service iptables stop
+
+  2. In Fedora, SELINUX is enabled by default. However, some
+     NCTUns daemons will run incorrectly with this option enabled.
+     The simplest way to fix this problem is to turn it off by setting
+     "SELINUX=disabled" in /etc/sysconfig/selinux.
+
+END

@@ -1,0 +1,61 @@
+#
+# NCTUns 6.0 Network Simulator FAQ file
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+Technical FAQ:
+
+1. Q: When starting a simulation job, the GUI program generates "Connect to
+      Dispatcher at X.X.X.X Failed" error message.
+
+   A: Before you submit a simulation job to the dispatcher,
+      you should let your GUI program know the IP address and port
+      number used by the dispatcher. This can be configured by executing
+      the Setting -> Dispatcher command in the GUI program. For the
+      single-machine mode, the IP address can be set to 127.0.0.1 or
+      your machine's IP address, the port number should be set to the
+      default port number 9,800, and the username and password should be
+      set to the username and password of the user on this local machine.
+      It is important that the user name entered here should not be "root,"
+      otherwise, the command console function cannot work correctly.
+
+2. Q: When starting a simulation job, the GUI program generates "No Idle
+      Server" error message.
+
+   A: This means that currently no coordinator program is running up and
+      connected to the dispatcher program. If an idle coordinator program
+      is up but this error message still appears, something may have gone 
+      wrong. In such a situation, the best way to handle this problem is 
+      to simply kill the dispatcher, coordinator, and the GUI programs, 
+      and restart all of them. 
+
+3.  Q: Where can I find some pre-built example simulation cases to start with?
+
+    A: There are several example simulation cases stored in the "examples"
+       directory in the package. You can run them by opening their .tpl files 
+       in the GUI program. 
+
+4.  Q: Do you have some demo video clips showing the operations and capability
+       of this simulator?
+
+    A: Some demo video clips are stored at the NCTUns web site at 
+       http://NSL.csie.nctu.edu.tw/nctuns.html. Since their sizes are huge, 
+       they are not included in this package.
+
+5.  Q: What can I do if the GUI program (nctunsclient) crashes every time
+       when I launch it on my computer?
+
+    A: You can copy nctunsclient.bin in NCTUns-6.0/gui/ of the NCTUns package 
+       to /usr/local/nctuns/bin. If this does not solve the problem, you can 
+       use "yum update" to update your system and this should be able to 
+       solve the problem. If this problem still happens after updating your 
+       system, you can visit the NCTUns forum at 
+       http://nsl10.cs.nctu.edu.tw/phpBB/ and report this problem to us.
+       
+END

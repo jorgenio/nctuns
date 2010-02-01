@@ -1,0 +1,173 @@
+#
+# NCTUns 6.0 Network Simulator README file
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+I. REQUIREMENT
+
+ Software:
+
+    1. OS Platform: Fedora 11 Linux (with gcc compiler installed) 
+    2. X window system. (Gnome and KDE Desktop Environment are recommended.)
+    3. Root privilege
+    4. bash/tcsh assigned as the user's login shell (for command console 
+       function)
+
+    NOTE: You must be the root user to successfully run install.sh!
+
+ Hardware:
+
+    1. 256 MB RAM or more (512 MB recommended for running large-network cases) 
+    2. 1.6 GHz Pentium PC or faster 
+    3. 200 MB free disk space or more 
+    4. Multi-core 32-bit PC can be supported. However, only one core will
+       be used.
+    5. 64-bit PC can be supported if it runs the 32-bit Fedora Linux system.
+
+Application:
+
+   1. An existing (e.g., BitTorrent) or to-be-developed real-life network 
+      application can be run up on a host or router simulated by NCTUns to 
+      participate in the simulation.
+   2. However, such an application must not use busy-looping to wait for
+      a certain event to occur. Instead, it must sometimes use sleep(), 
+      usleep(), select(), etc. to release the CPU while waiting for an 
+      event to occur.  Failure to do so will leave no CPU cycles for the
+      NCTUns simulation engine and cause the entire Fedora system to freeze!
+
+II. INSTALLATION PROCEDURE
+
+    Please refer to INSTALL for the package installation procedure.
+
+III. RUN THE PROGRAMS 
+
+    1. Set three environment variables
+
+        Before running all of the NCTUns 6.0 programs, three environment
+        variables must be set.
+
+        If you install the NCTUns 6.0 package into the default 
+        /usr/local/nctuns directory, in the following description 
+        ${where-you-install} should be replaced with /usr/local/nctuns.
+
+        NCTUNSHOME should be set to ${where-you-install}, NCTUNS_TOOLS
+        should be set to ${where-you-install}/tools, and NCTUNS_BIN
+        should be set to ${where-you-install/bin
+
+        E.g., if you use tcsh, you can add the following lines to your 
+        .cshrc shell configuration file 
+
+            setenv NCTUNSHOME ${where-you-install}
+            setenv NCTUNS_TOOLS ${where-you-install}/tools
+            setenv NCTUNS_BIN ${where-you-install}/bin
+
+        E.g., if you use bash, you can add the following lines to your 
+        .bashrc shell file 
+
+            export NCTUNSHOME=${where-you-install}
+            export NCTUNS_TOOLS=${where-you-install}/tools
+            export NCTUNS_BIN=${where-you-install}/bin
+
+	You can also use the ${where-you-install}/etc/nctuns.{csh|bash} to 
+	help you set all environment variables
+
+        E.g., if you use tcsh, you can add the following lines to your
+        .cshrc shell configuration file
+
+            source ${where-you-install}/etc/nctuns.csh
+
+        E.g., if you use bash, you can add the following lines to your
+        .bashrc shell configuration file
+
+            source ${where-you-install}/etc/nctuns.bash
+
+        If you do not add these commands to your .cshrc or .bashrc file, 
+        you will need to manually set these variables in each opened
+        xterm window before executing a NCTUns 6.0 program.
+
+        Note that because the dispatcher and coordinator programs MUST be run 
+	by the root user, the above environment settings must be added to the 
+	ROOT user's shell file. As for the GUI program, it can be run by either
+        a normal user or the root user. In case it is run by a normal user,
+        the above settings should be added to that user's shell file.
+
+    2. Specify the dispatcher's IP address
+    
+       You can open ${where-you-install}/etc/coordinator.cfg and 
+       find the following line:
+
+            "DISPATCHER_IP                 127.0.0.1"
+                                           ^^^^^^^^^^
+       On most machines, 127.0.0.1 is the default IP address assigned to 
+       the loopback interface lo. As a result, this default setting should 
+       work for the single-machine mode on most machines. If the lo 
+       interface does not work properly on your machine (e.g., the 127.0.0.1 
+       address may have not been automatically assgined to lo), you can 
+       (1) manually assign 127.0.0.1 to lo0 by running the "ifconfig lo
+       127.0.0.1" command, or (2) change the dispatcher IP address in this 
+       file to your machine's own IP address (e.g., 140.113.17.5). 
+       The effect is the same.
+
+       If you would like to use the multi-machine mode, you should change 
+       the IP address to the IP address of a remote dispatcher. 
+
+    3. Now you can run up the dispatcher program, which is located at
+       ${where-you-install}/bin/dispatcher. Note that, to run up the
+       dispatcher program correctly, you MUST be the root user. 
+
+    4. Now you can run up the coordinator program, which is located at
+       ${where-you-install}/bin/coordinator. Note that, to run up the
+       coordinator program correctly, you MUST be the root user.
+
+    5. Finally, you can run up the GUI program, which is located at 
+       ${where-you-install}/bin/nctunsclient. To run up the GUI program
+       correctly, you can be either the root user or a normal user.
+
+       However, for security reasons, in the GUI program's 
+       G_Settings->Dispatcher dialog box, you are not allowed to enter and
+       use the root account to submit and run a simulation job on 
+       a (can be local or remote) simulation server. Instead, you need to 
+       specify and use a normal user account/password such as nctuns/nctuns
+       that has been created on that simulation server. 
+
+    6. If you have some ip firewall settings on your machine, you must clean 
+       up all rules before you run any simulation case. This is for correctly 
+       using divert sockets in the kernel, which are needed in Mobile IP-related
+       simulation cases. If after flushing all rules, you still encounter
+       kernel panic problems when running these cases, it is recommended that
+       you re-install a new Fedora and choose to disable the "Firewall" 
+       option during the installation.
+      
+       You can use the following command to see your ip firewall settings:
+
+            iptables -L
+
+       You can use the following command to clean up all rules:
+
+            iptables -F
+
+       You can use the following command to stop iptables service:
+
+            service iptables stop
+
+    7. In Fedora, SELINUX is enabled by default. However, some 
+       NCTUns daemons will run incorrectly with this option enabled. 
+       The simplest way to fix this problem is to turn it off by setting 
+       "SELINUX=disabled" in /etc/sysconfig/selinux.
+
+IV. SEEK FOR HELPS
+
+    If you would like to report bugs, post your questions, or exchange
+    your ideas with other NCTUns users, you may check and use the following
+    services:
+
+     (1) NCTUns forum: http://nsl10.csie.nctu.edu.tw/phpBB
+     (2) NCTUns mailing list: http://nsl10.csie.nctu.edu.tw/pipermail/nctuns  
+
+END
