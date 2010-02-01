@@ -1,0 +1,13 @@
+# Binary command README 
+
+ifconfig, route, tcpdump:
+    They are original system commands. They are provided here and installed 
+    to prevent a user from forgetting to install these important tools.
+
+ping:
+    To let it run correctly on the NCTUns simulator, some of its bugs have
+    been fixed. You can find the modified source code in
+    NCTUns directory -> tools/misc/iputils-020927-patches.tar.bz2
+
+nctunsxterm:
+    Actually, it is xterm. We just renamed it.
