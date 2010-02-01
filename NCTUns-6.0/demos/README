@@ -1,0 +1,26 @@
+#
+# NCTUns 6.0 Network Simulator Demo README file
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+We have used a screen-capturing program to capture the on-screen operations 
+of NCTUns and recorded them as .avi demo video clips. These demo video 
+files can be played on Windows operating systems or Linux operating systems. 
+
+Watching these demo video clips help you quickly get a feel of 
+NCTUns and easily learn how to operate it. Although these demo 
+video files are very helpful, we do not include them in the package 
+due to their huge sizes. The reason is that not all Internet users 
+have broadband network access to download a huge package. As such,
+we purposely do not include these demo video files in this package.
+
+If you are interested in watching these demo video clips, please visit
+the web site of NCTUns at http://NSL.csie.nctu.edu.tw/nctuns.html
+to download them.
+
