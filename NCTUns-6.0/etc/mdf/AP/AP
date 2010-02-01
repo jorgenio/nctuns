@@ -1,0 +1,78 @@
+ModuleSection
+	HeaderSection
+		ModuleName		AP
+		ClassName		AP
+
+		NetType			Wireless
+		GroupName		AP
+		PortsNum		MultiPort
+
+		Version			AP_001
+		Author			NCTU_NSL
+		CreateDate		2/28/02
+		Introduction		"This is an access point module."
+
+		Parameter		BeaconInterval	100	local
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parameters Setting"
+		FrameSize		340 80
+
+		Begin TEXTLINE		BeaconInterval
+			Caption		"Beacon Time Interval "
+			Scale		10 28 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		"Beacon Time Interval"
+		End
+
+		Begin LABEL		l_ms
+			Caption		"(ms)"
+			Scale		215 31 40 20
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		270 12 60 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		270 44 60 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			"Run Time Query"
+		FrameSize		340 60
+
+		Begin INTERACTIONVIEW	iv_
+			Caption		"Association Table"
+			Scale		10 20 120 30
+			ActiveOn	MODE_SIMULATION
+			Enabled		TRUE
+
+			Action		GET
+			ActionObj	"association-table"
+
+			Fields		"NodeID" "MAC" "IP" "Name" "State" "Asso Time<sec>" "Idle Time<sec>" "Duratoin<sec>"
+			Comment		"association table"
+		End
+	EndExportSection
+EndModuleSection
+

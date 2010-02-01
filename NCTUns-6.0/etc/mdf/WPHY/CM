@@ -1,0 +1,225 @@
+ModuleSection
+
+	HeaderSection
+
+		ModuleName	        CM
+		ClassName		cm
+
+		NetType			Wireless
+		GroupName		CM
+		PortsNum		MultiPort
+
+		Version			CHANNEL_MODULE_001
+		Author			NCTU_NSL
+		CreateDate		2/27/02
+		Introduction		"The SIMPLE-PHY module is used to simulate the physical layer. This physical layer is a air medium.The power-level  bit error and node location.. etc  will be simualted in this module."
+
+		Parameter  		FadingVar	10.0	local
+		Parameter  		RiceanK		10.0	local
+		Parameter		avgHB		10.0	local
+		Parameter		avgDist		80.0	local
+		Parameter		StreetWidth	30.0	local
+		Parameter		PLExp		2.0	local
+		Parameter		std_db		4.0	local
+		Parameter		dist0		1.0	local
+		Parameter		SystemLoss	1.0	local
+		Parameter		antennaHeight	1.5	local
+		Parameter		propChannelMode	theoretical	local
+		Parameter		PLModel		Two_Ray_Ground	local
+		Parameter		fadingModel	None	local
+		Parameter		empiricalModel	Suburban_1_9GHz_TB	local
+		Parameter		AGPOpt		0	local
+		Parameter		AGPFileName	null	local
+
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption			"Parameters Setting"
+		FrameSize		835 385 
+
+		Begin TEXTLINE		FadingVar
+			Caption		"Fading Variance "
+			Scale		10 30 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE	
+
+			Type		FLOAT
+			Comment		"Rayleigh Fading Variance"
+		End
+
+		Begin TEXTLINE		avgHB
+			Caption		"Average Building Height (m) "
+			Scale		10 60 280 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE	
+
+			Type		FLOAT
+			Comment		"Average Building Height"
+		End
+
+		Begin TEXTLINE		avgDist
+			Caption		"Average Building Distance (m) "
+			Scale		10 90 300 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE	
+
+			Type		FLOAT
+			Comment		"Average Building Distance"
+		End
+
+		Begin TEXTLINE		StreetWidth
+			Caption		"Street Width (m) "
+			Scale		10 120 180 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE	
+
+			Type		FLOAT
+			Comment		"street width"
+		End
+
+		Begin TEXTLINE		PLExp
+			Caption		"Path Loss Exponent "
+			Scale		10 150 220 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE	
+
+			Type		FLOAT
+			Comment		"path loss exponent"
+		End
+
+		Begin TEXTLINE		std_db
+			Caption		"Shadowing Standard Deviation "
+			Scale		10 180 300 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE	
+
+			Type		FLOAT
+			Comment		"shadowing standard deviation"
+		End
+
+		Begin TEXTLINE		dist0
+			Caption		"Close-in Reference Distance (m) "
+			Scale		10 210 310 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE	
+
+			Type		FLOAT
+			Comment		"close-in reference distance"
+		End
+
+		Begin TEXTLINE		SystemLoss
+			Caption		"System Loss "
+			Scale		10 240 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE	
+
+			Type		FLOAT
+			Comment		"system loss"
+		End
+
+		Begin TEXTLINE		antennaHeight
+			Caption		"Antenna Height (m) "
+			Scale		10 270 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE	
+
+			Type		FLOAT
+			Comment		"antenna height"
+		End
+
+		Begin TEXTLINE		RiceanK
+			Caption		"Ricean Factor K (db) "
+			Scale		10 300 210 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE	
+
+			Type		FLOAT
+			Comment		"ricean factor k"
+		End
+
+		Begin RADIOBOX		propChannelMode
+			Caption		"Propagation Channel Mode"
+			Scale		360 30 465 175
+			ActiveOn	MODE_EDIT
+		 	Enabled	 	TRUE
+
+			Option		"Theoretical Channel Model"
+					Enable	PLModel
+					Enable	fadingModel
+					Disable	empiricalModel
+			OptValue	"theoretical"
+			VSpace		5
+			EndOption
+
+			Option		"Empirical Channel Model"
+					Disable	PLModel
+					Disable	fadingModel
+					Enable	empiricalModel
+			OptValue	"empirical"
+			VSpace		70
+			EndOption
+
+			Type		STRING
+			Comment		"Propagation Channel Mode"
+		End
+
+		Begin COMBOBOX		PLModel
+			Caption		"Path Loss Model "
+			Scale		390 75 330 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Value		"Free_Space" "Two_Ray_Ground" "Free_Space_and_Shadowing"
+			Comment		"Path Loss Channel Model"
+		End
+
+		Begin COMBOBOX		fadingModel
+			Caption		"Fading Model "
+			Scale		390 105 180 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Value		"None" "Rayleigh" "Ricean"
+			Comment		"Fading Model"
+		End
+
+		Begin COMBOBOX		empiricalModel
+			Caption		""
+			Scale		390 160 300 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Value		"LEE_Microcell" "Okumura_Hata_VHF_UHF" "Okumura_Hata_large_urban" "Okumura_Hata_medium_urban" "Okumura_Hata_suburban" "Okumura_Hata_open_areas" "COST_231_Hata" "Suburban_1_9GHz_TA" "Suburban_1_9GHz_TB" "Suburban_1_9GHz_TC" "M2M_UMTS_LOS" "M2M_UMTS_NLOS" "ECC33" "ECC33_dversion" "AdHoc_LOS" "HarXiaMicrocell_Low_Rise_NLOS" "HarXiaMicrocell_High_Rise_Lateral" "HarXiaMicrocell_High_Rise_ST" "HarXiaMicrocell_LOS" "HowardXia_UniformRoofTop" "HowardXia_BSAntennaAboveRoofTopLevel" "HowardXia_BSAntennaBelowRoofTopLevel" "Indoor_2_4G_LOS_80211_a_b" "Indoor_5_3G_LOS_80211_a_b" "Indoor_2_4G_NLOS_80211_a_b" "Indoor_5_3G_NLOS_80211_a_b" "Bertoni_Walfisch_Urban" "Egli_Urban_Rural"
+			Comment		"Empirical Channel Model"
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		10 350 90 30 
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		120 350 90 30 
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection

@@ -1,0 +1,40 @@
+ModuleSection
+	HeaderSection
+		ModuleName	        DVBS2_Sat
+		ClassName		DVBS2_Sat
+
+		NetType			Wireless
+		GroupName		Sat
+		PortsNum		MultiPort
+	
+		Version			DVBS2_Sat_002
+		Author			NCTU_NSL
+		CreateDate		12/28/05
+		Introduction		"DVBS2_Sat"
+	
+		Parameter		macaddr		0:0:0:0:0:$NID$		autogendonotsave
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parameters Setting"
+		FrameSize		430 560
+
+		Begin TEXTLINE		macaddr
+			Caption		"Mac Address "
+			Scale		10 15 190 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+			
+			Type		MAC
+			Comment		""
+		End
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+	
+	EndExportSection
+EndModuleSection
+

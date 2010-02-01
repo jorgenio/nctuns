@@ -1,0 +1,40 @@
+#
+# Makefile for the NCTUns engine core
+#
+
+obj-y	= \
+	agent.o \
+	app_init.o \
+	auto_vehicle_signal.o \
+	command_server.o \
+	commun_gui.o \
+	dispatcher.o \
+	event.o \
+	exportStr.o \
+	gbind.o \
+	heap.o \
+	init.o \
+	maptable.o \
+	mbinder.o \
+	nctuns.o \
+	nctuns_api.o \
+	nodetype.o \
+	object.o \
+	packet.o \
+	random.o \
+	regcom.o \
+	scheduler.o \
+	sock_skel.o \
+	sysrt.o \
+	tclBinder.o \
+	tclObject.o \
+	timer.o \
+	tun_mmap.o
+
+CXXFLAGS_nctuns.o:= -DNCTUNS_VERSION="\"\#`cat $(srctree)/.version` `LC_ALL=C LANG=C date`\""
+
+nctuns.o: .version
+
+obj-y	+= \
+	IPC/ \
+	protocol_HEADER/

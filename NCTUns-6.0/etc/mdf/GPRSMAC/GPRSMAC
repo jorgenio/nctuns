@@ -1,0 +1,160 @@
+ModuleSection
+
+	HeaderSection
+
+		ModuleName		GPRSMsMac
+		ClassName		GPRSMsMac
+
+		NetType			wireless
+		GroupName		GPRSMAC
+		PortsNum		MultiPort
+
+		Version			GPRSMSMAC_001
+		Author			NCTU_NSL
+		CreateDate		11/28/03
+		Introduction		"GPRS MAC Layer on Mobile part."
+
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption         "Parameters Setting"
+        	FrameSize               310 50
+
+		Begin LABEL             l_ss
+                	Caption         "There is no parameter to set here."
+                	Scale           10 17 280 20
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin BUTTON            b_ok
+                	Caption         "OK"
+                	Scale           240 12 60 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+                	Comment         "OK Button"
+        	End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+
+ModuleSection
+
+	HeaderSection
+
+		ModuleName		BTSMAC
+		ClassName		BTSMAC
+
+		NetType			wireless
+		GroupName		GPRSMAC
+		PortsNum		MultiPort
+
+		Version			GPRSBtsMAC_001
+		Author			NCTU_NSL
+		CreateDate		11/28/03
+		Introduction		"GPRS MAC Layer on BTS part."
+
+		Parameter	BSIC		0	local
+		Parameter	RAI		0	local
+		Parameter	start_freq_ch	1	local
+		Parameter	end_freq_ch     5	local
+		Parameter	downlink_ts_num 3	local
+		Parameter	uplink_ts_num	1	local
+ 		Parameter	cfg_filename	$CASE$.bsscfg autogendonotsave
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption         "Parameters Setting"
+        	FrameSize               410 190
+
+        	Begin TEXTLINE		BSIC
+			Caption		"Base Station Identity Code (BSIC)   "
+			Scale		10 20 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		"BSIC"
+		End
+
+        	Begin TEXTLINE		start_freq_ch
+			Caption		"Starting frequency channel              "
+			Scale		10 50 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+        	Begin TEXTLINE		end_freq_ch
+			Caption		"Ending frequency channel               "
+			Scale		10 80 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		"MSISDN"
+		End
+
+        	Begin TEXTLINE		uplink_ts_num
+			Caption		"Uplink time slot number                  "
+			Scale		10 110 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		"MSISDN"
+		End
+
+        	Begin TEXTLINE		downlink_ts_num
+			Caption		"Downlink time slot number              "
+			Scale		10 140 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		"MSISDN"
+		End
+
+		Begin BUTTON            b_ok
+                	Caption         "OK"
+                	Scale           340 20 60 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+                	Comment         "OK Button"
+        	End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		340 55 60 30
+			ActiveOn	MODE_EDIT
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+

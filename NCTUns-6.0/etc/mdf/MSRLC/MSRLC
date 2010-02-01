@@ -1,0 +1,70 @@
+ModuleSection
+
+	HeaderSection
+
+		ModuleName		MSRLC
+		ClassName		MSRLC
+
+		NetType			wireless
+		GroupName		MSRLC
+		PortsNum		MultiPort
+
+		Version			Rlc_001
+		Author			NCTU_NSL
+		CreateDate		11/28/03
+		Introduction		"Radio Link Layer."
+
+		Parameter		channel_coding_scheme	2	local
+
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption			"Parameters Setting"
+
+		FrameSize		440 210
+
+		Begin 	LABEL           operation_mode
+                	Caption         "There is no parameter to set here."
+                	Scale           10 17 280 23
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+
+		Begin 	LABEL           operation_mode_note
+                	Caption         "Note:
+The RLC layer has two operation modes: the acknowledged and
+the unacknowledged modes. The acknowledged mode guarantees
+the success of the delivery of a RLC block by adopting SACK
+and retransmission mechanisms. However, the unacknowledged
+mode doesn't guarantee anything. At present, this RLC module
+only supports the acknowledged mode."
+
+                	Scale           10 50 380 150
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+ 	       Begin BUTTON            b_ok
+        	        Caption         "OK"
+                	Scale           370 12 60 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+	               	Action          ok
+                	Comment         "OK Button"
+
+ 	       End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+

@@ -1,0 +1,45 @@
+ModuleSection
+	HeaderSection
+		ModuleName		RCST_CTL
+		ClassName		Rcst_ctl
+
+		NetType			Wire/Wireless
+		GroupName		RCST_CTL
+		AllowGroup		"FIFO  ARP  MAC  PHY  Link"
+		PortsNum		SinglePort
+
+		Version			interface_001
+		Author			NCTU_NSL
+		CreateDate		2/26/02
+		Introduction		"The is Rcst_ctl module."
+
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parameters Setting"
+		FrameSize		310 53
+
+		Begin LABEL		l_ss
+			Caption		"There is no parameter to set here."
+			Scale		10 15 280 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		240 15 60 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		ok
+			Comment		"OK Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

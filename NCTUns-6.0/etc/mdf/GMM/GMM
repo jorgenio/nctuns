@@ -1,0 +1,167 @@
+ModuleSection
+
+	HeaderSection
+
+		ModuleName		SNDCPGmm
+		ClassName		SNDCPGmm
+
+		NetType			wireless
+		GroupName		GMM
+		PortsNum		MultiPort
+
+		Version			SNDCPGMM_001
+		Author			NCTU_NSL
+		CreateDate		11/28/03
+		Introduction		"Sndcp layer and GMM sublayer."
+		Parameter               msisdn  	$NID$$PID$100 	autogendonotsave
+                Parameter               imsi    	$NID$$PID$200 	autogendonotsave
+                Parameter               actiontable     $CASE$.pat 	autogendonotsave
+
+
+	EndHeaderSection
+
+	 InitVariableSection
+
+                Caption         "Parameters Setting"
+                FrameSize               440 60
+
+                Begin TEXTLINE          imsi
+                        Caption         "International Mobile Subscriber Identity (IMSI)"
+                        Scale           10 18 330 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         FALSE
+
+                        Type            DOUBLE
+                        Comment         "imsi"
+
+                End
+
+		Begin BUTTON            b_ok
+                	Caption         "OK"
+                	Scale           370 12 60 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+                	Comment         "OK Button"
+        	End
+
+
+        EndInitVariableSection
+
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+
+ModuleSection
+
+	HeaderSection
+
+		ModuleName		GPRSGmm
+		ClassName		GPRSGmm
+
+		NetType			wireless
+		GroupName		GMM
+		PortsNum		MultiPort
+
+		Version			GPRSGMM_001
+		Author			NCTU_NSL
+		CreateDate		11/28/03
+		Introduction		"GPRS GMM Sublayer."
+
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption         "Parameters Setting"
+        	FrameSize               310 50
+
+		Begin LABEL             l_ss
+                	Caption         "There is no parameter to set here."
+                	Scale           10 17 280 20
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin BUTTON            b_ok
+                	Caption         "OK"
+                	Scale           240 12 60 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+                	Comment         "OK Button"
+        	End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+
+ModuleSection
+
+	HeaderSection
+
+		ModuleName		GprsSw
+		ClassName		GprsSw
+
+		NetType			wireless
+		GroupName		GMM
+		PortsNum		MultiPort
+
+		Version			GPRSGMM_001
+		Author			NCTU_NSL
+		CreateDate		11/28/03
+		Introduction		"GPRS GMM Sublayer."
+		Parameter		rai $NID$ autogendonotsave
+
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption         "Parameters Setting"
+        	FrameSize               330 60
+        	Begin TEXTLINE		rai
+			Caption		"Routing Area Identity (RAI) "
+			Scale		10 18 220 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		IP
+			Comment		"RAI"
+
+		End
+
+		Begin BUTTON            b_ok
+                	Caption         "OK"
+                	Scale           260 18 60 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+                	Comment         "OK Button"
+        	End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+

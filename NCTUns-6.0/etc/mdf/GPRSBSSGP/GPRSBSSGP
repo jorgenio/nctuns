@@ -1,0 +1,113 @@
+ModuleSection
+
+	HeaderSection
+
+		ModuleName		BSSBssgp
+		ClassName		BSSBssgp
+
+		NetType			wireless
+		GroupName		GPRSBSSGP
+		PortsNum		MultiPort
+
+		Version			GPRSBSSBssgp_001
+		Author			NCTU_NSL
+		CreateDate		11/28/03
+		Introduction		"GPRS Base Station Subsystem Gateway Protocol Module for BSS side."
+
+		Parameter		Interval	30	local
+	EndHeaderSection
+
+	InitVariableSection
+
+	Caption			"Parameters Setting"
+		FrameSize		400 80
+
+		Begin TEXTLINE		Interval
+			Caption		"BSSGP control message interval "
+			Scale		10 28 250 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		"Interval"
+		End
+
+		Begin LABEL		l_ms
+			Caption		"(ms)"
+			Scale		270 31 60 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+ 	       Begin BUTTON            b_ok
+        	        Caption         "OK"
+                	Scale           330 12 60 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+	               	Action          ok
+                	Comment         "OK Button"
+
+ 	       End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+
+ModuleSection
+
+	HeaderSection
+
+		ModuleName		SGSNBssgp
+		ClassName		SGSNBssgp
+
+		NetType			wireless
+		GroupName		GPRSBSSGP
+		PortsNum		MultiPort
+
+		Version			GPRSSGSNBssgp_001
+		Author			NCTU_NSL
+		CreateDate		11/28/03
+		Introduction		"GPRS BSSGP module for SGSN side."
+
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption         "Parameters Setting"
+        	FrameSize               310 50
+
+		Begin LABEL             l_ss
+                	Caption         "There is no parameter to set here."
+                	Scale           10 17 280 20
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin BUTTON            b_ok
+                	Caption         "OK"
+                	Scale           240 12 60 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+                	Comment         "OK Button"
+        	End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+

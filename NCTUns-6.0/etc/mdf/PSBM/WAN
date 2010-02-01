@@ -1,0 +1,630 @@
+ModuleSection
+	HeaderSection
+		ModuleName		WAN
+		ClassName		WAN
+
+		NetType			wired
+		GroupName		PSBM
+		PortsNum		MultiPort
+
+		Version			WAN-1
+		Author			NCTU_NSL
+		CreateDate		03/20/03
+		Introduction		"This is a WAN module (delay/reorder/drop packets)."
+
+		Parameter		pkt_loss	off		local
+		Parameter		pkt_loss_rate	1		local
+
+		Parameter		pkt_delay	off		local
+		Parameter		delay_dis	d_con		local
+		Parameter		dcon_mean	1		local
+		Parameter		duni_min	1		local
+		Parameter		duni_max	5		local
+		Parameter		dexp_min	1		local
+		Parameter		dexp_mean	3		local
+		Parameter		dexp_max	5		local
+		Parameter		dnor_mean	0		local
+		Parameter		dnor_var	1		local
+
+		Parameter		pkt_reorder	off		local
+		Parameter		pkt_reorder_rate 1		local
+		Parameter		reorder_dis	r_con		local
+		Parameter		rcon_mean	1		local
+		Parameter		runi_min	1		local
+		Parameter		runi_max	5		local
+		Parameter		rexp_min	1		local
+		Parameter		rexp_mean	3		local
+		Parameter		rexp_max	5		local
+		Parameter		rnor_mean	0		local
+		Parameter		rnor_var	1		local
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parematers Setting"
+		FrameSize		620 500
+
+
+		Begin CHECKBOX		pkt_loss
+			Caption		"Set Packet Loss Rate"
+			Scale		16 30 150 20
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Option		"TRUE"
+					OptValue	"on"
+					Enable pkt_loss_rate
+					Enable l_loss
+			EndOption
+			Option		"FALSE"
+					OptVale		"off"
+					Disable pkt_loss_rate
+					Disable l_loss
+			EndOption
+		End
+
+		Begin TEXTLINE		pkt_loss_rate
+			Caption		"Loss Rate "
+			Scale		40 50 130 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_loss
+			Caption		"%"
+			Scale		175 50 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin CHECKBOX		pkt_delay
+			Caption		"Set Packet Delay Time Distribution"
+			Scale		16 85 250 20
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Option		"TRUE"
+			OptValue	"on"
+					Disable		dcon_mean
+					Disable		duni_min
+					Disable		duni_max
+					Disable		dexp_min
+					Disable		dexp_mean
+					Disable		dexp_max
+					Disable		dnor_mean
+					Disable		dnor_var
+					Disable		l_dcon_mean
+					Disable		l_duni_min
+					Disable		l_duni_max
+					Disable		l_dexp_min
+					Disable		l_dexp_mean
+					Disable		l_dexp_max
+					Disable		l_dnor_mean
+			EndOption
+
+			Option		"FALSE"
+			OptVale		"off"
+					Disable		delay_dis
+					Disable		dcon_mean
+					Disable		duni_min
+					Disable		duni_max
+					Disable		dexp_min
+					Disable		dexp_mean
+					Disable		dexp_max
+					Disable		dnor_mean
+					Disable		dnor_var
+					Disable		l_dcon_mean
+					Disable		l_duni_min
+					Disable		l_duni_max
+					Disable		l_dexp_min
+					Disable		l_dexp_mean
+					Disable		l_dexp_max
+					Disable		l_dnor_mean
+			EndOption
+		End
+
+		Begin RADIOBOX		delay_dis
+			Caption		"Delay time distribution"
+			Scale		35 110 250 325
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Option		"Constant"
+			OptValue	"d_con"
+					Enable 		dcon_mean
+					Enable 		l_dcon_mean
+					Disable		duni_min
+					Disable		duni_max
+					Disable		dexp_min
+					Disable		dexp_mean
+					Disable		dexp_max
+					Disable		dnor_mean
+					Disable		dnor_var
+					Disable		l_duni_min
+					Disable		l_duni_max
+					Disable		l_dexp_min
+					Disable		l_dexp_mean
+					Disable		l_dexp_max
+					Disable		l_dnor_mean
+			VSpace		3
+			EndOption
+
+			Option		"Uniform"
+			OptValue	"d_uni"
+					Enable duni_min
+					Enable duni_max
+					Enable l_duni_min
+					Enable l_duni_max
+					Disable		dcon_mean
+					Disable		dexp_min
+					Disable		dexp_mean
+					Disable		dexp_max
+					Disable		dnor_mean
+					Disable		dnor_var
+					Disable		l_dcon_mean
+					Disable		l_dexp_min
+					Disable		l_dexp_mean
+					Disable		l_dexp_max
+					Disable		l_dnor_mean
+					Disable		l_dnor_var
+			VSpace		30
+			EndOption
+
+			Option		"Exponential"
+			OptValue	"d_exp"
+					Enable dexp_min
+					Enable dexp_mean
+					Enable dexp_max
+					Enable l_dexp_min
+					Enable l_dexp_mean
+					Enable l_dexp_max
+					Disable		dcon_mean
+					Disable		duni_min
+					Disable		duni_max
+					Disable		dnor_mean
+					Disable		dnor_var
+					Disable		l_dcon_mean
+					Disable		l_duni_min
+					Disable		l_duni_max
+					Disable		l_dnor_mean
+					Disable		l_dnor_var
+			VSpace		60
+			EndOption
+
+			Option		"Normal"
+			OptValue	"d_nor"
+					Enable dnor_mean
+					Enable dnor_var
+					Enable l_dnor_mean
+					Enable l_dnor_var
+					Disable		dcon_mean
+					Disable		duni_min
+					Disable		duni_max
+					Disable		dexp_min
+					Disable		dexp_mean
+					Disable		dexp_max
+					Disable		l_dcon_mean
+					Disable		l_duni_min
+					Disable		l_duni_max
+					Disable		l_dexp_min
+					Disable		l_dexp_mean
+					Disable		l_dexp_max
+			VSpace		85
+			EndOption
+		End
+
+		Begin TEXTLINE		dcon_mean
+			Caption		"const value "
+			Scale		65 148 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_dcon_mean
+			Caption		" (ms)"
+			Scale		225 145 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin TEXTLINE		duni_min
+			Caption		"min "
+			Scale		65 197 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_duni_min
+			Caption		" (ms)"
+			Scale		225 197 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin TEXTLINE		duni_max
+			Caption		"max "
+			Scale		65 222 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_duni_max
+			Caption		" (ms)"
+			Scale		225 222 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin TEXTLINE		dexp_min
+			Caption		"min "
+			Scale		65 272 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_dexp_min
+			Caption		" (ms)"
+			Scale		225 272 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin TEXTLINE		dexp_mean
+			Caption		"mean "
+			Scale		65 297 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_dexp_mean
+			Caption		" (ms)"
+			Scale		225 297 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin TEXTLINE		dexp_max
+			Caption		"max "
+			Scale		65 322 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_dexp_max
+			Caption		" (ms)"
+			Scale		225 322 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin TEXTLINE		dnor_mean
+			Caption		"mean "
+			Scale		65 372 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_dnor_mean
+			Caption		" (ms)"
+			Scale		225 372 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin TEXTLINE		dnor_var
+			Caption		"variance "
+			Scale		65 397 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		""
+		End
+
+		Begin CHECKBOX		pkt_reorder
+			Caption		"Set Packet Reordering Time Distribution"
+			Scale		316 60 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Option		"TRUE"
+					OptValue	"on"
+					Enable		reorder_dis
+					Enable		l_reorder_dis
+					Enable		pkt_reorder_rate
+					Enable		l_reoder_rate
+			EndOption
+
+			Option		"FALSE"
+					OptVale		"off"
+					Disable		reorder_dis
+					Disable		l_reorder_dis
+					Disable		pkt_reorder_rate
+					Disable		l_reoder_rate
+
+					Disable		rcon_mean
+					Disable		runi_min
+					Disable		runi_max
+					Disable		rexp_min
+					Disable		rexp_mean
+					Disable		rexp_max
+					Disable		rnor_mean
+					Disable		rnor_var
+					Disable		l_rcon_mean
+					Disable		l_runi_min
+					Disable		l_runi_max
+					Disable		l_rexp_min
+					Disable		l_rexp_mean
+					Disable		l_rexp_max
+					Disable		l_rnor_mean
+			EndOption
+		End
+
+		Begin TEXTLINE		pkt_reorder_rate
+			Caption		"Reordering Rate "
+			Scale		340 80 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_reoder_rate
+			Caption		"%"
+			Scale		505 80 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin RADIOBOX		reorder_dis
+			Caption		"Reordering delay time distribution"
+			Scale		335 110 250 325
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Option		"Constant"
+			OptValue	"r_con"
+					Enable rcon_mean
+					Enable l_rcon_mean
+					Disable		runi_min
+					Disable		runi_max
+					Disable		rexp_min
+					Disable		rexp_mean
+					Disable		rexp_max
+					Disable		rnor_mean
+					Disable		rnor_var
+					Disable		l_runi_min
+					Disable		l_runi_max
+					Disable		l_rexp_min
+					Disable		l_rexp_mean
+					Disable		l_rexp_max
+					Disable		l_rnor_mean
+			VSpace		3
+			EndOption
+
+			Option		"Uniform"
+			OptValue	"r_uni"
+					Enable runi_min
+					Enable runi_max
+					Enable l_runi_min
+					Enable l_runi_max
+					Disable		rcon_mean
+					Disable		rexp_min
+					Disable		rexp_mean
+					Disable		rexp_max
+					Disable		rnor_mean
+					Disable		rnor_var
+					Disable		l_rcon_mean
+					Disable		l_rexp_min
+					Disable		l_rexp_mean
+					Disable		l_rexp_max
+					Disable		l_rnor_mean
+			VSpace		30
+			EndOption
+
+			Option		"Exponential"
+			OptValue	"r_exp"
+					Enable rexp_min
+					Enable rexp_mean
+					Enable rexp_max
+					Enable l_rexp_min
+					Enable l_rexp_mean
+					Enable l_rexp_max
+					Disable		rcon_mean
+					Disable		runi_min
+					Disable		runi_max
+					Disable		rnor_mean
+					Disable		rnor_var
+					Disable		l_rcon_mean
+					Disable		l_runi_min
+					Disable		l_runi_max
+					Disable		l_rnor_mean
+			VSpace		60
+			EndOption
+
+			Option		"Normal"
+			OptValue	"r_nor"
+					Enable rnor_mean
+					Enable rnor_var
+					Enable l_rnor_mean
+					Disable		rcon_mean
+					Disable		runi_min
+					Disable		runi_max
+					Disable		rexp_min
+					Disable		rexp_mean
+					Disable		rexp_max
+					Disable		l_rcon_mean
+					Disable		l_runi_min
+					Disable		l_runi_max
+					Disable		l_rexp_min
+					Disable		l_rexp_mean
+					Disable		l_rexp_max
+			VSpace		85
+			EndOption
+		End
+
+		Begin TEXTLINE		rcon_mean
+			Caption		"const value "
+			Scale		365 148 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_rcon_mean
+			Caption		" (ms)"
+			Scale		525 145 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin TEXTLINE		runi_min
+			Caption		"min "
+			Scale		365 197 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_runi_min
+			Caption		" (ms)"
+			Scale		525 197 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin TEXTLINE		runi_max
+			Caption		"max "
+			Scale		365 222 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_runi_max
+			Caption		" (ms)"
+			Scale		525 222 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin TEXTLINE		rexp_min
+			Caption		"min "
+			Scale		365 272 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_rexp_min
+			Caption		" (ms)"
+			Scale		525 272 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin TEXTLINE		rexp_mean
+			Caption		"mean "
+			Scale		365 297 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_rexp_mean
+			Caption		" (ms)"
+			Scale		525 297 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin TEXTLINE		rexp_max
+			Caption		"max "
+			Scale		365 322 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_rexp_max
+			Caption		" (ms)"
+			Scale		525 322 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin TEXTLINE		rnor_mean
+			Caption		"mean "
+			Scale		365 372 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_rnor_mean
+			Caption		" (ms)"
+			Scale		525 372 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin TEXTLINE		rnor_var
+			Caption		"variance "
+			Scale		365 397 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			Type		INT
+			Comment		""
+		End
+
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		235 450 60 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		325 450 60 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

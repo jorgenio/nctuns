@@ -1,0 +1,57 @@
+ModuleSection
+	HeaderSection
+		ModuleName		RCS_MAC_RCST
+		ClassName		Rcs_mac_rcst
+
+		NetType			Wire/Wireless
+		GroupName		RET
+		AllowGroup		"FIFO  ARP  MAC  PHY  Link"
+		PortsNum		SinglePort
+
+		Version			interface_001
+		Author			NCTU_NSL
+		CreateDate		2/26/02
+		Introduction		"This is Rcs_mac_rcst module"
+
+		Parameter		mac		0:0:0:0:0:0		autogen
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parameters Setting"
+		FrameSize		340 90
+
+
+		Begin TEXTLINE		mac
+			Caption		"Mac Address "
+			Scale		10 18 190 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		IP
+			Comment		"Mac Address"
+		End
+
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		265 17 60 30
+			ActiveOn	MODE_EDIT
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		265 49 60 30
+			ActiveOn	MODE_EDIT
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

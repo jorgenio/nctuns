@@ -1,0 +1,103 @@
+ModuleSection
+	HeaderSection
+		ModuleName		OFDM_Mesh
+		ClassName		OFDM_Mesh
+
+		NetType			Wireless
+		GroupName		WiMAX
+		AllowGroup		XXXXX
+		PortsNum		MultiPort
+
+		Version			OFDM_802_16_001
+		Author			NCTU_NSL
+		CreateDate		06/07/05
+		Introduction		"OFDM_MESH"
+	
+		Parameter		ChannelID	0	local
+		Parameter       	MaxTxRange	500	local
+		Parameter		freq		5470	local
+		Parameter		TransPower	37	local
+		Parameter		CSThresh	-130	local
+		Parameter		Gain		1.0	local
+
+	EndHeaderSection
+
+	InitVariableSection
+	Caption			"Parameters Setting"
+	
+		FrameSize		360 170
+
+		Begin TEXTLINE		ChannelID
+			Caption		"Default Channel ID "
+			Scale		10 15 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+			
+			Type		INT
+			Comment		""
+		End
+
+		Begin TEXTLINE		CSThresh	
+			Caption		"Receive Sensitivity (dbm) "
+			Scale		10 45 275 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+			
+			Type		INT
+			Comment		""
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		290 17 60 30
+			ActiveOn	MODE_EDIT
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		290 49 60 30
+			ActiveOn	MODE_EDIT
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+
+		Begin TEXTLINE          MaxTxRange
+		Caption     "Maximum Transmission Range (m) "
+		Scale       10 75 276 28
+		ActiveOn    MODE_EDIT
+		Enabled     TRUE
+
+		Type        INT
+		Comment     ""
+		End
+
+        Begin TEXTLINE  freq
+            Caption     "Frequency (MHz) "
+            Scale       10 105 275 30
+            ActiveOn    MODE_EDIT
+            Enabled     TRUE
+
+            Type        INT
+            Comment     ""
+        End
+
+        Begin TEXTLINE  TransPower
+            Caption     "Transmission Power (dbm) "
+            Scale       10 135 275 30
+            ActiveOn    MODE_EDIT
+            Enabled     TRUE
+
+            Type        INT
+            Comment     ""
+        End
+
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

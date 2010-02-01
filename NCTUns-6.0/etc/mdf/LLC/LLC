@@ -1,0 +1,51 @@
+ModuleSection
+
+	HeaderSection
+
+		ModuleName		LLC
+		ClassName		LLC
+
+		NetType			wireless
+		GroupName		LLC
+		PortsNum		MultiPort
+
+		Version			Llc_001
+		Author			NCTU_NSL
+		CreateDate		11/28/03
+		Introduction		"Logical Link Layer."
+
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption         "Parameters Setting"
+        	FrameSize               310 50
+
+		Begin LABEL             l_ss
+                	Caption         "There is no parameter to set here."
+                	Scale           10 17 280 20
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin BUTTON            b_ok
+                	Caption         "OK"
+                	Scale           240 12 60 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+                	Comment         "OK Button"
+        	End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+

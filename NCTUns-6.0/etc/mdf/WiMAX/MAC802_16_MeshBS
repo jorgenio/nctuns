@@ -1,0 +1,85 @@
+ModuleSection
+	HeaderSection
+		ModuleName	        MAC802_16_MeshBS
+		ClassName		mac802_16_MeshBS
+
+		NetType			Wireless
+		GroupName		WiMAX
+		AllowGroup		XXXXX
+		PortsNum		MultiPort
+	
+		Version			MAC802_16_MeshBS_002
+		Author			NCTU_NSL
+		CreateDate		12/28/05
+		Introduction		"MAC802_16_MeshBS"
+	
+		Parameter		macaddr				0:0:0:0:0:$NID$			autogendonotsave
+		Parameter		max_qlen        		10000				local	
+		Parameter		node_degree_description_filename	$CASE$.node_degree_des_file	autogendonotsave
+		Parameter		NodeConfig			$CASE$.nodecfg			autogendonotsave
+                Parameter               network_description_filename    $CASE$.ieee80216_network_des    autogendonotsave
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parameter Setting for IEEE 802.16 Mesh Mode MAC Module. (Base Station Part)"
+		FrameSize		600 95
+
+		Begin TEXTLINE		macaddr
+			Caption		"Mac Address "
+			Scale		10 15 190 40
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+			
+			Type		MAC
+			Comment		""
+		End
+
+		Begin TEXTLINE		max_qlen
+			Caption		"Maximum MAC Layer Transmission Queue Length "
+			Scale		10 45 390 40
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+			
+			Type		INT
+			Comment		""
+		End
+
+                Begin LABEL             max_qlen_tag
+                        Caption         "(pkt)"
+                        Scale           403 45 40 40
+                        ActiveOn        MODE_EDIT
+                        Enabled         TRUE
+
+                        Type            INT
+                        Comment         ""
+                End
+
+
+
+	        Begin BUTTON            b_ok
+                        Caption         "OK"
+                        Scale           520 20 60 30
+                        ActiveOn        MODE_EDIT
+                        Action          ok
+                        Comment         "OK Button"
+                End
+
+                Begin BUTTON            b_cancel
+                        Caption         "Cancel"
+                        Scale           520 52 60 30
+                        ActiveOn        MODE_EDIT
+                        Action          cancel
+                        Comment         "Cancel Button"
+                End
+
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+	
+	EndExportSection
+EndModuleSection
+

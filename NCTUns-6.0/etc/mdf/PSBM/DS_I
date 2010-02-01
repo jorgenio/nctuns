@@ -1,0 +1,417 @@
+ModuleSection
+	HeaderSection
+		ModuleName		DS_I
+		ClassName		ds_i
+		NetType			Wire/Wireless
+		GroupName		PSBM
+		PortsNum		MultiPort
+
+		Version			SIMPLE-DiffServ-000
+		Author			NCTU_NSL
+		CreateDate		2/28/02
+		Introduction		"This is a DiffServ interial node  module."
+
+		Parameter		ds_domain	SeedNet	local
+		Parameter		log_qlen	off	local
+		Parameter		log_qdrop	off	local
+		Parameter		qlen_option	FullLog	local
+		Parameter		qlen_samRate	1	local
+		Parameter		qdrop_samRate	1	local
+
+
+		Parameter		log_BE_QueLen	$CASE$.DS_I_N$NID$_P$PID$_BE_QueLen.log autogendonotsave
+		Parameter		log_NC_QueLen	$CASE$.DS_I_N$NID$_P$PID$_NC_QueLen.log autogendonotsave
+		Parameter		log_EF_QueLen	$CASE$.DS_I_N$NID$_P$PID$_EF_QueLen.log autogendonotsave
+		Parameter		log_AF1_QueLen	$CASE$.DS_I_N$NID$_P$PID$_AF1_QueLen.log autogendonotsave
+		Parameter		log_AF2_QueLen	$CASE$.DS_I_N$NID$_P$PID$_AF2_QueLen.log autogendonotsave
+		Parameter		log_AF3_QueLen	$CASE$.DS_I_N$NID$_P$PID$_AF3_QueLen.log autogendonotsave
+		Parameter		log_AF4_QueLen	$CASE$.DS_I_N$NID$_P$PID$_AF4_QueLen.log autogendonotsave
+
+		Parameter		log_BE_Drop	$CASE$.DS_I_N$NID$_P$PID$_BE_Drop.log autogendonotsave
+		Parameter		log_NC_Drop	$CASE$.DS_I_N$NID$_P$PID$_NC_Drop.log autogendonotsave
+		Parameter		log_EF_Drop	$CASE$.DS_I_N$NID$_P$PID$_EF_Drop.log autogendonotsave
+		Parameter		log_AF11_Drop	$CASE$.DS_I_N$NID$_P$PID$_AF11_Drop.log autogendonotsave
+		Parameter		log_AF12_Drop	$CASE$.DS_I_N$NID$_P$PID$_AF12_Drop.log autogendonotsave
+		Parameter		log_AF21_Drop	$CASE$.DS_I_N$NID$_P$PID$_AF21_Drop.log autogendonotsave
+		Parameter		log_AF22_Drop	$CASE$.DS_I_N$NID$_P$PID$_AF22_Drop.log autogendonotsave
+		Parameter		log_AF31_Drop	$CASE$.DS_I_N$NID$_P$PID$_AF31_Drop.log autogendonotsave
+		Parameter		log_AF32_Drop	$CASE$.DS_I_N$NID$_P$PID$_AF32_Drop.log autogendonotsave
+		Parameter		log_AF41_Drop	$CASE$.DS_I_N$NID$_P$PID$_AF41_Drop.log autogendonotsave
+		Parameter		log_AF42_Drop	$CASE$.DS_I_N$NID$_P$PID$_AF42_Drop.log autogendonotsave
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parameters Setting"
+		FrameSize		390 630
+
+	 	Begin TEXTLINE	 	ds_domain
+			Caption		"DS Domain Name:  "
+			Scale		10 20 200 20
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		STRING
+			Comment		"the DS Domain Name"
+		End
+
+		Begin CHECKBOX		log_qlen
+			Caption		"Log Queue Length"
+			Scale		10 50 150 20
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Option		"TRUE"
+                	OptValue        "on"
+					Enable qlen_option
+					Enable l_qlen_FileName
+					Enable log_BE_QueLen
+					Enable log_NC_QueLen
+					Enable log_EF_QueLen
+					Enable log_AF1_QueLen
+					Enable log_AF2_QueLen
+					Enable log_AF3_QueLen
+					Enable log_AF4_QueLen
+			EndOption
+
+			Option		"FALSE"
+                	OptValue        "off"
+					Disable qlen_option
+					Disable l_qlen_FileName
+					Disable log_BE_QueLen
+					Disable log_NC_QueLen
+					Disable log_EF_QueLen
+					Disable log_AF1_QueLen
+					Disable log_AF2_QueLen
+					Disable log_AF3_QueLen
+					Disable log_AF4_QueLen
+			EndOption
+
+			Comment		""
+		End
+
+		Begin RADIOBOX		qlen_option
+			Caption		""
+			Scale		32 75 250 80
+			ActiveOn	MODE_EDIT
+			Enabled	  	FALSE
+
+			Option		"Sampling Log"
+			OptValue	"SamplingLog"
+					Enable  qlen_samRate
+					Enable  l_qlen_samp
+			VSpace		-15
+			EndOption
+
+			Option		"Full Log"
+			OptValue	"FullLog"
+					Disable  qlen_samRate
+					Disable  l_qlen_samp
+			VSpace		35
+			EndOption
+
+			Type		STRING
+			Comment		""
+		End
+
+		Begin TEXTLINE		qlen_samRate
+			Caption		"Rate "
+			Scale		62 100 80 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		FLOAT
+			Comment		""
+		End
+
+		Begin LABEL		l_qlen_samp
+			Caption		"(samples / sec)"
+			Scale		147 100 100 30
+			ActiveOn	MODE_EDIT
+		 	Enabled		FALSE
+		End
+
+		Begin LABEL		l_qlen_FileName
+			Caption		"Queue length log files (if exist):"
+			Scale		30 160 180 20
+			ActiveOn	MODE_EDIT
+		 	Enabled		FALSE
+		End
+
+	 	Begin TEXTLINE	 	log_BE_QueLen
+			Caption		"BE queue:  "
+			Scale		40 180 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"BE Queue Length Log"
+		End
+
+	 	Begin TEXTLINE	 	log_NC_QueLen
+			Caption		"NC queue:  "
+			Scale		40 200 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"NC Queue Length Log"
+		End
+
+	 	Begin TEXTLINE	 	log_EF_QueLen
+			Caption		"EF queue:  "
+			Scale		40 220 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"EF Queue Length Log"
+		End
+
+	 	Begin TEXTLINE	 	log_AF1_QueLen
+			Caption		"AF1 queue: "
+			Scale		40 240 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"AF1 Queue Length Log"
+		End
+
+	 	Begin TEXTLINE	 	log_AF2_QueLen
+			Caption		"AF2 queue: "
+			Scale		40 260 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"AF2 Queue Length Log"
+		End
+
+	 	Begin TEXTLINE	 	log_AF3_QueLen
+			Caption		"AF3 queue: "
+			Scale		40 280 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"AF3 Queue Length Log"
+		End
+
+	 	Begin TEXTLINE	 	log_AF4_QueLen
+			Caption		"AF4 queue: "
+			Scale		40 300 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"AF4 Queue Length Log"
+		End
+
+		Begin CHECKBOX		log_qdrop
+			Caption		"Log Queue Drop Rate"
+			Scale		10 330 150 20
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Option		"TRUE"
+                	OptValue        "on"
+					Enable qdrop_samRate
+					Enable l_qdrop_samp
+					Enable l_drop_FileName
+					Enable log_BE_Drop
+					Enable log_NC_Drop
+					Enable log_EF_Drop
+					Enable log_AF11_Drop
+					Enable log_AF12_Drop
+					Enable log_AF21_Drop
+					Enable log_AF22_Drop
+					Enable log_AF31_Drop
+					Enable log_AF32_Drop
+					Enable log_AF41_Drop
+					Enable log_AF42_Drop
+
+			EndOption
+			Option		"FALSE"
+                	OptValue        "off"
+					Disable qdrop_samRate
+					Disable l_qdrop_samp
+					Disable l_drop_FileName
+					Disable log_BE_Drop
+					Disable log_NC_Drop
+					Disable log_EF_Drop
+					Disable log_AF11_Drop
+					Disable log_AF12_Drop
+					Disable log_AF21_Drop
+					Disable log_AF22_Drop
+					Disable log_AF31_Drop
+					Disable log_AF32_Drop
+					Disable log_AF41_Drop
+					Disable log_AF42_Drop
+
+			EndOption
+
+			Comment		""
+		End
+
+		Begin TEXTLINE		qdrop_samRate
+			Caption		"Rate "
+			Scale		32 350 80 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_qdrop_samp
+			Caption		"(samples / sec)"
+			Scale		117 350 100 30
+			ActiveOn	MODE_EDIT
+		 	Enabled		FALSE
+		End
+
+
+		Begin LABEL		l_drop_FileName
+			Caption		"Drop rate log files (if exist):"
+			Scale		30 380 180 20
+			ActiveOn	MODE_EDIT
+		 	Enabled		FALSE
+		End
+
+	 	Begin TEXTLINE	 	log_BE_Drop
+			Caption		"BE phb:   "
+			Scale		40 400 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"BE PHB Drop Rate Log"
+		End
+
+	 	Begin TEXTLINE	 	log_NC_Drop
+			Caption		"NC phb:   "
+			Scale		40 420 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"NC PHB Drop Rate Log"
+		End
+
+	 	Begin TEXTLINE	 	log_EF_Drop
+			Caption		"EF phb:   "
+			Scale		40 440 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"EF PHB Drop Rate Log"
+		End
+
+	 	Begin TEXTLINE	 	log_AF11_Drop
+			Caption		"AF11 phb: "
+			Scale		40 460 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"AF11 PHB Drop Rate Log"
+		End
+
+	 	Begin TEXTLINE	 	log_AF12_Drop
+			Caption		"AF12 phb: "
+			Scale		40 480 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"AF12 PHB Drop Rate Log"
+		End
+
+	 	Begin TEXTLINE	 	log_AF21_Drop
+			Caption		"AF21 phb: "
+			Scale		40 500 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"AF21 PHB Drop Rate Log"
+		End
+
+	 	Begin TEXTLINE	 	log_AF22_Drop
+			Caption		"AF22 phb: "
+			Scale		40 520 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"AF22 PHB Drop Rate Log"
+		End
+
+	 	Begin TEXTLINE	 	log_AF31_Drop
+			Caption		"AF31 phb: "
+			Scale		40 540 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"AF31 PHB Drop Rate Log"
+		End
+
+	 	Begin TEXTLINE	 	log_AF32_Drop
+			Caption		"AF32 phb: "
+			Scale		40 560 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"AF32 PHB Drop Rate Log"
+		End
+
+	 	Begin TEXTLINE	 	log_AF41_Drop
+			Caption		"AF41 phb: "
+			Scale		40 580 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"AF41 PHB Drop Rate Log"
+		End
+
+	 	Begin TEXTLINE	 	log_AF42_Drop
+			Caption		"AF42 phb: "
+			Scale		40 600 300 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"AF42 PHB Drop Rate Log"
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		300 40 70 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		300 75 70 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

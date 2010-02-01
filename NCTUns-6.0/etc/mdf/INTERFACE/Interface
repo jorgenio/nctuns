@@ -1,0 +1,67 @@
+ModuleSection
+	HeaderSection
+		ModuleName		Interface
+		ClassName		interface
+
+		NetType			Wire/Wireless
+		GroupName		INTERFACE
+		PortsNum		SinglePort
+
+		Version			interface_001
+		Author			NCTU_NSL
+		CreateDate		2/26/02
+		Introduction		"The interface Module is a bridge connects SE.  and kernel(or pseudo-device - tunnel). If the user traffic is generated and queued in the queue of tunnel  then this module will dequeue it from that queue and pass to SE to simulate. Contrarily  if the packet needs to be passed to kernel  then this module will also write it to kernel."
+
+		Parameter		ip	0.0.0.0				autogen
+		Parameter		netmask	255.255.255.0			local
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parameters Setting"
+		FrameSize		320 90
+
+
+		Begin TEXTLINE		ip
+			Caption		"IP Address "
+			Scale		10 18 220 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		IP
+			Comment		"IP address"
+		End
+
+		Begin TEXTLINE		netmask
+			Caption		"Netmask "
+			Scale		10 48 220 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		IP
+			Comment		"netmask"
+
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		250 17 60 30
+			ActiveOn	MODE_EDIT
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		250 49 60 30
+			ActiveOn	MODE_EDIT
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

@@ -1,0 +1,198 @@
+ModuleSection
+	HeaderSection
+		ModuleName		SGSNGtp
+		ClassName		SGSNGtp
+
+		NetType			wireless
+		GroupName		GTP
+		PortsNum		MultiPort
+
+		Version			GPRS_SGSNGTP_001
+		Author			NCTU_NSL
+		CreateDate		11/28/03
+		Introduction		"GTP Protocol Module on SGSN."
+		Parameter		SgsnIP  $NID$$PID$			autogendonotsave
+		Parameter		Base_Delay_Time		400		local
+		Parameter		Variance_Time		150		local
+		Parameter		First_Extra_Delay	700		local
+		Parameter		BandWidth		10000000	local
+		Parameter		cmdtable		$CASE$.gst	autogendonotsave
+
+	EndHeaderSection
+
+	InitVariableSection
+		Caption         "Parameters Setting"
+        	FrameSize               410 160
+
+        	Begin TEXTLINE		SgsnIP
+			Caption		"SGSN ID   		           "
+			Scale		10 18 280 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		IP
+			Comment		"SgsnIP"
+
+		End
+		Begin TEXTLINE		Base_Delay_Time
+			Caption		"Minimum delay time	           "
+			Scale		10 48 280 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		DOUBLE
+			Comment		"MSISDN"
+
+		End
+		Begin TEXTLINE          Variance_Time
+                        Caption         "Variance of extra delay time	           "
+                        Scale           10 78 280 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         TRUE
+
+                        Type            DOUBLE
+                        Comment         "MSISDN"
+
+                End
+		Begin TEXTLINE          First_Extra_Delay
+                        Caption         "Extra delay time for the first packet  "
+                        Scale           10 108 280 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         TRUE
+
+                        Type            DOUBLE
+                        Comment         "MSISDN"
+                End
+
+		Begin LABEL             l_ss
+                	Caption         "(ms)"
+                	Scale           295 53 30 20
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin LABEL             l_ss
+                	Caption         "(ms)"
+                	Scale           295 83 30 20
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin LABEL             l_ss
+                	Caption         "(ms)"
+                	Scale           295 113 30 20
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin BUTTON            b_ok
+                	Caption         "OK"
+                	Scale           340 18 60 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+                	Comment         "OK Button"
+        	End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		340 52 60 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+
+ModuleSection
+	HeaderSection
+		ModuleName		GGSNGtp
+		ClassName		GGSNGtp
+
+		NetType			wireless
+		GroupName		GTP
+		PortsNum		MultiPort
+
+		Version			GPRSGGSNGTP_001
+		Author			NCTU_NSL
+		CreateDate		11/28/03
+		Introduction		"GTP Protocol Module on GGSN."
+		Parameter               Base_Delay_Time         400             local
+                Parameter               Variance_Time           150             local
+		Parameter		BandWidth		10000000	local
+	EndHeaderSection
+
+	InitVariableSection
+		Caption         "Parameters Setting"
+        	FrameSize               380 100
+
+		Begin TEXTLINE		Base_Delay_Time
+			Caption		"Minimum delay time	         "
+			Scale		10 18 260 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		DOUBLE
+			Comment		"Base Delay Time"
+
+		End
+		Begin TEXTLINE          Variance_Time
+                        Caption         "Variance of extra delay time	         "
+                        Scale           10 48 260 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         TRUE
+
+                        Type            DOUBLE
+                        Comment         "Variance"
+
+                End
+
+		Begin LABEL             l_ss
+                	Caption         "(ms)"
+                	Scale           275 23 30 20
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin LABEL             l_ss
+                	Caption         "(ms)"
+                	Scale           275 53 30 20
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin BUTTON            b_ok
+                	Caption         "OK"
+                	Scale           310 18 60 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+                	Comment         "OK Button"
+        	End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		310 53 60 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

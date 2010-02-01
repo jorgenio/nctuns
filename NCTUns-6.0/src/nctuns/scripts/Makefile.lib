@@ -1,0 +1,67 @@
+# Figure out what we need to build from the various variables
+# ===========================================================================
+
+# Libraries are always collected in one lib file.
+# Filter out objects already built-in
+
+lib-y := $(filter-out $(obj-y), $(sort $(lib-y)))
+
+
+# Handle objects in subdirs
+# ---------------------------------------------------------------------------
+# o if we encounter foo/ in $(obj-y), replace it by foo/built-in.o
+#   and add the directory to the list of dirs to descend into: $(subdir-y)
+
+__subdir-y	:= $(patsubst %/,%,$(filter %/, $(obj-y)))
+subdir-y	+= $(__subdir-y)
+obj-y		:= $(patsubst %/, %/built-in.o, $(obj-y))
+
+# Subdirectories we need to descend into
+
+subdir-y	:= $(sort $(subdir-y))
+
+# if $(foo-objs) exists, foo.o is a composite object 
+multi-used-y := $(sort $(foreach m,$(obj-y), $(if $(strip $($(m:.o=-objs)) $($(m:.o=-y))), $(m))))
+
+# Build list of the parts of our composite objects, our composite
+# objects depend on those (obviously)
+multi-objs-y := $(foreach m, $(multi-used-y), $($(m:.o=-objs)) $($(m:.o=-y)))
+
+# $(subdir-obj-y) is the list of objects in $(obj-y) which do not live
+# in the local directory
+subdir-obj-y := $(foreach o,$(obj-y),$(if $(filter-out $(o),$(notdir $(o))),$(o)))
+
+# $(obj-dirs) is a list of directories that contain object files
+obj-dirs := $(dir $(multi-objs-y) $(subdir-obj-y))
+
+# Replace multi-part objects by their individual parts, look at local dir only
+real-objs-y := $(foreach m, $(filter-out $(subdir-obj-y), $(obj-y)), $(if $(strip $($(m:.o=-objs)) $($(m:.o=-y))),$($(m:.o=-objs)) $($(m:.o=-y)),$(m)))
+
+# Add subdir path
+
+ifneq ($(obj),.)
+  always	:= $(addprefix $(obj)/,$(always))
+  targets	:= $(addprefix $(obj)/,$(targets))
+  obj-y		:= $(addprefix $(obj)/,$(obj-y))
+  lib-y		:= $(addprefix $(obj)/,$(lib-y))
+  subdir-obj-y	:= $(addprefix $(obj)/,$(subdir-obj-y))
+  real-objs-y	:= $(addprefix $(obj)/,$(real-objs-y))
+  multi-used-y	:= $(addprefix $(obj)/,$(multi-used-y))
+  multi-objs-y	:= $(addprefix $(obj)/,$(multi-objs-y))
+  subdir-y	:= $(addprefix $(obj)/,$(subdir-y))
+  obj-dirs	:= $(addprefix $(obj)/,$(obj-dirs))
+endif
+
+# These flags are needed for modversions and compiling, so we define them here
+# already
+
+__c_flags       = $(CFLAGS) $(EXTRA_CFLAGS) $(CFLAGS_$(*F).o)
+__cxx_flags     = $(CXXFLAGS) $(EXTRA_CXXFLAGS) $(CXXFLAGS_$(*F).o)
+__a_flags       = $(AFLAGS) $(EXTRA_AFLAGS) $(AFLAGS_$(*F).o)
+__cpp_flags     = $(CPPFLAGS) $(EXTRA_CPPFLAGS) $(CPPFLAGS_$(@F))
+
+c_flags        = -Wp,-MMD,$(depfile) $(CPPFLAGS) $(__c_flags)
+cxx_flags      = -Wp,-MMD,$(depfile) $(CPPFLAGS) $(__cxx_flags)
+a_flags        = -Wp,-MMD,$(depfile) $(CPPFLAGS) $(__a_flags)
+cpp_flags      = -Wp,-MMD,$(depfile) $(__cpp_flags)
+ld_flags       = $(LDFLAGS) $(EXTRA_LDFLAGS)

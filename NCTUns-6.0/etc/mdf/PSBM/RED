@@ -1,0 +1,123 @@
+ModuleSection
+	HeaderSection
+		ModuleName		RED
+		ClassName		RED
+
+		NetType			Wire/Wireless
+		GroupName		PSBM
+		PortsNum		SinglePort
+
+		Version			RED_001
+		Author			NCTU_NSL
+		CreateDate		2/26/02
+		Introduction		"This is a RED module."
+
+		Parameter  		max_qlen	50	local
+		Parameter		queue_weight	0.002	local
+		Parameter		min_threshold	15	local
+		Parameter		max_threshold	45	local
+		Parameter		max_drop_prob	0.01	local
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parameters Setting"
+		FrameSize		400 185
+
+		Begin TEXTLINE	 	max_qlen
+			Caption		"Max Queue Length "
+			Scale		10 20 230 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		qlen_lable
+			Caption		"(pkts)"
+			Scale		245 20 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin TEXTLINE	 	queue_weight
+			Caption		"Queue Weight "
+			Scale		10 50 230 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		FLOAT
+			Comment		""
+		End
+
+		Begin TEXTLINE	  	min_threshold
+			Caption		"Minimum Threshold "
+			Scale		10 80 230 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		mintld_lable
+			Caption		"(pkts)"
+			Scale		245 80 30 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin TEXTLINE	  	max_threshold
+			Caption		"Maximum Threshold "
+			Scale		10 110 230 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		maxtld_lable
+			Caption		"(pkts)"
+			Scale		245 110 30 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin TEXTLINE	  	max_drop_prob
+			Caption		"Maximun Dropping Probability "
+			Scale		10 140 230 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		FLAOT
+			Comment		""
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		290 20 90 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		290 52 90 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

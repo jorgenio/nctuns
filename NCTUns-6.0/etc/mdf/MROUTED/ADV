@@ -1,0 +1,142 @@
+ModuleSection
+	HeaderSection
+
+		ModuleName		ADV
+		ClassName	 	ADVd
+
+		NetType			Wireless
+		GroupName		MROUTED
+		PortsNum		SinglePort
+
+		Version			ADV_001
+		Author			NCTU_NSL
+		CreateDate		2/26/02
+		Introduction		"This is an ADV module."
+
+		Parameter		TRGMETER_HIGH		20	local
+		Parameter		TRGMETER_MED		8	local
+		Parameter		TRGMETER_LOW		5	local
+		Parameter		TRGMETER_FULL		50	local
+		Parameter		MIN_INTERVAL		10	local
+		Parameter		BUF_THRESHOLD		2	local
+		Parameter		MAX_BUFFERED_PKT	64	local
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parameters Setting"
+		FrameSize		300 240
+
+		Begin TEXTLINE		TRGMETER_HIGH
+			Caption		"High Trigger Meter "
+			Scale		10 18 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type	 	INT
+			Comment		""
+		End
+
+		Begin TEXTLINE		TRGMETER_MED
+			Caption		"MED Trigger Meter "
+			Scale		10 48 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin TEXTLINE		TRGMETER_LOW
+			Caption		"Low Trigger Meter "
+			Scale		10 78 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type	 	INT
+			Comment		""
+		End
+
+		Begin TEXTLINE		TRGMETER_FULL
+			Caption		"Full Trigger Meter "
+			Scale		10 108 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin TEXTLINE		MIN_INTERVAL
+			Caption		"Minimal Interval "
+			Scale		10 138 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL             l_MIN_INTERVAL
+                	Caption         "(ms)"
+                	Scale           185 138 30 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin TEXTLINE		BUF_THRESHOLD
+			Caption		"Buffer Threshold "
+			Scale		10 168 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL             l_BUF_THRESHOLD
+                	Caption         "(pkts)"
+                	Scale           185 168 30 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin TEXTLINE		MAX_BUFFERED_PKT
+			Caption		"Maximum Buffer length "
+			Scale		10 198 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL             l_MAX_BUFFERED_PKT
+                	Caption         "(pkts)"
+                	Scale           185 198 30 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		230 21 60 30
+			ActiveOn	MODE_EDIT
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		230 53 60 30
+			ActiveOn	MODE_EDIT
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

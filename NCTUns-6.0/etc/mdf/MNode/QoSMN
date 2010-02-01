@@ -1,0 +1,97 @@
+ModuleSection
+
+        HeaderSection
+
+                ModuleName              QoSMN
+                ClassName               qosMN
+
+                NetType                 Wireless
+                GroupName               MNode
+                PortsNum                SinglePort
+
+                Version                 MobleNode_001
+                Author                  NCTU_NSL
+                CreateDate              08/04/05
+                Introduction            "This is a mobile node module support mac 802.11e."
+
+                Parameter               OperationMode   INFRASTRUCTURE  local
+                Parameter               ScanMode        ACTIVE_SCAN     local
+
+        EndHeaderSection
+
+        InitVariableSection
+
+                Caption                 "Parematers Setting"
+                FrameSize               280 180
+
+                Begin RADIOBOX          OperationMode
+                        Caption         "Operation Mode"
+                        Scale           10 15 190 150
+                        ActiveOn        MODE_EDIT
+                        Enabled         FALSE
+
+                        Option          "Ad Hoc Mode"
+                        OptValue        "AD_HOC"
+                                        Disable ScanMode
+                        EndOption
+
+                        Option          "Infrastructure Mode"
+                        OptValue        "INFRASTRUCTURE"
+                                        Enable ScanMode
+                        VSpace          10
+                        EndOption
+
+                        Type            STRING
+                        Comment         ""
+                End
+
+                Begin RADIOBOX          ScanMode
+                        Caption         "Scan Mode"
+                        Scale           40 80 130 70
+                        ActiveOn        MODE_EDIT
+                        Enabled         FALSE
+
+                        Option          "Active Scan"
+                        OptValue        "ACTIVE_SCAN"
+                        EndOption
+                        Option          "Passive Scan"
+                        OptValue        "PASSIVE_SCAN"
+                        VSpace          10
+                        EndOption
+
+                        Type            STRING
+                        Comment         ""
+                End
+
+               Begin BUTTON            b_ok
+                        Caption         "OK"
+                        Scale           210 19 60 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         TRUE
+
+                        Action          ok
+                        Comment         "OK Button"
+
+               End
+
+               Begin BUTTON            b_cancel
+                        Caption         "Cancel"
+                        Scale           210 51 60 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         TRUE
+
+                        Action          cancel
+                        Comment         "Cancel Button"
+                End
+
+        EndInitVariableSection
+
+        ExportSection
+
+                Caption                 ""
+                FrameSize               0 0
+
+        EndExportSection
+
+EndModuleSection
+

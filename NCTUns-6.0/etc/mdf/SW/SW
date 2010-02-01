@@ -1,0 +1,265 @@
+ModuleSection
+	HeaderSection
+		ModuleName	        Switch
+		ClassName		sw
+
+		NetType			Wire/Wireless
+		GroupName		SW
+		PortsNum		MultiPort
+
+		Version			SIMPLE-SWITCH_001
+		Author			NCTU_NSL
+		CreateDate		2/28/02
+		Introduction		"This is a switch module."
+
+		Parameter		SWITCH_MODE		"RunLearningBridgeProtocol"   local
+		Parameter		flushInterval		3000	local
+		Parameter		SpanningTreeProtocol	off	local
+		Parameter		HelloTime		1	local
+		Parameter		MaxAge			3	local
+		Parameter		ForwardDelay		15	local
+		Parameter		SwitchTableFileName $CASE$.sw_N$NID$.smt autogendonotsave
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parameters Setting"
+		FrameSize		395 415
+
+		Begin RADIOBOX		SWITCH_MODE
+			Caption		"Switch Mode"
+			Scale		10 15 280 390
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Option		"Run Learning Bridge Protocol"
+			OptValue	"RunLearningBridgeProtocol"
+					Enable	flushInterval
+					Enable	l_finterval
+					Enable	SpanningTreeProtocol
+					Enable	g_stp
+					Disable	note_1
+					Disable	note_2
+					Disable	note_3
+					Disable	note_4
+					Disable iv_show
+					Disable	SwitchTableFileName
+			EndOption
+			Option		"Build Switch Table In Advance"
+			OptValue	"KnowInAdvance"
+					Disable	flushInterval
+					Disable	l_finterval
+					Disable	SpanningTreeProtocol
+					Disable	g_stp
+					Enable	note_1
+					Enable	note_2
+					Enable	note_3
+					Enable	note_4
+					Enable	iv_show
+					Enable	SwitchTableFileName
+                	VSpace          175
+			EndOption
+
+			Type		STRING
+			Comment		"Switch Mode"
+		End
+
+		Begin TEXTLINE		flushInterval
+			Caption		"Flush Time Interval "
+			Scale		40 55 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_finterval
+			Caption		"(ms)"
+			Scale		245 55 30 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin CHECKBOX		SpanningTreeProtocol
+			Caption		"Spanning Tree Protocol"
+			Scale		40 85 160 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Option		"TRUE"
+			OptValue	"on"
+					Enable	g_stp
+					Enable	HelloTime
+					Enable	l_s1
+					Enable	MaxAge
+					Enable	l_s2
+					Enable	ForwardDelay
+					Enable	l_s3
+			EndOption
+			Option		"FALSE"
+			OptValue	"off"
+					Disable	g_stp
+					Disable	HelloTime
+					Disable	l_s1
+					Disable	MaxAge
+					Disable	l_s2
+					Disable	ForwardDelay
+					Disable	l_s3
+			EndOption
+
+			Type		STRING
+			Comment		""
+		End
+
+		Begin GROUP		g_stp
+			Caption		""
+			Scale		40 115 210 100
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Begin TEXTLINE		HelloTime
+				Caption		"Hello Time "
+				Scale		10 5 150 30
+				ActiveOn	MODE_EDIT
+			 	Enabled		FALSE
+
+				Type		INT
+				Comment		""
+			End
+
+			Begin LABEL		l_s1
+				Caption		"(sec)"
+				Scale		165 5 30 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+			End
+
+			Begin TEXTLINE		MaxAge
+				Caption		"Max Age "
+				Scale		10 35 150 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type		INT
+				Comment		""
+			End
+
+			Begin LABEL		l_s2
+				Caption		"(sec)"
+				Scale		165 35 30 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+			End
+
+			Begin TEXTLINE		ForwardDelay
+				Caption		"Forward Delay "
+				Scale		10 65 150 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type		INT
+				Comment		""
+			End
+
+			Begin LABEL		l_s3
+				Caption		"(ms)"
+				Scale		165 65 30 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+			End
+
+		End
+
+
+		Begin LABEL		note_1
+			Caption		"( Be careful ! Mobile nodes' MAC "
+			Scale		40 240 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin LABEL		note_2
+			Caption		"  addresses are not included. Their"
+			Scale		40 260 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin LABEL		note_3
+			Caption		"  packets will not be forwarded by"
+			Scale		40 280 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin LABEL		note_4
+			Caption		"  this switch. )"
+			Scale		40 300 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin INTERACTIONVIEW	iv_show
+			Caption		"Show Switch Table"
+			Scale		40 330 195 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Action		FUNC
+			ActionFunc	"sw"
+
+			Fields		"MAC Address" "Port ID"
+			Comment		""
+		End
+
+		Begin TEXTLINE		SwitchTableFileName
+			Caption		"File Name "
+			Scale		40 365 194 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		""
+		End
+
+		Begin BUTTON            b_ok
+        	        Caption         "OK"
+        	        Scale           300 20 80 30
+        	        ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+        	        Comment         "OK Button"
+
+		End
+
+		Begin BUTTON            b_cancel
+        	        Caption         "Cancel"
+                	Scale           300 52 80 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+	               	Action          cancel
+                	Comment         "Cancel Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			"Run Time Query"
+		FrameSize		395 60
+
+ 	       	Begin INTERACTIONVIEW   iv_st
+        	        Caption         "Switch Table"
+                	Scale           10 20 120 30
+                	ActiveOn        MODE_SIMULATION
+			Enabled		TRUE
+
+			Action		GET
+			ActionObj	"switch-table"
+
+			Fields          "MAC Address" "Port ID"
+        	        Comment         ""
+		End
+	EndExportSection
+EndModuleSection
+

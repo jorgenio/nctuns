@@ -1,0 +1,85 @@
+ModuleSection
+	HeaderSection
+		ModuleName	    OFDM_PMPSS
+		ClassName		OFDM_PMPSS
+
+		NetType			Wireless
+		GroupName		WiMAX
+		AllowGroup		XXXXX
+		PortsNum		MultiPort
+
+		Version			OFDM_802_16_001
+		Author			NCTU_NSL
+		CreateDate		06/07/05
+		Introduction		"OFDM_PMPSS"
+
+        Parameter       MaxTxRange  500 local
+	Parameter		freq		5470	local
+	Parameter		TransPower	23	local
+	Parameter		CSThresh	-90	local
+	Parameter		Gain		1.0	local
+
+	EndHeaderSection
+
+       InitVariableSection
+
+        Caption         "Parameters Setting"
+        FrameSize       400 130
+	        
+		Begin TEXTLINE  freq
+			Caption     "Frequency (MHz) "
+		        Scale       10 24 275 28
+            		ActiveOn    MODE_EDIT
+            		Enabled     TRUE
+
+            		Type        INT
+		        Comment     ""
+	        End
+
+        	Begin TEXTLINE  TransPower
+            		Caption     "Transmission Power (dbm) "
+            		Scale       10 58 275 28
+            		ActiveOn    MODE_EDIT
+           		Enabled     TRUE
+
+            		Type        INT
+            		Comment     ""
+        	End
+
+	        Begin TEXTLINE  CSThresh 
+            		Caption     "Receive Sensitivity (dbm) "
+            		Scale       10 92 275 28
+            		ActiveOn    MODE_EDIT
+            		Enabled     TRUE
+
+            		Type        INT
+           		Comment     ""
+        	End
+
+		Begin BUTTON        b_ok
+		Caption     "OK"
+		Scale       320 17 60 30
+		ActiveOn    MODE_EDIT
+		Action      ok
+		Comment     "OK Button"
+		End
+
+		Begin BUTTON        b_cancel
+		Caption     "Cancel"
+		Scale       320 49 60 30
+		ActiveOn    MODE_EDIT
+		Action      cancel
+		Comment     "Cancel Button"
+		End
+        EndInitVariableSection
+
+        ExportSection
+
+                Caption                 ""
+                FrameSize               0 0
+
+        EndExportSection
+
+
+EndModuleSection
+

@@ -1,0 +1,73 @@
+ModuleSection
+	HeaderSection
+		ModuleName		MAC802_16J_PMPBS
+		ClassName		mac802_16j_PMPBS
+
+		NetType			Wireless
+		GroupName		WiMAX
+		AllowGroup		XXXXX
+		PortsNum		MultiPort
+	
+		Version			MAC802_16J_BS
+		Author			NCTU_NSL
+		CreateDate		04/28/09
+		Introduction		"MAC802_16J_PMPBS"
+	
+		Parameter		macaddr		0:0:0:0:0:$NID$		autogendonotsave
+		Parameter		LinkMode	Auto	 		local
+		Parameter		BSCfgFile	$CASE$.mobilerelaywimax_cfg	autogendonotsave
+		Parameter		CSTYPE		IPv4			local
+		Parameter		NBRBSCfgFile	$CASE$.mr_nbrbs_list	autogendonotsave
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption		"Parameters Setting"
+		FrameSize	250 100
+
+		Begin TEXTLINE      macaddr
+			Caption		"Mac Address "
+			Scale		10 24 220 28
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		    
+			Type		MAC
+			Comment		""
+		End
+
+		Begin COMBOBOX          LinkMode
+                        Caption         "Link Mode "
+                        Scale           0 0 0 0
+                        ActiveOn        MODE_EDIT
+                        Enabled         TRUE
+
+                        Value           "Auto" "Manual"
+                        Comment         "Link Mode"
+                End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		115 58 60 30
+			ActiveOn	MODE_EDIT
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		180 58 60 30
+			ActiveOn	MODE_EDIT
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption		""
+		FrameSize       0 0
+    
+	EndExportSection
+EndModuleSection
+

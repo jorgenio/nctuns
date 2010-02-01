@@ -1,0 +1,51 @@
+ModuleSection
+
+	HeaderSection
+
+		ModuleName	        MeshARP
+		ClassName		sw
+
+		NetType			Wire/Wireless
+		GroupName		MeshARP
+		PortsNum		MultiPort
+
+		Version			SIMPLE-WMR_001
+		Author			NCTU_NSL
+		CreateDate		6/23/05
+		Introduction		"This is a wmr module."
+		Parameter		ip	0.0.0.0			autogen
+		Parameter		mac	0:0:0:0:0:0		autogen
+
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Router Information"
+		FrameSize		250 90
+
+		Begin TEXTLINE		ip
+			Caption		"IP Address"
+			Scale		10 18 220 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		IP
+			Comment		"IP address"
+		End
+
+		Begin TEXTLINE		mac
+			Caption		"MAC Address"
+			Scale		10 48 220 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		MAC
+			Comment		"MAC address"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

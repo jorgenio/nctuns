@@ -1,0 +1,46 @@
+ModuleSection
+	HeaderSection
+		ModuleName		RCS_MAC_NCC
+		ClassName		Rcs_mac_spncc
+
+		NetType			Wire/Wireless
+		GroupName		RET
+		AllowGroup		"FIFO  ARP  MAC  PHY  Link"
+		PortsNum		SinglePort
+
+		Version			interface_001
+		Author			NCTU_NSL
+		CreateDate		2/26/02
+		Introduction		"This is RCS_MAC_NCC module"
+
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"RCST Parameters Setting"
+		FrameSize		310 53
+
+		Begin LABEL		l_ss
+			Caption		"There is no parameter to set here."
+			Scale		10 15 280 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		240 15 60 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		ok
+			Comment		"OK Button"
+		End
+
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

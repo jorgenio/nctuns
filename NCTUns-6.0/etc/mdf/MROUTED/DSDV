@@ -1,0 +1,79 @@
+ModuleSection
+	HeaderSection
+		ModuleName	 	DSDV
+		ClassName	 	DSDVd
+
+		NetType			Wireless
+		GroupName		MROUTED
+		PortsNum		SinglePort
+
+		Version			DSDV_001
+		Author			NCTU_NSL
+		CreateDate		2/26/02
+		Introduction		"This is a DSDV module."
+
+		Parameter		adv_interval	1000	local
+		Parameter		expire_timeout	3000	local
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parameters Setting"
+		FrameSize		300 90
+
+		Begin TEXTLINE		adv_interval
+			Caption		"Advertisement Interval "
+			Scale		10 18 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type	 	INT
+			Comment		""
+		End
+
+		Begin LABEL             l_adv_interval
+                	Caption         "(ms)"
+                	Scale           185 18 30 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin TEXTLINE		expire_timeout
+			Caption		"Expire Timeout "
+			Scale		10 48 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL             l_expire_timeout
+                	Caption         "(ms)"
+                	Scale           185 48 30 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		230 17 60 30
+			ActiveOn	MODE_EDIT
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		230 49 60 30
+			ActiveOn	MODE_EDIT
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

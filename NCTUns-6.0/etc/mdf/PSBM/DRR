@@ -1,0 +1,181 @@
+ModuleSection
+	HeaderSection
+		ModuleName		DRR
+		ClassName	 	drr
+
+		NetType			Wire/Wireless
+		GroupName		PSBM
+		PortsNum		SinglePort
+
+		Version			DRR_001
+		Author			NCTU_NSL
+		CreateDate		2/26/02
+		Introduction		"This is a DRR module."
+
+		Parameter		DrrMaxBufSpaceForAllFlows	200	local
+		Parameter		DrrMaxQueLenForEachFlow		50	local
+		Parameter		CreditAddedPerRound		1500	local
+		Parameter		s_mask		255.255.255.255	local
+		Parameter		d_mask		255.255.255.255	local
+		Parameter		protocol_field	on		local
+		Parameter		s_port_num	on		local
+		Parameter		d_port_num	on		local
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parameters Setting"
+		FrameSize		490 360
+
+		Begin TEXTLINE	 	DrrMaxBufSpaceForAllFlows
+			Caption		"Maximun Buffer Space for All Flows "
+			Scale		10 20 300 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_allflow
+			Caption		"(pkts)"
+			Scale		315 20 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin TEXTLINE	 	DrrMaxQueLenForEachFlow
+			Caption		"Maximun Queue Length for Each Flow "
+			Scale		10 55 300 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_eachflow
+			Caption		"(pkts)"
+			Scale		315 55 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin TEXTLINE	 	CreditAddedPerRound
+			Caption		"Credit Added per Round "
+			Scale		10 90 300 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_credit
+			Caption		"(bytes)"
+			Scale		315 90 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin GROUP		g_1
+			Caption		"Flow Classification"
+			Scale		10 140 340 200
+			ActiveOn	MODE_EDIT
+			Enabled	   	TRUE
+
+			Begin TEXTLINE		s_mask
+				Caption		"Source IP address mask "
+				Scale		10 20 300 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Type	 	STRING
+				Comment		""
+			End
+
+			Begin TEXTLINE		d_mask
+				Caption		"Destination IP address mask "
+				Scale		10 55 300 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Type		STRING
+				Comment		""
+
+			End
+
+			Begin CHECKBOX		protocol_field
+				Caption		"Examine the protocol field"
+				Scale		10 90 300 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Option		"TRUE"
+                		OptValue        "on"
+				EndOption
+
+				Option		"FALSE"
+                		OptValue        "off"
+				EndOption
+
+				Comment		""
+			End
+
+			Begin CHECKBOX	 	s_port_num
+				Caption		"Examine the source port number"
+				Scale		10 125 300 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Option		"TRUE"
+                		OptValue        "on"
+				EndOption
+
+				Option		"FALSE"
+        	        	OptValue        "off"
+				EndOption
+
+				Comment		""
+			End
+
+			Begin CHECKBOX		d_port_num
+				Caption		"Examine the destination port number"
+				Scale		10 160 300 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Option		"TRUE"
+                		OptValue        "on"
+				EndOption
+
+				Option		"FALSE"
+                		OptValue        "off"
+				EndOption
+
+				Comment		""
+			End
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		380 20 90 30
+			ActiveOn	MODE_EDIT
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		380 52 90 30
+			ActiveOn	MODE_EDIT
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

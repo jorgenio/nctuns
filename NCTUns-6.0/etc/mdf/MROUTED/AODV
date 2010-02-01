@@ -1,0 +1,198 @@
+ModuleSection
+	HeaderSection
+		ModuleName		AODV
+		ClassName	 	AODV
+
+		NetType			Wireless
+		GroupName		MROUTED
+		PortsNum		SinglePort
+
+		Version			AODV_001
+		Author			NCTU_NSL
+		CreateDate		2/26/02
+		Introduction		"This is an AODV module."
+
+		Parameter		HELLO_INTERVAL		1000	local
+		Parameter		ALLOWED_HELLO_LOSS	2	local
+		Parameter		ACTIVE_ROUTE_TIMEOUT	3000	local
+		Parameter		DELETE_PERIOD		3000	local
+		Parameter		NET_DIAMETER		15	local
+		Parameter		NODE_TRAVERSAL_TIME	40	local
+		Parameter		RREQ_RETRIES		5	local
+		Parameter		RREQ_RATELIMIT		10	local
+		Parameter		RERR_RATELIMIT		10	local
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parameters Setting"
+		FrameSize		350 300
+
+		Begin TEXTLINE		HELLO_INTERVAL
+			Caption		"Hello Interval             "
+			Scale		10 18 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type	 	INT
+			Comment		""
+		End
+
+		Begin LABEL             l_HELLO_INTERVAL
+                	Caption         "(ms)"
+                	Scale           215 18 30 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin TEXTLINE		ALLOWED_HELLO_LOSS
+			Caption		"Allow Hello Loss        "
+			Scale		10 48 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL             l_ALLOWED_HELLO_LOSS
+                	Caption         "(pkts)"
+                	Scale           215 48 40 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin TEXTLINE		ACTIVE_ROUTE_TIMEOUT
+			Caption		"Active Route Timeout "
+			Scale		10 78 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type	 	INT
+			Comment		""
+		End
+
+		Begin LABEL             l_ACTIVE_ROUTE_TIMEOUT
+                	Caption         "(ms)"
+                	Scale           215 78 30 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin TEXTLINE		DELETE_PERIOD
+			Caption		"Delete Retry Interval   "
+			Scale		10 108 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL             l_DELETE_PERIOD
+                	Caption         "(ms)"
+                	Scale           215 108 30 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin TEXTLINE		NET_DIAMETER
+			Caption		"Net Diameter              "
+			Scale		10 138 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL             l_NET_DIAMETER
+                	Caption         "(hops)"
+                	Scale           215 138 40 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin TEXTLINE		NODE_TRAVERSAL_TIME
+			Caption		"Node Traversal Time   "
+			Scale		10 168 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL             l_NODE_TRAVERSAL_TIME
+                	Caption         "(ms)"
+                	Scale           215 168 30 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin TEXTLINE		RREQ_RETRIES
+			Caption		"RREQ Retry Times     "
+			Scale		10 198 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin TEXTLINE		RREQ_RATELIMIT
+			Caption		"RREQ Rate Limit        "
+			Scale		10 228 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL             l_RREQ_RATELIMIT
+                	Caption         "(pkts/sec)"
+                	Scale           215 228 60 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin TEXTLINE		RERR_RATELIMIT
+			Caption		"RERR Rate Limit        "
+			Scale		10 258 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL             l_RERR_RATELIMIT
+                	Caption         "(pkts/sec)"
+                	Scale           215 258 60 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		270 21 60 30
+			ActiveOn	MODE_EDIT
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		270 53 60 30
+			ActiveOn	MODE_EDIT
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

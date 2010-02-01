@@ -1,0 +1,111 @@
+ModuleSection
+	HeaderSection
+		ModuleName		PseudoIf
+		ClassName		PseudoIf
+
+		NetType			Wire/Wireless
+		GroupName		PSEUDOIF
+		PortsNum		SinglePort
+
+		Version			PseudoIf_001
+		Author			NCTU_NSL
+		CreateDate		2/18/09
+		Introduction		"The PseudoIf Module is a bridge connects node module and network protocol module. If the packet needs to be passed to node module (which simulates large scale nodes), this module will sends it to node module (not sends to kernel)."
+
+		Parameter		ip	0.0.0.0				autogen
+		Parameter		netmask	255.255.255.0			local
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parameters Setting"
+		FrameSize		420 230
+
+
+		Begin TEXTLINE		ip
+			Caption		"IP Address "
+			Scale		10 18 320 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		IP
+			Comment		"IP address"
+		End
+
+		Begin TEXTLINE		netmask
+			Caption		"Netmask "
+			Scale		10 48 320 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		IP
+			Comment		"netmask"
+
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		350 17 60 30
+			ActiveOn	MODE_EDIT
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		350 49 60 30
+			ActiveOn	MODE_EDIT
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+
+
+		Begin LABEL		pif_comm_l0
+			Caption		"Note: "
+			Scale		10 98 380 30
+			ActiveOn	MODE__EDIT
+			Enabled		TRUE
+			Comment		""
+		End
+
+		Begin LABEL		pif_comm_l1
+			Caption		"The driving behavior of this type of car is"
+			Scale		20 128 380 20
+			ActiveOn	MODE__EDIT
+			Enabled		TRUE
+			Comment		""
+		End
+
+		Begin LABEL		pif_comm_l2
+			Caption		"controlled by the code in the node module,"
+			Scale		20 148 380 20
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+			Comment		""
+		End
+
+
+		Begin LABEL		pif_comm_l3
+			Caption		"which is located at: "
+			Scale		20 168 380 20
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+			Comment		""
+		End
+
+		Begin LABEL		pif_comm_l4
+			Caption		"NCTUns-6.0/src/nctuns/module/nctuns-dep/node.cpp."
+			Scale		30 198 380 20
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+			Comment		""
+		End
+
+
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

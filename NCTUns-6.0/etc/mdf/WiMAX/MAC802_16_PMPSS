@@ -1,0 +1,58 @@
+ModuleSection
+	HeaderSection
+		ModuleName		MAC802_16_PMPSS
+		ClassName		mac802_16_PMPSS
+
+		NetType			Wireless
+		GroupName		WiMax
+		AllowGroup		XXXXX
+		PortsNum		MultiPort
+	
+		Version			MAC802_16_SS_002
+		Author			NCTU_NSL
+		CreateDate		12/28/05
+		Introduction		"MAC802_16_SS"
+	
+		Parameter		macaddr		0:0:0:0:0:$NID$		autogendonotsave
+	EndHeaderSection
+
+	InitVariableSection
+		Caption		"Parameter Setting for IEEE 802.16 PMP Mode MAC Module. (Subscribe Station Part)"
+		FrameSize	600 100
+
+		Begin TEXTLINE      macaddr
+			Caption		"Mac Address "
+			Scale		10 20 190 40
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		    
+			Type		MAC
+			Comment		""
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		520 20 60 30
+			ActiveOn	MODE_EDIT
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		520 52 60 30
+			ActiveOn	MODE_EDIT
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption		""
+		FrameSize       0 0
+    
+	EndExportSection
+EndModuleSection
+

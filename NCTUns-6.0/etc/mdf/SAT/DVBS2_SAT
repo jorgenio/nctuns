@@ -1,0 +1,293 @@
+ModuleSection
+	HeaderSection
+		ModuleName		DVBS2_SAT
+		ClassName		Dvbs2_sat
+
+		NetType			Wire/Wireless
+		GroupName		DVBS2_Sat
+		AllowGroup		"FIFO  ARP  MAC  PHY  Link"
+		PortsNum		SinglePort
+
+		Version			interface_001
+		Author			NCTU_NSL
+		CreateDate		2/26/02
+		Introduction		"This is DVBS2_Sat module"
+
+		Parameter 		tx_fwd_Power			10	local
+		Parameter 		tx_fwd_SatAnteLength 		0.8	local
+		Parameter 		tx_fwd_SatAnteEfficient		0.55	local
+		Parameter 		rx_fwd_SatAnteLength 		0.8	local
+		Parameter 		rx_fwd_SatAnteEfficient 	0.51	local
+
+		Parameter 		tx_ret_Power			10	local
+		Parameter 		tx_ret_SatAnteLength 		0.8	local
+		Parameter 		tx_ret_SatAnteEfficient 	0.55	local
+		Parameter 		rx_ret_SatAnteLength 		0.8	local
+		Parameter 		rx_ret_SatAnteEfficient 	0.51	local
+                Parameter               linkfail                off             local
+                Parameter               linkfailFileName        $CASE$.Dvbs2_sat_N$NID$_P$PID$.linkfail autogendonotsave
+
+
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parameters Setting"
+		FrameSize		760 390
+
+		Begin GROUP		Forward_Link
+			Caption		"Forward Link"
+			Scale		15 18 360 250
+			ActiveOn	MODE_EDIT
+			Enabled	   	TRUE
+
+			Begin GROUP		TX
+				Caption		"TX"
+				Scale		20 23 330 115
+				ActiveOn	MODE_EDIT
+				Enabled	   	TRUE
+
+				Begin TEXTLINE		tx_fwd_Power
+				Caption		"Forward Power "
+				Scale		15 20 260 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Type		FLOAT
+				Comment		"Tx_Fwd_Power"
+				End
+
+				Begin LABEL		l_W
+				Caption		"(W)"
+				Scale		285 20 40 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+				End
+
+				Begin TEXTLINE		tx_fwd_SatAnteLength
+				Caption		"Forward SAT Antenna Length "
+				Scale		15 50 260 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Type		FLOAT
+				Comment		"Tx_Fwd_SatAnteLength"
+				End
+
+				Begin LABEL		1_m
+				Caption		"(m)"
+				Scale		285 50 40 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+				End
+
+				Begin TEXTLINE		tx_fwd_SatAnteEfficient
+				Caption		"Forward SAT Antenna Efficiency "
+				Scale		15 80 260 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Type		FLOAT
+				Comment		"Tx_Fwd_SatAnteEfficient"
+				End
+			End
+
+			Begin GROUP		RX
+				Caption		"RX"
+				Scale		20 150 330 90
+				ActiveOn	MODE_EDIT
+				Enabled	   	TRUE
+
+				Begin TEXTLINE		rx_fwd_SatAnteLength
+					Caption		"Forward SAT Antenna Length "
+					Scale		15 20 260 30
+					ActiveOn	MODE_EDIT
+					Enabled		TRUE
+
+					Type		FLOAT
+					Comment		"Rx_Fwd_SatAnteLength"
+				End
+
+				Begin LABEL		2_m
+					Caption		"(m)"
+					Scale		285 20 40 30
+					ActiveOn	MODE_EDIT
+					Enabled		TRUE
+				End
+
+				Begin TEXTLINE		rx_fwd_SatAnteEfficient
+					Caption		"Forward SAT Antenna Efficiency "
+					Scale		15 50 260 30
+					ActiveOn	MODE_EDIT
+					Enabled		TRUE
+
+					Type		FLOAT
+					Comment		"Rx_Fwd_SatAnteEfficient"
+				End
+
+
+			End
+
+		End
+
+		Begin GROUP		Return_Link
+			Caption		"Return Link"
+			Scale		385 18 360 250
+			ActiveOn	MODE_EDIT
+			Enabled	   	TRUE
+
+			Begin GROUP		TX
+				Caption		"TX"
+				Scale		20 23 330 115
+				ActiveOn	MODE_EDIT
+				Enabled	   	TRUE
+
+				Begin TEXTLINE		tx_ret_Power
+				Caption		"Return Power "
+				Scale		15 20 260 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Type		FLOAT
+				Comment		"Tx_Fwd_Power"
+				End
+
+				Begin LABEL		l_W
+				Caption		"(W)"
+				Scale		285 20 40 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+				End
+
+				Begin TEXTLINE		tx_ret_SatAnteLength
+				Caption		"Return SAT Antenna Length "
+				Scale		15 50 260 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Type		FLOAT
+				Comment		"Tx_Fwd_SatAnteLength"
+				End
+
+				Begin LABEL		1_m
+				Caption		"(m)"
+				Scale		285 50 40 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+				End
+
+				Begin TEXTLINE		tx_ret_SatAnteEfficient
+				Caption		"Return SAT Antenna Efficiency "
+				Scale		15 80 260 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Type		FLOAT
+				Comment		"Tx_Fwd_SatAnteEfficient"
+				End
+			End
+
+			Begin GROUP		RX
+				Caption		"RX"
+				Scale		20 150 330 90
+				ActiveOn	MODE_EDIT
+				Enabled	   	TRUE
+
+				Begin TEXTLINE		rx_ret_SatAnteLength
+					Caption		"Return SAT Antenna Length "
+					Scale		15 20 260 30
+					ActiveOn	MODE_EDIT
+					Enabled		TRUE
+
+					Type		FLOAT
+					Comment		"Rx_Fwd_SatAnteLength"
+				End
+
+				Begin LABEL		2_m
+					Caption		"(m)"
+					Scale		285 20 40 30
+					ActiveOn	MODE_EDIT
+					Enabled		TRUE
+				End
+
+				Begin TEXTLINE		rx_ret_SatAnteEfficient
+					Caption		"Return SAT Antenna Efficiency "
+					Scale		15 50 260 30
+					ActiveOn	MODE_EDIT
+					Enabled		TRUE
+
+					Type		FLOAT
+					Comment		"Rx_Fwd_SatAnteEfficient"
+				End
+
+
+			End
+
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		670 307 60 30
+			ActiveOn	MODE_EDIT
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		670 339 60 30
+			ActiveOn	MODE_EDIT
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+
+                Begin CHECKBOX          linkfail
+                        Caption         "Link Failure"
+                        Scale           10 278 190 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         TRUE
+
+                        Option          "TRUE"
+                        OptValue        "on"
+                                        Enable  iv_dt
+                                        Enable  linkfailFileName
+                        EndOption
+                        Option          "FALSE"
+                        OptValue        "off"
+                                        Disable iv_dt
+                                        Disable linkfailFileName
+                        EndOption
+
+                        Comment         "link failure"
+                End
+
+                Begin INTERACTIONVIEW   iv_dt
+                        Caption         "See Down Time Setting"
+                        Scale           32 308 249 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         FALSE
+
+                        Action          FUNC
+                        ActionFunc      "phy"
+
+                        Fields          "Start(s)" "End(s)"
+                        Comment         ""
+                End
+
+                Begin TEXTLINE          linkfailFileName
+                        Caption         "File Name "
+                        Scale           32 343 249 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         FALSE
+
+                        Type            STRING
+                        Comment         "link down time file name"
+                End
+
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

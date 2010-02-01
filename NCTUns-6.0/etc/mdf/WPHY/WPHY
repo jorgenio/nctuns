@@ -1,0 +1,783 @@
+ModuleSection
+
+	HeaderSection
+
+		ModuleName	        Wphy	
+		ClassName		wphy
+
+		NetType			Wireless
+		GroupName		WPHY
+		PortsNum		MultiPort
+
+		Version			WIRELESS-PHY_001
+		Author			NCTU_NSL
+		CreateDate		2/27/02
+		Introduction		"The SIMPLE-PHY module is used to simulate the physical layer. This physical layer is a air medium.The power-level  bit error and node location.. etc  will be simualted in this module."
+
+		Parameter		BeamWidth	360	local
+		Parameter		PointingDirection	0.0	local
+		Parameter		AngularSpeed	0.0	local
+
+		Parameter  		Bw		11	local
+		Parameter		channel		3	local
+		Parameter		freq		2400	local
+		Parameter		TransPower	15	local
+		Parameter		CSThresh	-87.57	local
+		Parameter		RXThresh	-73.75	local
+		Parameter		Gain		1.0	local
+		Parameter		BER		0.0     local
+		Parameter		log		off	local
+		Parameter		logInterval	1000	local
+		Parameter		inOpt		off	local
+		Parameter		outOpt		off	local
+		Parameter		inoutOpt	off	local
+        	Parameter               logInFileName $CASE$.wphy_N$NID$_P$PID$_inThrput.log autogendonotsave
+        	Parameter               logOutFileName $CASE$.wphy_N$NID$_P$PID$_outThrput.log autogendonotsave
+        	Parameter               logInOutFileName $CASE$.wphy_N$NID$_P$PID$_inoutThrput.log autogendonotsave
+		Parameter		linkfail	off	local
+		Parameter		linkfailFileName $CASE$.wphy_N$NID$_P$PID$.linkfail autogendonotsave
+
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption			"Parameters Setting"
+		FrameSize		675 405 
+
+		Begin GROUP		g_antenna
+			Caption		"Antenna"
+			Scale		10 30 295 112 
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Begin TEXTLINE		BeamWidth
+				Caption		"3dB Beamwidth"
+				Scale		10 15 180 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE	
+
+				Type		FLOAT	
+				Comment		""
+			End
+
+			Begin LABEL		l_m1
+				Caption		"degrees"
+				Scale		195 15 90 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+			End
+
+			Begin TEXTLINE		PointingDirection
+				Caption		"Pointing Direction"
+				Scale		10 45 180 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE	
+
+				Type		FLOAT	
+				Comment		""
+			End
+
+			Begin LABEL		l_m1
+				Caption		"degree"
+				Scale		195 45 90 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+			End
+
+			Begin TEXTLINE		AngularSpeed
+				Caption		"Angular Speed"
+				Scale		10 75 180 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE	
+
+				Type		FLOAT	
+				Comment		""
+			End
+
+			Begin LABEL		l_m1
+				Caption		"degree/sec"
+				Scale		195 75 90 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+			End
+
+		End
+
+		Begin TEXTLINE		Bw
+			Caption		"Link Bandwidth (Mbps) "
+			Scale		10 150 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE	
+
+			Type		INT
+			Comment		"link bandwidth"
+		End
+
+		Begin COMBOBOX		channel
+			Caption		"Frequency Channel "
+			Scale		10 180 180 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Value		"1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13"
+			Comment		"channel number"
+		End
+
+		Begin TEXTLINE		BER
+			Caption		"Bit Error Rate "
+			Scale		10 210 150 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE	
+
+			Type		FLOAT	
+			Comment		"bit error rate"
+		End
+
+	        Begin TEXTLINE  freq
+        		Caption     "Frequency (MHz) "
+            		Scale       10 240 275 28
+            		ActiveOn    MODE_EDIT
+            		Enabled     TRUE
+
+            		Type        INT
+            		Comment     ""
+        	End
+
+        	Begin TEXTLINE  TransPower
+            		Caption     "Transmission Power (dbm) "
+           		Scale       10 270 275 28
+            		ActiveOn    MODE_EDIT
+            		Enabled     TRUE
+
+            		Type        INT
+            		Comment     ""
+        	End
+
+        	Begin TEXTLINE  CSThresh 
+            		Caption     "Carrier Sense Threshold (dbm) "
+            		Scale       10 300 275 28
+            		ActiveOn    MODE_EDIT
+            		Enabled     TRUE
+
+            		Type        INT
+            		Comment     ""
+        	End
+
+        	Begin TEXTLINE  Gain 
+		        Caption     "Antenna Gain (dbi) "
+            		Scale       10 330 275 28
+            		ActiveOn    MODE_EDIT
+           		Enabled     TRUE
+
+            		Type        INT
+            		Comment     ""
+        	End
+
+        	Begin CHECKBOX          log
+                	Caption         "Log Link Utilization"
+                	Scale           310 30 250 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+
+			Option          "TRUE"
+        		OptValue	"on"	
+		                        Enable	g_flow
+					Enable	inOpt
+					Enable	outOpt
+					Enable	inoutOpt
+					Enable	logInterval
+					Enable	l_ms1
+					Enable	logFileName
+                	EndOption
+
+			Option          "FALSE"
+        				"off"
+		                        Disable g_flow
+					Disable	inOpt
+					Disable	outOpt
+					Disable	inoutOpt
+					Disable	logInterval
+        				Disable	l_ms1
+					Disable	logFileName
+		        EndOption
+
+        	        Comment         "Flow Monitoring"
+		End
+
+		Begin TEXTLINE          logInterval
+                	Caption         "Log Time Interval "
+                	Scale           332 60 180 30
+                	ActiveOn        MODE_EDIT
+			Enabled		FALSE	
+
+                	Type            INT
+                	Comment         "log time interval"
+		End
+
+		Begin LABEL		l_ms1
+			Caption		"(ms)"
+			Scale		517 60 30 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE	
+		End
+
+		Begin GROUP             g_flow
+                	Caption         ""
+                	Scale           332 90 325 180 
+                	ActiveOn        MODE_EDIT
+			Enabled		FALSE	
+
+			Begin CHECKBOX          inOpt
+        	                Caption         "Incoming Traffic (KB/sec)"
+                	        Scale           10 5 245 30
+                        	ActiveOn        MOED_EDIT
+				Enabled		FALSE	
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable logInFileName
+				EndOption
+
+				Option		"FALSE"
+				OptValue	"off"
+						Disable logInFileName
+				EndOption
+
+        	                Comment         "summarize inOpt flow"
+			End
+
+			Begin TEXTLINE          logInFileName
+       		         	Caption         "Log File Name "
+                		Scale           32 30 270 30
+                		ActiveOn        MODE_EDIT
+				Enabled		FALSE	
+
+                		Type           	STRING 
+                		Comment         ""
+			End
+
+			Begin CHECKBOX          outOpt
+        	                Caption         "Outgoing Traffic (KB/sec)"
+				Scale           10 60 245 30
+                        	ActiveOn        MODE_EDIT
+				Enabled		FALSE	
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable logOutFileName
+				EndOption
+
+				Option		"FALSE"
+				OptValue	"off"
+						Disable logOutFileName
+				EndOption
+
+                        	Comment         "summarize outOpt flow"
+                	End
+
+			Begin TEXTLINE          logOutFileName
+       		         	Caption         "Log File Name "
+                		Scale           32 85 270 30
+                		ActiveOn        MODE_EDIT
+				Enabled		FALSE	
+
+                		Type           	STRING 
+                		Comment         ""
+			End
+
+                	Begin CHECKBOX          inoutOpt
+                        	Caption         "Incoming And Outgoing Traffic (KB/sec)"
+                        	Scale           10 115 245 30
+                        	ActiveOn        MODE_EDIT
+				Enabled		FALSE	
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable logInOutFileName
+				EndOption
+
+				Option		"FALSE"
+				OptValue	"off"
+						Disable logInOutFileName
+				EndOption
+
+                        	Comment         "summarize inoutOpt flow"
+			End
+
+			Begin TEXTLINE          logInOutFileName
+       		         	Caption         "Log File Name "
+                		Scale           32 140 270 30
+                		ActiveOn        MODE_EDIT
+				Enabled		FALSE	
+
+                		Type           	STRING 
+                		Comment         ""
+			End
+		End
+
+		Begin CHECKBOX	 	linkfail
+			Caption		"Link Failure"
+			Scale		310 275 160 30 
+			ActiveOn	MODE_EDIT
+			Enabled	 	TRUE	
+
+			Option		"TRUE"
+			OptValue	"on"
+					Enable	iv_dt
+					Enable	linkfailFileName
+			EndOption
+			Option		"FALSE"
+			OptValue	"off"
+					Disable	iv_dt
+				 	Disable	linkfailFileName	
+			EndOption	
+
+			Comment		"link failure"
+		End
+
+		Begin INTERACTIONVIEW	iv_dt
+			Caption		"See Down Time Setting"
+			Scale		332 305 249 30
+			ActiveOn	MODE_EDIT
+			Enabled	 	FALSE	
+
+			Action		FUNC
+			ActionFunc	"phy"
+
+			Fields		"Start(s)" "End(s)"
+			Comment		""
+		End
+
+		Begin TEXTLINE		linkfailFileName
+			Caption		"File Name "
+			Scale		332 340 249 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type	 	STRING	
+			Comment		"link down time file name"
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		10 360 90 30 
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		120 360 90 30 
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+
+
+ModuleSection
+
+	HeaderSection
+
+		ModuleName	        AWphy	
+		ClassName		awphy
+
+		NetType			Wireless
+		GroupName		WPHY
+		PortsNum		MultiPort
+
+		Version			WIRELESS-PHY_001
+		Author			NCTU_NSL
+		CreateDate		2/13/03
+		Introduction		"The Advanced WPHY module is used to simulate a more realistic wireless interface."
+
+		Parameter		BeamWidth	360	local
+		Parameter		PointingDirection	90.0	local
+		Parameter		AngularSpeed	0.0	local
+
+		Parameter  		Bw		11	local
+		Parameter		Advance		true	local
+		Parameter		freq		2400	local
+		Parameter		channel		3	local
+		Parameter		Noise		0.0	local
+		Parameter		TransPower	15	local
+		Parameter		Gain		1.0	local
+		Parameter		CSThresh	-87.57	local
+		Parameter		log		off	local
+		Parameter		logInterval	1000	local
+		Parameter		inOpt		off	local
+		Parameter		outOpt		off	local
+		Parameter		inoutOpt	off	local
+        	Parameter               logInFileName $CASE$.awphy_N$NID$_P$PID$_inThrput.log autogendonotsave
+        	Parameter               logOutFileName $CASE$.awphy_N$NID$_P$PID$_outThrput.log autogendonotsave
+        	Parameter               logInOutFileName $CASE$.awphy_N$NID$_P$PID$_inoutThrput.log autogendonotsave
+		Parameter		linkfail	off	local
+		Parameter		linkfailFileName $CASE$.awphy_N$NID$_P$PID$.linkfail autogendonotsave
+
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption			"Parameters Setting"
+		FrameSize		775 420 
+
+		Begin GROUP		g_antenna
+			Caption		"Antenna"
+			Scale		10 30 295 112 
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Begin TEXTLINE		BeamWidth
+				Caption		"3dB Beamwidth "
+				Scale		10 15 180 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE	
+
+				Type		FLOAT	
+				Comment		""
+			End
+
+			Begin LABEL		l_m1
+				Caption		"degrees"
+				Scale		195 15 90 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+			End
+
+			Begin TEXTLINE		PointingDirection
+				Caption		"Pointing Direction "
+				Scale		10 45 180 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE	
+
+				Type		FLOAT	
+				Comment		""
+			End
+
+			Begin LABEL		l_m1
+				Caption		"degree"
+				Scale		195 45 90 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+			End
+
+			Begin TEXTLINE		AngularSpeed
+				Caption		"Angular Speed "
+				Scale		10 75 180 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE	
+
+				Type		FLOAT	
+				Comment		""
+			End
+
+			Begin LABEL		l_m1
+				Caption		"degree/sec"
+				Scale		195 75 90 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+			End
+		End
+
+		Begin COMBOBOX		Bw
+			Caption		"Link Bandwidth (Mbps) "
+			Scale		10 150 230 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE	
+
+			Value		"11" "5.5" "2" "1"
+			Type		FLOAT
+			Comment		"link bandwidth"
+		End
+
+		Begin COMBOBOX		channel	
+			Caption		"Frequency Channel "
+			Scale		10 180 190 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Value		"1" "2" "3" "4" "5" "6" "7" "8" "9" "10" "11" "12" "13"
+			Comment		"channel number"
+		End
+
+	        Begin TEXTLINE  freq
+        		Caption     "Frequency (MHz) "
+            		Scale       10 210 275 28
+            		ActiveOn    MODE_EDIT
+            		Enabled     TRUE
+
+            		Type        INT
+            		Comment     ""
+        	End
+
+		Begin TEXTLINE		Noise	
+			Caption		"Additional Noise (dbm) "
+			Scale		10 240 270 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE	
+
+			Type		FLOAT	
+			Comment		"noise"
+		End
+
+		Begin TEXTLINE		TransPower
+			Caption		"Transmit Power (dbm) "
+			Scale		10 270 270 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE	
+
+			Type		FLOAT	
+			Comment		""
+		End
+
+		Begin TEXTLINE		CSThresh	
+			Caption		"Carrier Sense Threshold (dbm) "
+			Scale		10 300 270 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE	
+
+			Type		FLOAT	
+			Comment		""
+		End
+
+        	Begin TEXTLINE  Gain 
+		        Caption     "Antenna Gain (dbi) "
+            		Scale       10 330 275 28
+            		ActiveOn    MODE_EDIT
+           		Enabled     TRUE
+
+            		Type        INT
+            		Comment     ""
+        	End
+
+        	Begin CHECKBOX          log
+                	Caption         "Log Link Utilization"
+                	Scale           410 30 250 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+
+			Option          "TRUE"
+        		OptValue	"on"	
+		                        Enable	g_flow
+					Enable	inOpt
+					Enable	outOpt
+					Enable	inoutOpt
+					Enable	logInterval
+					Enable	l_ms1
+					Enable	logFileName
+                	EndOption
+
+			Option          "FALSE"
+        				"off"
+		                        Disable g_flow
+					Disable	inOpt
+					Disable	outOpt
+					Disable	inoutOpt
+					Disable	logInterval
+        				Disable	l_ms1
+					Disable	logFileName
+		        EndOption
+
+        	        Comment         "Flow Monitoring"
+		End
+
+		Begin TEXTLINE          logInterval
+                	Caption         "Log Time Interval "
+                	Scale           432 60 180 30
+                	ActiveOn        MODE_EDIT
+			Enabled		FALSE	
+
+                	Type            INT
+                	Comment         "log time interval"
+		End
+
+		Begin LABEL		l_ms1
+			Caption		"(ms)"
+			Scale		617 60 30 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE	
+		End
+
+		Begin GROUP             g_flow
+                	Caption         ""
+                	Scale           432 90 325 180 
+                	ActiveOn        MODE_EDIT
+			Enabled		FALSE	
+
+			Begin CHECKBOX          inOpt
+        	                Caption         "Incoming Traffic (KB/sec)"
+                	        Scale           10 5 245 30
+                        	ActiveOn        MOED_EDIT
+				Enabled		FALSE	
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable logInFileName
+				EndOption
+
+				Option		"FALSE"
+				OptValue	"off"
+						Disable logInFileName
+				EndOption
+
+        	                Comment         "summarize inOpt flow"
+			End
+
+			Begin TEXTLINE          logInFileName
+       		         	Caption         "Log File Name "
+                		Scale           32 30 270 30
+                		ActiveOn        MODE_EDIT
+				Enabled		FALSE	
+
+                		Type           	STRING 
+                		Comment         ""
+			End
+
+			Begin CHECKBOX          outOpt
+        	                Caption         "Outgoing Traffic (KB/sec)"
+				Scale           10 60 245 30
+                        	ActiveOn        MODE_EDIT
+				Enabled		FALSE	
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable logOutFileName
+				EndOption
+
+				Option		"FALSE"
+				OptValue	"off"
+						Disable logOutFileName
+				EndOption
+
+                        	Comment         "summarize outOpt flow"
+                	End
+
+			Begin TEXTLINE          logOutFileName
+       		         	Caption         "Log File Name "
+                		Scale           32 85 270 30
+                		ActiveOn        MODE_EDIT
+				Enabled		FALSE	
+
+                		Type           	STRING 
+                		Comment         ""
+			End
+
+                	Begin CHECKBOX          inoutOpt
+                        	Caption         "Incoming And Outgoing Traffic (KB/sec)"
+                        	Scale           10 115 245 30
+                        	ActiveOn        MODE_EDIT
+				Enabled		FALSE
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable logInOutFileName
+				EndOption
+
+				Option		"FALSE"
+				OptValue	"off"
+						Disable logInOutFileName
+				EndOption
+
+                        	Comment         "summarize inoutOpt flow"
+			End
+
+			Begin TEXTLINE          logInOutFileName
+       		         	Caption         "Log File Name "
+                		Scale           32 140 270 30
+                		ActiveOn        MODE_EDIT
+				Enabled		FALSE	
+
+                		Type           	STRING 
+                		Comment         ""
+			End
+		End
+
+		Begin CHECKBOX	 	linkfail
+			Caption		"Link Failure"
+			Scale		410 275 160 30 
+			ActiveOn	MODE_EDIT
+			Enabled	 	TRUE	
+
+			Option		"TRUE"
+			OptValue	"on"
+					Enable	iv_dt
+					Enable	linkfailFileName
+			EndOption
+			Option		"FALSE"
+			OptValue	"off"
+					Disable	iv_dt
+				 	Disable	linkfailFileName	
+			EndOption	
+
+			Comment		"link failure"
+		End
+
+		Begin INTERACTIONVIEW	iv_dt
+			Caption		"See Down Time Setting"
+			Scale		432 305 249 30
+			ActiveOn	MODE_EDIT
+			Enabled	 	FALSE	
+
+			Action		FUNC
+			ActionFunc	"phy"
+
+			Fields		"Start(s)" "End(s)"
+			Comment		""
+		End
+
+		Begin TEXTLINE		linkfailFileName
+			Caption		"File Name "
+			Scale		432 335 249 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type	 	STRING	
+			Comment		"link down time file name"
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		410 380 90 30 
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		570 380 90 30 
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+

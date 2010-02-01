@@ -1,0 +1,108 @@
+ModuleSection
+
+	HeaderSection
+
+		ModuleName		RadioLink
+		ClassName		radiolink
+
+		NetType			wireless
+		GroupName		GPRSRL
+		PortsNum		MultiPort
+
+		Version			GPRSRL_001
+		Author			NCTU_NSL
+		CreateDate		11/28/03
+		Introduction		"GPRS Radio Link Layer."
+
+		Parameter	freq		900	local
+		Parameter	CPThresh_	500	local
+		Parameter	CSThresh	-87.57	local
+		Parameter	TransPower	5	local
+		Parameter	BER		0	local
+		Parameter	Noise		0	local
+
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption         "Parameters Setting"
+        	FrameSize               350 120
+
+		Begin TEXTLINE		TransPower
+			Caption		"Transmit Power  "
+			Scale		10 23 180 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		DOUBLE
+			Comment		"Transmit Power"
+		End
+
+		Begin LABEL             hahatest
+			Caption		"dbm"
+                	Scale           200 23 50 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin TEXTLINE		Noise
+			Caption		"Surrounding Noise  "
+			Scale		10 53 180 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		DOUBLE
+			Comment		"Noise"
+		End
+
+		Begin LABEL             hahatest
+			Caption		"dbm"
+                	Scale           200 53 50 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin TEXTLINE  freq
+	                Caption     "Frequency  "
+	                Scale       10 83 180 30
+	                ActiveOn    MODE_EDIT
+	                Enabled     TRUE
+
+	                Type        INT
+			Comment     ""
+		End
+
+		Begin LABEL             hahatest
+			Caption		"MHz"
+                	Scale           200 83 50 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+		
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		280 17 60 30
+			ActiveOn	MODE_EDIT
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		280 49 60 30
+			ActiveOn	MODE_EDIT
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+

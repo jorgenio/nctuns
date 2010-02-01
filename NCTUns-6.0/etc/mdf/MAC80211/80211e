@@ -1,0 +1,493 @@
+ModuleSection
+
+	HeaderSection
+
+		ModuleName		80211e
+		ClassName		mac802_11e
+
+		NetType			Wireless
+		GroupName		MAC80211
+		PortsNum		SinglePort
+
+		Version			"IEEE 802-11e_001"
+		Author			NCTU_NSL
+		CreateDate		1/29/05
+		Introduction		"This module is used to simuate the IEEE 802.11e MAC protocol."
+
+		Parameter		mac		1:1:1:1:1:1	autogen
+		Parameter		PromisOpt	off		autogen
+		Parameter		QoS_Priority	0		local
+		Parameter		RTS_Threshold	3000		local
+		Parameter		log		off		local
+		Parameter		logInterval	1		local
+		Parameter		NumUniInPkt	off		local
+		Parameter		NumUniInOutPkt	off		local
+		Parameter		NumBroInPkt	off		local
+		Parameter		NumBroOutPkt	off		local
+		Parameter		NumBroInOutPkt	off		local
+		Parameter		NumCollision	off		local
+		Parameter		NumDrop		off		local
+		Parameter		InThrput	off		local
+		Parameter		OutThrput	off		local
+		Parameter		InOutThrput	off		local
+
+		Parameter		UniInLogFile	$CASE$.80211_N$NID$_P$PID$_UniIn.log autogendonotsave
+		Parameter		UniOutLogFile	$CASE$.80211_N$NID$_P$PID$_UniOut.log autogendonotsave
+		Parameter		UniInOutLogFile $CASE$.80211_N$NID$_P$PID$_UniInOut.log autogendonotsave
+		Parameter		BroInLogFile	$CASE$.80211_N$NID$_P$PID$_BroIn.log autogendonotsave
+		Parameter		BroOutLogFile	$CASE$.80211_N$NID$_P$PID$_BroOut.log autogendonotsave
+		Parameter		BroInOutLogFile $CASE$.80211_N$NID$_P$PID$_BroInOut.log autogendonotsave
+		Parameter		CollLogFile	$CASE$.80211_N$NID$_P$PID$_Coll.log autogendonotsave
+		Parameter		DropLogFile	$CASE$.80211_N$NID$_P$PID$_Drop.log autogendonotsave
+		Parameter		InThrputLogFile $CASE$.80211_N$NID$_P$PID$_InThrput.log autogendonotsave
+		Parameter		OutThrputLogFile $CASE$.80211_N$NID$_P$PID$_OutThrput.log autogendonotsave
+		Parameter		InOutThrputLogFile $CASE$.80211_N$NID$_P$PID$_InOutThrput.log autogendonotsave
+
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption			"Parameters Setting"
+		FrameSize		785 475
+
+		Begin TEXTLINE		mac
+			Caption		"Mac Address "
+			Scale		18 25 190 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		MAC
+			Comment		""
+		End
+
+		Begin TEXTLINE		RTS_Threshold
+			Caption		"RTS Threshold "
+			Scale		270 25 190 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_RTS_Threshold
+			Caption		"(bytes)"
+			Scale		470 25 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin COMBOBOX		QoS_Priority
+			Caption		"QoS Priority"
+			Scale		263 65 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Value		"0" "1" "2" "3" "4" "5" "6" "7"
+			Comment		"priority"
+		End
+
+		Begin CHECKBOX		log
+			Caption		"Log Packet Statistics"
+			Scale		10 65 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Option		"TRUE"
+			OptValue	"on"
+					Enable g_1
+					Enable logInterval
+					Enable l_usec
+					Enable NumUniInPkt
+					Enable NumUniOutPkt
+					Enable NumUniInOutPkt
+					Enable NumBroInPkt
+					Enable NumBroOutPkt
+					Enable NumBroInOutPkt
+					Enable NumCollision
+					Enable NumDrop
+					Enable InThrput
+					Enable OutThrput
+					Enable InOutThrput
+			EndOption
+			Option		"FALSE"
+			OptValue	"off"
+					Disable g_1
+					Disable logInterval
+					Disable l_usec
+					Disable NumUniInPkt
+					Disable NumUniOutPkt
+					Disable NumUniInOutPkt
+					Disable NumBroInPkt
+					Disable NumBroOutPkt
+					Disable NumBroInOutPkt
+					Disable NumCollision
+					Disable NumDrop
+					Disable InThrput
+					Disable OutThrput
+					Disable InOutThrput
+			EndOption
+
+			Comment		""
+		End
+
+		Begin TEXTLINE		logInterval
+			Caption		"Log Time Interval "
+			Scale		37 95 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_usec
+			Caption		"(sec)"
+			Scale		215 95 80 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin GROUP		g_1
+			Caption		""
+			Scale		37 135 725 320
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Begin CHECKBOX		NumUniInPkt
+				Caption		"Number Of Uni-cast Incoming Packets"
+				Scale		10 5 350 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable UniInLogFile
+				EndOption
+				Option		"FALSE"
+				OptValue	"off"
+						Disable UniInLogFile
+				EndOption
+
+				Comment		""
+			End
+
+			Begin TEXTLINE		UniInLogFile
+				Caption		"Log File Name "
+				Scale		37 30 300 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type		STRING
+				Comment		""
+			End
+
+			Begin CHECKBOX		NumUniOutPkt
+				Caption		"Number Of Uni-cast Outgoing Packets"
+				Scale		10 55 350 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable UniOutLogFile
+				EndOption
+				Option		"FALSE"
+				OptValue	"off"
+						Disable UniOutLogFile
+				EndOption
+
+				Comment		""
+			End
+
+			Begin TEXTLINE		UniOutLogFile
+				Caption		"Log File Name "
+				Scale		37 80 300 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type		STRING
+				Comment		""
+			End
+
+			Begin CHECKBOX		NumUniInOutPkt
+				Caption		"Number Of Uni-cast Incoming And Outgoing Packets"
+				Scale		10 105 350 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable UniInOutLogFile
+				EndOption
+				Option		"FALSE"
+				OptValue	"off"
+						Disable UniInOutLogFile
+				EndOption
+
+				Comment		""
+			End
+
+			Begin TEXTLINE		UniInOutLogFile
+				Caption		"Log File Name "
+				Scale		37 130 300 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type		STRING
+				Comment		""
+			End
+
+			Begin CHECKBOX		NumBroInPkt
+				Caption		"Number Of Broadcast Incoming Packets"
+				Scale		10 155 350 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable BroInLogFile
+				EndOption
+				Option		"FALSE"
+				OptValue	"off"
+						Disable BroInLogFile
+				EndOption
+
+				Comment		""
+			End
+
+			Begin TEXTLINE		BroInLogFile
+				Caption		"Log File Name "
+				Scale		37 180 300 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type		STRING
+				Comment		""
+			End
+
+			Begin CHECKBOX		NumBroOutPkt
+				Caption		"Number Of Broadcast Outgoing Packets"
+				Scale		10 205 350 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable BroOutLogFile
+				EndOption
+				Option		"FALSE"
+				OptValue	"off"
+						Disable BroOutLogFile
+				EndOption
+
+				Comment		""
+			End
+
+			Begin TEXTLINE		BroOutLogFile
+				Caption		"Log File Name "
+				Scale		37 230 300 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type		STRING
+				Comment		""
+			End
+
+			Begin CHECKBOX		NumBroInOutPkt
+				Caption		"Number Of Broadcast Incoming And Outgoing Packets"
+				Scale		10 255 350 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable BroInOutLogFile
+				EndOption
+				Option		"FALSE"
+				OptValue	"off"
+						Disable BroInOutLogFile
+				EndOption
+
+				Comment		""
+			End
+
+			Begin TEXTLINE		BroInOutLogFile
+				Caption		"Log File Name "
+				Scale		37 280 300 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type		STRING
+				Comment		""
+			End
+
+			Begin CHECKBOX		NumCollision
+				Caption		"Number Of Collision Packets"
+				Scale		355 5 350 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable CollLogFile
+				EndOption
+				Option		"FALSE"
+				OptValue	"off"
+						Disable CollLogFile
+				EndOption
+
+				Comment		""
+			End
+
+			Begin TEXTLINE		CollLogFile
+				Caption		"Log File Name "
+				Scale		382 30 300 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type		STRING
+				Comment		""
+			End
+
+			Begin CHECKBOX		NumDrop
+				Caption		"Number Of Drop Packets"
+				Scale		355 55 350 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable DropLogFile
+				EndOption
+				Option		"FALSE"
+				OptValue	"off"
+						Disable DropLogFile
+				EndOption
+
+				Comment		""
+			End
+
+			Begin TEXTLINE		DropLogFile
+				Caption		"Log File Name "
+				Scale		382 80 300 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type		STRING
+				Comment		""
+			End
+
+			Begin CHECKBOX		InThrput
+				Caption		"Throughput (KB/sec) of Incoming Packets"
+				Scale		355 105 350 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable InThrputLogFile
+				EndOption
+				Option		"FALSE"
+				OptValue	"off"
+						Disable InThrputLogFile
+				EndOption
+
+				Comment		""
+			End
+
+			Begin TEXTLINE		InThrputLogFile
+				Caption		"Log File Name "
+				Scale		382 130 300 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type		STRING
+				Comment		""
+			End
+
+			Begin CHECKBOX		OutThrput
+				Caption		"Throughput (KB/sec) of Outgoing Packets"
+				Scale		355 155 350 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable OutThrputLogFile
+				EndOption
+				Option		"FALSE"
+				OptValue	"off"
+						Disable OutThrputLogFile
+				EndOption
+
+				Comment		""
+			End
+
+			Begin TEXTLINE		OutThrputLogFile
+				Caption		"Log File Name "
+				Scale		382 180 300 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type		STRING
+				Comment		""
+			End
+
+			Begin CHECKBOX		InOutThrput
+				Caption		"Throughput (KB/sec) of Incoming And Outgoing Packets"
+				Scale		355 205 360 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Option		"TRUE"
+				OptValue	"on"
+						Enable InOutThrputLogFile
+				EndOption
+				Option		"FALSE"
+				OptValue	"off"
+						Disable InOutThrputLogFile
+				EndOption
+
+				Comment		""
+			End
+
+			Begin TEXTLINE		InOutThrputLogFile
+				Caption		"Log File Name "
+				Scale		382 230 300 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type		STRING
+				Comment		""
+			End
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		620 35 130 30
+			ActiveOn	MODE_EDIT
+
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		620 73 130 30
+			ActiveOn	MODE_EDIT
+
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+

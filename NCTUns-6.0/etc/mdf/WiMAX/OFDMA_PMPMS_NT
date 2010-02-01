@@ -1,0 +1,89 @@
+ModuleSection
+    HeaderSection
+        ModuleName      OFDMA_PMPMS_NT
+        ClassName       OFDMA_PMPMS_NT
+
+        NetType         Wireless
+        GroupName       WiMAX
+        AllowGroup      XXXXX
+        PortsNum        MultiPort
+
+        Version         OFDMA_PMPMS_NT
+        Author          NCTU_NSL
+        CreateDate      07/19/09
+        Introduction    "OFDMA_PMPMS_NT"
+
+        Parameter       ChannelID  	1 	local
+	Parameter	freq		2300	local
+        Parameter       TransPower	35	local
+        Parameter       CSThresh	-96	local
+    EndHeaderSection
+
+    InitVariableSection
+
+        Caption         "Parameters Setting"
+        FrameSize       375 170
+
+        Begin TEXTLINE          ChannelID
+            Caption     "Channel ID "
+            Scale       10 24 275 28
+            ActiveOn    MODE_EDIT
+            Enabled     TRUE
+
+            Type        INT
+            Comment     ""
+        End
+
+        Begin TEXTLINE  freq
+            Caption     "Frequency (MHz) "
+            Scale       10 58 275 28
+            ActiveOn    MODE_EDIT
+            Enabled     TRUE
+
+            Type        INT
+            Comment     ""
+        End
+
+        Begin TEXTLINE  TransPower
+            Caption     "Transmission Power (dbm) "
+            Scale       10 92 275 28
+            ActiveOn    MODE_EDIT
+            Enabled     TRUE
+
+            Type        INT
+            Comment     ""
+        End
+
+        Begin TEXTLINE  CSThresh 
+            Caption     "Receive Sensitivity (dbm) "
+            Scale       10 126 275 28
+            ActiveOn    MODE_EDIT
+            Enabled     TRUE
+
+            Type        INT
+            Comment     ""
+        End
+
+        Begin BUTTON        b_ok
+            Caption     "OK"
+            Scale       300 24 60 30
+            ActiveOn    MODE_EDIT
+            Action      ok
+            Comment     "OK Button"
+        End
+
+        Begin BUTTON        b_cancel
+            Caption     "Cancel"
+            Scale       300 58 60 30
+            ActiveOn    MODE_EDIT
+            Action      cancel
+            Comment     "Cancel Button"
+        End
+    EndInitVariableSection
+
+    ExportSection
+        Caption                 ""
+        FrameSize               0 0
+    EndExportSection
+EndModuleSection
+

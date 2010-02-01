@@ -1,0 +1,44 @@
+ModuleSection
+	HeaderSection
+		ModuleName		RCS_ATM_SP
+		ClassName		Rcs_atm_sp
+
+		NetType			Wire/Wireless
+		GroupName		RET
+		AllowGroup		XXXXX
+		PortsNum		MultiPort
+
+		Version			SIMPLE-HUB_001
+		Author			NCTU_NSL
+		CreateDate		2/28/02/
+		Introduction		"This is a Rcs_atm_sp module."
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"SP Parameters Setting"
+		FrameSize		310 53
+
+		Begin LABEL		l_ss
+			Caption		"There is no parameter to set here."
+			Scale		10 15 280 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		240 15 60 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		ok
+			Comment		"OK Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

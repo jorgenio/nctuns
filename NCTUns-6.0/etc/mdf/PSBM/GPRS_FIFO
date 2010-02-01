@@ -1,0 +1,198 @@
+ModuleSection
+	HeaderSection
+		ModuleName		GPRS_FIFO
+		ClassName		fifo
+		NetType			Wire/Wireless
+		GroupName		PSBM
+		PortsNum		MultiPort
+
+		Version			SIMPLE-FIFO_001
+		Author			NCTU_NSL
+		CreateDate		2/28/02
+		Introduction		"This is a GPRS_FIFO module."
+
+		Parameter		max_qlen	50	local
+		Parameter		log_qlen	off	local
+		Parameter		log_option	FullLog	local
+		Parameter		samplerate	1	local
+		Parameter		logFileName $CASE$.fifo_N$NID$_P$PID$_qlen.log autogendonotsave
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"Parameters Setting"
+		FrameSize		380 195
+
+		Begin TEXTLINE		max_qlen
+			Caption		"Max Queue Length "
+			Scale		10 15 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		"queue length"
+		End
+
+		Begin LABEL		l_pkts
+			Caption		"(pkts)"
+			Scale		215 15 60 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin CHECKBOX		log_qlen
+			Caption		"Log Queue Length"
+			Scale		10 50 150 20
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Option		"TRUE"
+                	OptValue        "on"
+					Enable log_option
+					Enable logFileName
+			EndOption
+			Option		"FALSE"
+                	OptValue        "off"
+					Disable log_option
+					Disable logFileName
+			EndOption
+
+			Comment		""
+		End
+
+		Begin RADIOBOX		log_option
+			Caption		""
+			Scale		32 75 250 80
+			ActiveOn	MODE_EDIT
+			Enabled	  	FALSE
+
+			Option		"Sampling Log"
+			OptValue	"SamplingLog"
+					Enable  samplerate
+					Enable  l_samp
+			VSpace		-15
+			EndOption
+
+			Option		"Full Log"
+			OptValue	"FullLog"
+					Disable samplerate
+					Disable l_samp
+			VSpace		35
+			EndOption
+
+			Type		STRING
+			Comment		""
+		End
+
+		Begin TEXTLINE		samplerate
+			Caption		"Rate "
+			Scale		62 98 80 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin LABEL		l_samp
+			Caption		"(samples / sec)"
+			Scale		147 98 100 30
+			ActiveOn	MODE_EDIT
+		 	Enabled		FALSE
+		End
+
+	 	Begin TEXTLINE	 	logFileName
+			Caption		"Log File Name "
+			Scale		32 160 249 20
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		STRING
+			Comment		"Log File Name"
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		295 15 70 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		295 47 70 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+	EndInitVariableSection
+
+	ExportSection
+		Caption			"Run Time Query"
+		FrameSize		380 90
+
+		Begin TEXTLINE		t_ql
+			Caption		"Current Queue Length "
+			Scale		10 18 200 30
+			ActiveOn	MODE_SIMULATION
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin TEXTLINE		t_mq
+			Caption		"Maximun Queue Length "
+			Scale		10 50 200 30
+			ActiveOn	MODE_SIMULATION
+			Enabled		TRUE
+
+			Type		INT
+			Comment		""
+		End
+
+        	Begin ACCESSBUTTON       ab_g
+                	Caption         "Get"
+                	Scale           215 23 70 20
+                	ActiveOn	MODE_SIMULATION
+                	Enabled         TRUE
+
+                	Action          GET
+			ActionObj	"cur-queue-length"
+
+                	Reference       t_ql
+			Comment         "get"
+        	End
+
+        	Begin ACCESSBUTTON       ab_g2
+                	Caption         "Get"
+                	Scale           215 55 70 20
+                	ActiveOn	MODE_SIMULATION
+                	Enabled         TRUE
+
+                	Action          GET
+			ActionObj	"max-queue-length"
+
+                	Reference       t_mq
+			Comment         "get"
+        	End
+
+        	Begin ACCESSBUTTON      ab_s2
+                	Caption         "Set"
+                	Scale           290 55 70 20
+                	ActiveOn	MODE_SIMULATION
+                	Enabled         TRUE
+
+                	Action          SET
+			ActionObj	"max-queue-length"
+
+                	Reference       t_mq
+			Comment         "set"
+        	End
+	EndExportSection
+EndModuleSection
+

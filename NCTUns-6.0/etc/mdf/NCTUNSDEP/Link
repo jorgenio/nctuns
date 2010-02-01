@@ -1,0 +1,26 @@
+ModuleSection
+	HeaderSection
+		ModuleName              Link
+		ClassName               Link
+
+		NetType                 Wire/Wireless
+		GroupName               nctunsdep
+		PortsNum                SinglePort
+
+		Version                 Link_001
+		Author                  NCTU_NSL
+		CreateDate              2/26/02
+		Introduction            "This module must exist otherwiese the GUI will crash."
+	EndHeaderSection
+
+	InitVariableSection
+		Caption                 ""
+		FrameSize               0 0
+	EndInitVariableSection
+
+	ExportSection
+		Caption                 ""
+		FrameSize               0 0
+	EndExportSection
+EndModuleSection
+

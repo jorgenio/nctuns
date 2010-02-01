@@ -1,0 +1,48 @@
+#
+# Linux 2.6.28.9 kernel patch for NCTUns
+#
+
+Make the kernel patched for NCTUns:
+
+   There are two ways to make the patched kernel source tree:
+
+     1. Use the patched kernel source tar ball provided in this package
+
+        kernel-2.6.28.9-nctuns20090901.tar.bz2
+
+     2. Use the patch files provided in the package
+
+	2.1 Use the original 2.6.28.9 kernel source tar ball provided in this
+            package
+
+            linux-2.6.28.9.tar.bz2
+
+	    You can download this file from http://www.kernel.org/ web site
+            or ftp://ftp.kernel.org/ ftp site
+
+        2.2 Use the patch file source tar ball provided in this package
+
+            linux-2.6.28.9-nctuns20090901-patches.tar.gz
+
+        2.3 Execute the following commands:
+
+               cd $srcdir ($srcdir is a directory)
+               wget ftp://ftp.kernel.org/pub/linux/kernel/v2.6/linux-2.6.28.9.tar.bz2
+               tar jxvf linux-2.6.28.9.tar.bz2
+               cd linux-2.6.28.9
+               tar zxvf linux-2.6.28.9-nctuns20080901-patches.tar.gz
+
+        2.4 Then the patched kernel source tree is at $srcdir/linux-2.6.28.9
+
+
+Build the Kernel
+
+     The following is an example procedure:
+
+         make menuconfig
+         make
+         make modules_install
+         make install
+
+     Then it will add an entry to the boot loader's configuration file
+     so that you can choose to use the new kernel.

@@ -1,0 +1,162 @@
+ModuleSection
+
+	HeaderSection
+
+		ModuleName	        phy_80211p
+		ClassName		phy_80211p
+
+		NetType			Wireless
+		GroupName		WPHY
+		PortsNum		MultiPort
+
+		Version			WIRELESS-PHY_80211p_001
+		Author			NCTU_NSL
+		CreateDate		2/27/02
+		Introduction		"This module is used to simuate the IEEE 802.11p PHY protocol."
+
+		Parameter               bw   		6    local
+		Parameter		freq		5890	local
+		Parameter               TransPower 	28.8    local
+		Parameter		CSThresh	-82.0	local
+		Parameter		Gain		1	local
+                Parameter               linkfail        off     local
+                Parameter               linkfailFileName $CASE$.phy_80211p_N$NID$_P$PID$.linkfail autogendonotsave
+
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption			"Parameters Setting"
+		FrameSize		400 240
+		
+		Begin COMBOBOX		bw
+			Caption		"Data Rate "
+			Scale		10 20 200 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Value		"3" "4.5" "6" "9" "12" "18" "24" "27"
+			Comment		""
+		End
+
+                Begin   LABEL           unit
+                        Caption         " (Mbps)"
+                        Scale           210 20 60 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         TRUE
+
+                        Type            INT
+                        Comment         ""
+                End
+
+		Begin TEXTLINE          TransPower
+                        Caption         "Transmit Power "
+                        Scale           10 50 200 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         TRUE
+
+                        Type            INT
+                        Comment         ""
+                End
+
+                Begin   LABEL           unit
+                        Caption         " (dbm)"
+                        Scale           210 50 50 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         TRUE
+
+                        Type            INT
+                        Comment         ""
+                End
+
+		Begin TEXTLINE          CSThresh
+                        Caption         "Receiver Sensitivity "
+                        Scale           10 80 200 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         TRUE
+
+                        Type            INT
+                        Comment         ""
+                End
+
+                Begin   LABEL           unit
+                        Caption         " (dbm)"
+                        Scale           210 80 50 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         TRUE
+
+                        Type            INT
+                        Comment         ""
+                End
+
+                Begin CHECKBOX          linkfail
+                        Caption         "Link Failure"
+                        Scale           10 110 200 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         TRUE
+
+                        Option          "TRUE"
+                        OptValue        "on"
+                                        Enable  iv_dt
+                                        Enable  linkfailFileName
+                        EndOption
+                        Option          "FALSE"
+                        OptValue        "off"
+                                        Disable iv_dt
+                                        Disable linkfailFileName
+                        EndOption
+
+                        Comment         "link failure"
+                End
+
+                Begin INTERACTIONVIEW   iv_dt
+                        Caption         "See Down Time Setting"
+                        Scale           32 140 200 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         FALSE
+
+                        Action          FUNC
+                        ActionFunc      "phy"
+
+                        Fields          "Start(s)" "End(s)"
+                        Comment         ""
+                End
+
+                Begin TEXTLINE          linkfailFileName
+                        Caption         "File Name "
+                        Scale           32 175 200 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         FALSE
+
+                        Type            STRING
+                        Comment         "link down time file name"
+                End
+
+                Begin BUTTON            b_ok
+                        Caption         "OK"
+                        Scale           330 17 60 30
+                        ActiveOn        MODE_EDIT
+                        Action          ok
+                        Comment         "OK Button"
+                End
+
+                Begin BUTTON            b_cancel
+                        Caption         "Cancel"
+                        Scale           330 49 60 30
+                        ActiveOn        MODE_EDIT
+                        Action          cancel
+                        Comment         "Cancel Button"
+                End
+
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+

@@ -1,0 +1,889 @@
+ModuleSection
+
+	HeaderSection
+
+		ModuleName	        OPT_PORT
+		ClassName		op
+
+		NetType			Wire
+		GroupName		Optical
+		PortsNum		MultiPort
+		Version			OP_01
+		Author			NCTU_NSL
+		CreateDate		11/20/03/
+		Introduction		"This is a op module."
+
+	EndHeaderSection
+
+	InitVariableSection
+
+        	Caption         "Parameters Setting"
+        	FrameSize               310 53
+
+		Begin LABEL             l_ss
+                	Caption         "There is no parameter to set here."
+                	Scale           10 15 280 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin BUTTON            b_ok
+                	Caption         "OK"
+                	Scale           240 15 60 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+                	Comment         "OK Button"
+        	End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+
+
+
+
+
+
+
+ModuleSection
+
+	HeaderSection
+
+		ModuleName	        OPT_SW
+		ClassName		osw
+
+		NetType			Wire
+		GroupName		Optical
+		PortsNum		SinglePort
+
+		Version			OSW_01
+		Author			NCTU_NSL
+		CreateDate		11/20/03/
+		Introduction		"This is a optical switching module."
+
+	EndHeaderSection
+
+	InitVariableSection
+
+        	Caption         "Parameters Setting"
+        	FrameSize               310 53
+
+		Begin LABEL             l_ss
+                	Caption         "There is no parameter to set here."
+                	Scale           10 15 280 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin BUTTON            b_ok
+                	Caption         "OK"
+                	Scale           240 15 60 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+                	Comment         "OK Button"
+        	End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+
+
+ModuleSection
+
+	HeaderSection
+
+		ModuleName	        OPT_RWA
+		ClassName		rwa
+
+		NetType			Wire
+		GroupName		Optical
+		PortsNum		SinglePort
+
+		Version			RWA_01
+		Author			NCTU_NSL
+		CreateDate		11/20/03/
+		Introduction		"This is a RWA module."
+
+		Parameter		Autogen			0	        local
+
+		Parameter		MaxWave			3	        local
+		Parameter		ChooseWave		1	        local
+
+		Parameter		WavelenConversion	0	        local
+		Parameter		Wa_lifetime		300	        local
+		Parameter		Wa_polling		3	        local
+
+		Parameter		nodekindfile 		$CASE$.ndt 	autogendonotsave
+		Parameter		nodeconnectfile 	$CASE$.gph 	autogendonotsave
+		Parameter		ringfile	 	$CASE$.osr 	autogendonotsave
+		Parameter		pathfile	 	$CASE$.osp 	autogendonotsave
+
+
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption			"Parameters Setting"
+		FrameSize		330 560
+
+		Begin  RADIOBOX		Autogen
+			Caption		"Routing Path Generation Method"
+			Scale		15 20 300 80
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Option		"Use User-specified Shortest Path"
+			OptValue	"1"
+			VSpace		5
+			EndOption
+
+			Option		"Use Program-generated Shortest Path"
+			OptValue	"0"
+			VSpace		10
+			EndOption
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin RADIOBOX		WavelenConversion
+			Caption		"Wavelength Conversion"
+			Scale		15 110 300 140
+			ActiveOn	MODE_EDIT
+		 	Enabled	 	TRUE
+
+			Option		"On"
+					Disable ChooseWave
+			OptValue	"1"
+			VSpace		35
+			EndOption
+
+			Option		"Off"
+			OptValue	"0"
+			VSpace		10
+					Enable ChooseWave
+			EndOption
+
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin TEXTLINE		MaxWave
+			Caption		"Maximum Number of Channels "
+			Scale		25 130 273 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type	 	INT
+			Comment		""
+		End
+
+		Begin TEXTLINE		ChooseWave
+			Caption		"Data Packet Channel "
+			Scale		43 210 255 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type	 	INT
+			Comment		""
+		End
+
+		Begin GROUP		g_lightpath_config
+			Caption		"Light Path Reclaimation Setting"
+			Scale		15 260 300 90
+			ActiveOn	MODE_EDIT
+			Enabled	   	TRUE
+
+			Begin TEXTLINE		Wa_lifetime
+				Caption		"Maximum Idle Time  "
+				Scale		15 20 235 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Type	 	INT
+				Comment		""
+			End
+
+			Begin LABEL		l_sec_1
+				Caption		"(sec)"
+				Scale		255 20 30 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+			End
+
+			Begin TEXTLINE		Wa_polling
+				Caption		"Idle-checking Time Interval  "
+				Scale		15 50 235 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Type	 	INT
+				Comment		""
+			End
+
+			Begin LABEL		l_sec_2
+				Caption		"(sec)"
+				Scale		255 50 30 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+			End
+		End
+
+		Begin GROUP		g_config_file
+			Caption		"Configuration Files"
+			Scale		15 360 300 150
+			ActiveOn	MODE_EDIT
+			Enabled	   	TRUE
+
+			Begin TEXTLINE		nodekindfile
+				Caption		"Node Type File  "
+				Scale		15 20 270 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type	 	STRING
+				Comment		""
+			End
+
+			Begin TEXTLINE		nodeconnectfile
+				Caption		"Node Connection File  "
+				Scale		15 50 270 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type	 	STRING
+				Comment		""
+			End
+
+			Begin TEXTLINE		ringfile
+				Caption		"Protection Ring File  "
+				Scale		15 80 270 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type	 	STRING
+				Comment		""
+			End
+
+			Begin TEXTLINE		pathfile
+				Caption		"Shortest Path File  "
+				Scale		15 110 270 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type	 	STRING
+				Comment		""
+			End
+		End
+
+
+		Begin BUTTON            b_ok
+                	Caption         "OK"
+                	Scale           80 520 70 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+                	Comment         "OK Button"
+        	End
+
+		Begin BUTTON            b_cancel
+                	Caption         "Cancel"
+                	Scale           180 520 70 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          cancel
+                	Comment         "CANCEL Button"
+        	End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+
+
+ModuleSection
+
+	HeaderSection
+
+		ModuleName	        OPT_WA
+		ClassName		wa
+
+		NetType			Wire
+		GroupName		Optical
+		PortsNum		SinglePort
+
+		Version			TCPDUMP_001
+		Author			NCTU_NSL
+		CreateDate		11/20/03/
+		Introduction		"This is a wa module."
+
+		Parameter		WavelenConversion	0	        local
+
+	EndHeaderSection
+
+	InitVariableSection
+
+        	Caption         "Parameters Setting"
+        	FrameSize               320 105
+
+		Begin RADIOBOX		WavelenConversion
+			Caption		"Wavelength Conversion"
+			Scale		10 17 200 75
+			ActiveOn	MODE_EDIT
+		 	Enabled	 	TRUE
+
+			Option		"On"
+					 Diable ChooseWave
+			OptValue	"1"
+			VSpace		3
+			EndOption
+
+			Option		"Off"
+			OptValue	"0"
+			VSpace		8
+					Enable ChooseWave
+			EndOption
+
+
+			Type		INT
+			Comment		""
+		End
+
+		Begin BUTTON            b_ok
+                	Caption         "OK"
+                	Scale           230 25 70 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+                	Comment         "OK Button"
+        	End
+
+		Begin BUTTON            b_cancel
+                	Caption         "Cancel"
+                	Scale           230 60 70 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          cancel
+                	Comment         "CANCEL Button"
+        	End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+
+
+
+
+
+ModuleSection
+
+	HeaderSection
+
+		ModuleName	        OPT_OBS
+		ClassName		obs
+
+		NetType			Wire
+		GroupName		Optical
+		PortsNum		SinglePort
+
+		Version			OBS_001
+		Author			NCTU_NSL
+		CreateDate		11/20/03/
+		Introduction		"This is a OBS module."
+
+	EndHeaderSection
+
+	InitVariableSection
+
+        	Caption         "Parameters Setting"
+        	FrameSize               310 53
+
+		Begin LABEL             l_ss
+                	Caption         "There is no parameter to set here."
+                	Scale           10 15 280 30
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin BUTTON            b_ok
+                	Caption         "OK"
+                	Scale           240 15 60 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+                	Comment         "OK Button"
+        	End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+
+
+
+
+
+
+
+
+ModuleSection
+
+	HeaderSection
+
+		ModuleName	        OPT_OBSW
+		ClassName		obsw
+
+		NetType			Wire
+		GroupName		Optical
+		PortsNum		SinglePort
+
+		Version			OBS_001
+		Author			NCTU_NSL
+		CreateDate		11/20/03/
+		Introduction		"This is a OBS module."
+
+		Parameter		ContrlPktProcessTime 			2	local
+		Parameter		select_candidate_method         	1  	local
+		Parameter		drop_burst_segmentation_method  	2  	local
+	 	Parameter		TailDrop_control_wavelength     	3  	local
+
+
+	EndHeaderSection
+
+	InitVariableSection
+
+        	Caption         "Parameters Setting"
+        	FrameSize               430 485
+
+		Begin TEXTLINE	 	ContrlPktProcessTime
+			Caption		"Control Packet Processing Time "
+			Scale		15 20 280 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		INT
+			Comment		"Control Packet Processing Time"
+		End
+
+		Begin LABEL		l_tick
+			Caption		"(ns)"
+			Scale		302 20 50 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+
+		Begin RADIOBOX		select_candidate_method
+			Caption		"Contending Control Packet Resolution Method"
+			Scale		15 60 310 115
+			ActiveOn	MODE_EDIT
+		 	Enabled	 	TRUE
+
+			Option		"Choose One randomly"
+			OptValue	"1"
+			VSpace		5
+			EndOption
+
+			Option		"Choose the One With the Smallest Offset"
+			OptValue	"2"
+			VSpace		15
+			EndOption
+
+			Option		"Choose the One With the largest Offset"
+			OptValue	"3"
+			VSpace		15
+			EndOption
+
+			Type		INT
+			Comment		"select control packet method"
+		End
+
+		Begin RADIOBOX		drop_burst_segmentation_method
+			Caption		"Contending Burst Resolution Method"
+			Scale		15 190 400 280
+			ActiveOn	MODE_EDIT
+		 	Enabled	 	TRUE
+
+			Option		"Drop the Second Burst Entirely"
+			OptValue	"1"
+					Disable	TailDrop_control_wavelength
+					Disable g_note
+			VSpace		5
+			EndOption
+
+			Option		"Drop Only the Head of the Second Burst"
+			OptValue	"2"
+                                        Disable TailDrop_control_wavelength
+					Disable g_note
+			VSpace		15
+			EndOption
+
+			Option		"Drop Only the Tail of the First Burst"
+			OptValue	"3"
+                                        Enable TailDrop_control_wavelength
+					Enable g_note
+			VSpace		15
+			EndOption
+
+			Type		INT
+			Comment		"drop contention burst segmentation method"
+		End
+
+		Begin TEXTLINE	 	TailDrop_control_wavelength
+			Caption		"Tail-dropping Notification Control Packet Channel  "
+			Scale		38 295 360 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		"Tail Dropping control wavelength"
+		End
+
+		Begin GROUP		g_note
+			Caption		"Note"
+			Scale		38 325 360 130
+			ActiveOn	MODE_EDIT
+			Enabled	   	FALSE
+
+			Begin LABEL		note1
+				Caption		"The tail-dropping notification control packet channel should"
+				Scale		10 20 340 20
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+			End
+
+			Begin LABEL		note2
+	                        Caption         "not collide with the data and control packet channels set in"
+				Scale		10 40 340 20
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+			End
+
+			Begin LABEL		note3
+                	        Caption         "the OPT_OBWA module, which is used inside an optical"
+				Scale		10 60 340 20
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+			End
+
+			Begin LABEL		note3
+                	        Caption         "edge router. Of course, it should not exceed the maximum"
+				Scale		10 80 340 20
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+			End
+
+			Begin LABEL		note3
+                	        Caption         "number of channels."
+				Scale		10 100 340 20
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+			End
+		End
+
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		340 30 70 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		340 65 70 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+
+
+
+ModuleSection
+
+	HeaderSection
+
+		ModuleName	        OPT_OBWA
+		ClassName		obwa
+
+		NetType			Wire
+		GroupName		Optical
+		PortsNum		SinglePort
+
+		Version			OBWA_001
+		Author			NCTU_NSL
+		CreateDate		11/20/03/
+		Introduction		"This is an OPT_OBWA  module."
+
+		Parameter		ProcessTime		2	local
+
+		Parameter		TIMEOUT			10	local
+		Parameter		Sendpacketlength	16000	local
+		Parameter		Droppacketlength	60000   local
+
+		Parameter		MaxWave			3	local
+		Parameter		ControlPacketWave	1	local
+		Parameter		ChooseWave		2	local
+
+                Parameter               nodekindfile            $CASE$.ndt	autogendonotsave
+                Parameter               nodeconnectfile         $CASE$.gph	autogendonotsave
+                Parameter               ringfile                $CASE$.osr	autogendonotsave
+                Parameter               pathfile                $CASE$.osp	autogendonotsave
+
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption			"Parameters Setting"
+		FrameSize		355 520
+
+		Begin TEXTLINE		ProcessTime
+			Caption		"Control Packet Processing Time  "
+			Scale		15 20 295 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		INT
+			Comment		"process time in switch"
+		End
+
+		Begin LABEL		l_ns
+			Caption		"(ns)"
+			Scale		315 20 30 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+		End
+
+		Begin GROUP		g_1
+			Caption		"Optical Burst Assembly"
+			Scale		15 60 325 120
+			ActiveOn	MODE_EDIT
+			Enabled	   	TRUE
+
+			Begin TEXTLINE		TIMEOUT
+				Caption		"Timeout to Send A Burst  "
+				Scale		20 20 240 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Type		INT
+				Comment		"timeout"
+			End
+
+			Begin LABEL		l_us
+				Caption		"(us)"
+				Scale		265 20 30 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+			End
+
+			Begin TEXTLINE		Sendpacketlength
+				Caption		"Minimum Burst Length (MBL)  "
+				Scale		20 50 240 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Type		INT
+				Comment		"send packet"
+			End
+
+			Begin LABEL		l_Bytes
+				Caption		"(bytes)"
+				Scale		265 50 40 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+			End
+
+			Begin TEXTLINE		Droppacketlength
+				Caption		"Maximum Queue Length  "
+				Scale		20 80 240 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Type		INT
+				Comment		"drop packet"
+			End
+
+			Begin LABEL		l_Bytes2
+				Caption		"(bytes)"
+				Scale		265 80 40 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+			End
+
+		End
+
+		Begin GROUP		g_2
+			Caption		"Wavelength Channel Assignment"
+			Scale		15 190 325 120
+			ActiveOn	MODE_EDIT
+			Enabled	   	TRUE
+
+			Begin TEXTLINE		MaxWave
+				Caption		"Maximum Number of Channels  "
+				Scale		20 20 285 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type	 	INT
+				Comment		""
+			End
+
+			Begin TEXTLINE		ControlPacketWave
+				Caption		"Control Packet Channel  "
+				Scale		20 50 285 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Type	 	INT
+				Comment		""
+			End
+
+			Begin TEXTLINE		ChooseWave
+				Caption		"Data Packet Channel  "
+				Scale		20 80 285 30
+				ActiveOn	MODE_EDIT
+				Enabled		TRUE
+
+				Type	 	INT
+				Comment		""
+			End
+		End
+
+		Begin GROUP		g_3
+			Caption		"Configuration Files"
+			Scale		15 320 325 150
+			ActiveOn	MODE_EDIT
+			Enabled	   	TRUE
+
+			Begin TEXTLINE		nodekindfile
+				Caption		"Node Type File  "
+				Scale		20 20 285 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type	 	STRING
+				Comment		""
+			End
+
+			Begin TEXTLINE		nodeconnectfile
+				Caption		"Node Connection File  "
+				Scale		20 50 285 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type	 	STRING
+				Comment		""
+			End
+
+			Begin TEXTLINE		ringfile
+				Caption		"Protection Ring File  "
+				Scale		20 80 285 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type	 	STRING
+				Comment		""
+			End
+
+			Begin TEXTLINE		pathfile
+				Caption		"Shortest Path File  "
+				Scale		20 110 285 30
+				ActiveOn	MODE_EDIT
+				Enabled		FALSE
+
+				Type	 	STRING
+				Comment		""
+			End
+		End
+
+		Begin BUTTON            b_ok
+                	Caption         "OK"
+                	Scale           95 480 70 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+                	Comment         "OK Button"
+        	End
+
+		Begin BUTTON            b_cancel
+                	Caption         "Cancel"
+                	Scale           190 480 70 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          cancel
+                	Comment         "CANCEL Button"
+        	End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+

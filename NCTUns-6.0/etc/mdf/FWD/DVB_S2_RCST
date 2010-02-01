@@ -1,0 +1,333 @@
+ModuleSection
+	HeaderSection
+		ModuleName		DVB_S2_RCST
+		ClassName		Dvb_s2_rcst
+
+		NetType			Wire/Wireless
+		GroupName		DVB_S2_RCST
+		AllowGroup		"FIFO  ARP  MAC  PHY  Link"
+		PortsNum		SinglePort
+
+		Version			interface_001
+		Author			NCTU_NSL
+		CreateDate		2/26/02
+		Introduction		"This is DVB_S2_RCST module"
+
+		Parameter		InterfaceNumber		1		local
+		Parameter		LDPCIterationThreshold	1		local
+		Parameter		GSAnteLength 		13		local
+		Parameter		GSAnteEfficiency 	0.68		local
+		Parameter		linkfail		off		local
+		Parameter		linkfailFileName	$CASE$.Dvb_s2_rcst_N$NID$_P$PID$.linkfail autogendonotsave
+		Parameter 		rainfade_option		Default		local
+		Parameter		RainFade 		20		local
+		Parameter		Antenna_angle		89		local
+		Parameter		taur 			0		local
+		Parameter		RainHeight 		3.1		local
+		Parameter		EarthStationHeight 	0.07		local
+		Parameter		Latitude		24		local
+		Parameter		Rainrate 		50		local
+
+	EndHeaderSection
+
+	InitVariableSection
+		Caption			"RCST Parameters Setting"
+		FrameSize		780 390
+
+		Begin TEXTLINE		InterfaceNumber
+			Caption		"Interface Number "
+			Scale		10 18 270 30
+			ActiveOn	MODE_EDIT
+			Enabled		FALSE
+
+			Type		INT
+			Comment		"InterfaceNumber"
+		End
+
+		Begin TEXTLINE		LDPCIterationThreshold
+			Caption		"LDPC Iteration Threshold "
+			Scale		10 48 270 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		"LDPCIterationThreshold"
+		End
+
+		Begin TEXTLINE		GSAnteLength
+			Caption		"Ground Station Antenna Length "
+			Scale		10 78 270 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		FLOAT
+			Comment		"GSAnteLength"
+		End
+
+		Begin LABEL		l_m
+			Caption		"(m)"
+			Scale		290 78 40 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin TEXTLINE		GSAnteEfficiency
+			Caption		"Ground Station Antenna Efficiency "
+			Scale		10 108 270 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		FLOAT
+			Comment		"GSAnteEfficiency"
+		End
+
+                Begin CHECKBOX          linkfail
+                        Caption         "Link Failure"
+                        Scale           10 138 190 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         TRUE
+
+                        Option          "TRUE"
+                        OptValue        "on"
+                                        Enable  iv_dt
+                                        Enable  linkfailFileName
+                        EndOption
+                        Option          "FALSE"
+                        OptValue        "off"
+                                        Disable iv_dt
+                                        Disable linkfailFileName
+                        EndOption
+
+                        Comment         "link failure"
+                End
+
+                Begin INTERACTIONVIEW   iv_dt
+                        Caption         "See Down Time Setting"
+                        Scale           32 168 249 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         FALSE
+
+                        Action          FUNC
+                        ActionFunc      "phy"
+
+                        Fields          "Start(s)" "End(s)"
+                        Comment         ""
+                End
+
+                Begin TEXTLINE          linkfailFileName
+                        Caption         "File Name "
+                        Scale           32 203 249 30
+                        ActiveOn        MODE_EDIT
+                        Enabled         FALSE
+
+                        Type            STRING
+                        Comment         "link down time file name"
+                End
+	
+		Begin RADIOBOX		rainfade_option
+			Caption		"Rainfade"
+			Scale		400 18 280 350
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Option		"Default"
+			OptValue	"Default"
+					Enable	RainFade
+					Enable	l_dB
+					Disable	Antenna_angle
+					Disable	1_degree
+					Disable	taur
+					Disable	2_degree
+					Disable	taur
+					Disable	l_note
+					Disable	RainHeight
+					Disable	1_km
+					Disable	EarthStationHeight
+					Disable	2_km
+					Disable	Latitude
+					Disable	3_degree
+					Disable	Rainrate
+					Disable	1_mmh
+					Disable	b_reference
+					Disable	b_presentation
+			VSpace		0
+			EndOption
+
+			Option		"User Defined"
+			OptValue	"User_define"
+					Disable RainFade
+					Disable l_dB
+					Enable	Antenna_angle
+					Enable	1_degree
+					Enable	taur
+					Enable	2_degree
+					Enable	l_note
+					Enable	RainHeight
+					Enable	1_km
+					Enable	EarthStationHeight
+					Enable	2_km
+					Enable	Latitude
+					Enable	3_degree
+					Enable	Rainrate
+					Enable	1_mmh
+					Enable	b_reference
+					Enable	b_presentation
+			VSpace		45	
+			EndOption
+
+			Type		STRING
+			Comment		""
+		End
+
+		Begin TEXTLINE		RainFade
+			Caption		"Rain Fade "
+			Scale		430 58 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		FLOAT
+			Comment		"SatAnteEfficient"
+		End
+
+		Begin LABEL		l_dB
+			Caption		"(dB)"
+			Scale		610 58 40 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin TEXTLINE		Antenna_angle
+			Caption		"Antenna Angle "
+			Scale		430 120 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		"Antenna_angle"
+		End
+
+		Begin LABEL		1_degree
+			Caption		"(degree)"
+			Scale		610 120 60 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin TEXTLINE		taur
+			Caption		"Polarization "
+			Scale		430 150 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		"Polarization"
+		End
+
+		Begin LABEL		2_degree
+			Caption		"(degree)"
+			Scale		610 150 60 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin LABEL		l_note
+			Caption		"(0 for horizontal polarization,
+45 for circular polarization,
+90 for vertical polarization.)"
+			Scale		430 180 230 50
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin TEXTLINE		RainHeight
+			Caption		"Rain Height "
+			Scale		430 230 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		FLOAT
+			Comment		"RainHeight"
+		End
+
+		Begin LABEL		1_km
+			Caption		"(km)"
+			Scale		610 230 60 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin TEXTLINE		EarthStationHeight
+			Caption		"Earth Station Height "
+			Scale		430 260 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		FLOAT
+			Comment		"EarthStationHeight"
+		End
+
+		Begin LABEL		2_km
+			Caption		"(km)"
+			Scale		610 260 60 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin TEXTLINE		Latitude
+			Caption		"Latitude "
+			Scale		430 290 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		INT
+			Comment		"Latitude"
+		End
+
+		Begin LABEL		3_degree
+			Caption		"(degree)"
+			Scale		610 290 60 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin TEXTLINE		Rainrate
+			Caption		"Rain Rate "
+			Scale		430 320 170 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+
+			Type		FLOAT
+			Comment		"Rain Rate"
+		End
+
+		Begin LABEL		1_mmh
+			Caption		"(mm/h)"
+			Scale		610 320 47 30
+			ActiveOn	MODE_EDIT
+			Enabled		TRUE
+		End
+
+		Begin BUTTON		b_ok
+			Caption		"OK"
+			Scale		700 20 60 30
+			ActiveOn	MODE_EDIT
+			Action		ok
+			Comment		"OK Button"
+		End
+
+		Begin BUTTON		b_cancel
+			Caption		"Cancel"
+			Scale		700 53 60 30
+			ActiveOn	MODE_EDIT
+			Action		cancel
+			Comment		"Cancel Button"
+		End
+
+	EndInitVariableSection
+
+	ExportSection
+		Caption			""
+		FrameSize		0 0
+	EndExportSection
+EndModuleSection
+

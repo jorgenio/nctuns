@@ -1,0 +1,53 @@
+ModuleSection
+
+	HeaderSection
+
+		ModuleName		NS
+		ClassName		NS
+
+		NetType			wireless
+		GroupName		GPRSNS
+		PortsNum		MultiPort
+
+		Version			GPRSns_001
+		Author			NCTU_NSL
+		CreateDate		11/28/03
+		Introduction		"GPRS NS Module for communicating with BSC and SGSN."
+
+		Parameter		ip	0.0.0.0	autogendonotsave
+
+	EndHeaderSection
+
+	InitVariableSection
+
+		Caption         "Parameters Setting"
+        	FrameSize               310 50
+
+		Begin LABEL             l_ss
+                	Caption         "There is no parameter to set here."
+                	Scale           10 17 280 20
+                	ActiveOn        MODE_EDIT
+			Enabled		TRUE
+        	End
+
+		Begin BUTTON            b_ok
+                	Caption         "OK"
+                	Scale           240 12 60 30
+                	ActiveOn        MODE_EDIT
+ 			Enabled		TRUE
+
+			Action          ok
+                	Comment         "OK Button"
+        	End
+
+	EndInitVariableSection
+
+	ExportSection
+
+		Caption			""
+		FrameSize		0 0
+
+	EndExportSection
+
+EndModuleSection
+
