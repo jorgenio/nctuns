@@ -1,0 +1,290 @@
+<APP> 
+    <NAME> 
+	stcp
+    </NAME>
+    <CONTENT> 
+Usage: stcp [-options] hostIPaddr
+
+[-options]  -p port		port number to listen at
+	    -l writesize	write size (byte)
+	    -lip localIPaddr	local IP address (may be used in multi-interface node)
+    </CONTENT>
+</APP>
+<APP> 
+    <NAME> 
+	rtcp
+    </NAME>
+    <CONTENT> 
+Usage: rtcp [-options]
+
+[-options]  -p port		port number to listen at
+	    -l readsize 	read size (byte)
+            -w LogFilename      record per-second throughput results into a specified file
+    </CONTENT>
+</APP>
+<APP> 
+    <NAME> 
+	rtg
+    </NAME>
+    <CONTENT> 
+Usage: rtg -type  [-options]
+
+[-type]     -t                   TCP connection 
+            -u                   UDP connection
+
+[-options]  -v                   display the per-packet results to standard output
+				 (e.g., pkt loss, pkt delay.)
+            -sb bufSize          set the size of the used socket buffer (kbyte)
+            -p port              port number to listen at (default 3000)
+            -o LogFilename       record the per-packet results into a specified file
+	    			 (only support UDP)
+            -w LogFilename       record per-second throughput results into a specified file
+
+    </CONTENT>
+</APP>
+<APP> 
+    <NAME> 
+ 	stg	
+    </NAME>
+    <CONTENT> 
+Usage: stg  -modes  hostIPaddr  [-options]
+
+[-modes] TCP greedy mode:
+               -t Duration(sec)
+
+         UDP greedy mode: (support broadcast, e.g., 1.0.3.255)
+               -u PacketDataPayLoadSize(byte) Duration(sec) 
+               -m Bandwidth(Mbit/sec) MaxQueueLength(packets) 
+                  (-m Only for UDP greedy mode, default 100Mbit/sec, 50 packets)
+
+         Trace mode: (UDP packets)
+               -trace InputTraceFilename
+
+         Self-similar mode: (UDP packets)
+               -s AvgBw(KB/s) AvgPktSize(byte) Duration(sec) OutputFilename
+               (Note: In the self-similar mode, the desired self-similar 
+                      traffic flow will first be calculated and saved to
+                      the file whose name is given by OutputFilename.
+                      Then, stg will automatically use the trace mode to
+                      open and read this file. Based on this file, stg will 
+                      then automatically generate and send out packets. 
+               ) 
+
+         ConfigFile mode:
+               -i ConfigFilename
+         
+[-options]     -p port    port number to send to (default 3000)
+               -v         display the per-packet results to standard output
+               -seed      random seed (default current time)
+ 
+
+Trace File Format:
+
+  Each line in a trace file represents a packet that should be transmitted.
+In each line, the first column indicates the length of the packet in bytes.
+The second column indicates the idle time between transmitting the current 
+and the next packet. Each packet is transmitted as a UDP packet.
+
+Format:
+PacketSize(in bytes) IntervalTime(in seconds)
+
+An example:
+
+100   0.02
+234   0.1
+431   1.5
+200   0.001
+
+Config File Format :
+
+  The content of a configuration file describes a traffic generation scenario, 
+which can be very flexible and versatile. For example, it can specify a UDP 
+flow with a particular packet size distribution (e.g., constant, uniform,
+or exponential) and with a particular packet inter-transmitting time 
+distribution (e.g., constant, uniform, or exponential). 
+
+File Format:
+
+type:       udp
+start_time: 10
+on-off:     4
+
+on:   time: 30      const 0.01           length: const 1000
+on:   packet: 1000  uniform 0.05 0.1     length: exponential 800 50 1000
+off:  time: 40
+.....
+..... (more than one "on:" or "off:" statements can be put here)
+.....
+
+end
+
+"type:       ###"    ==> The protocol type ### can be udp or tcp
+"start_time: ###"    ==> The time ### to start transmitting the first packet 
+"on-off:     ###"    ==> the lines between the current line and the line 
+                         with "end" (the last line) will be repeatedly performed 
+                         ### times
+
+"on: [time:XXX or packet:YYY] inter-transmitting_time_distribution
+ packet_length_distribution"  
+
+   ==>  means that UDP packets should be generated and sent out based on 
+        the specified time interval and packet length distributions
+
+        [time:XXX] means that the traffic generator should generate and send
+                   out packets for XXX seconds
+        [packet:YYY] means that the traffic generator should only generate 
+                     and send out YYY packets
+        (Note: Only one option can be specified!)
+
+        inter-transmitting_time_distribution can be:
+          [const XXX] means that the time between sending consecutive packets 
+                      is a fixed value of XXX seconds 
+          [uniform XXX, YYY] means that the times between sending consecutive
+                      packets is a uniform distribution with MIN = XXX and
+                      MAX = YYY seconds 
+          [exponential XXX, YYY, ZZZ] means that the times between sending 
+                      consecutive packets is an exponential distribution 
+                      with MEAN = XXX, MIN = YYY, and MAX = ZZZ seconds 
+
+       packet_length_distribution can be:
+          [const XXX] means that the length of generated packets is a fixed 
+                      value of XXX bytes 
+          [uniform XXX, YYY] means that the lengths of generated packets 
+                      is a uniform distribution with MIN = XXX and
+                      MAX = YYY bytes 
+          [exponential XXX, YYY, ZZZ] means that the lengths of generated 
+                      packets is an exponential distribution 
+                      with MEAN = XXX, MIN = YYY, and MAX = ZZZ bytes 
+
+"off:    time: ###"    ==> stop transmitting packets for ### seconds
+
+Notes for UDP connections:
+
+ Stg support four types of time interval distributions for a UDP flow:
+    (1) const       #1       ==> constant #1 (CBR packet stream)
+    (2) uniform     #1 #2    ==> min #1, max #2
+    (3) exponential #1 #2 #3 ==> ave #1, min #2, max #3 (Poisson packet stream)
+    (4) greedy               ==> 0 
+ Stg support three types of packet size (in bytes) for a UDP flow:
+    (1) const       #1       ==> constant #1 
+    (2) uniform     #1 #2    ==> min #1, max #2
+    (3) exponential #1 #2 #3 ==> ave #1, min #2, max #3
+ [note] The maximum packet size specified cannot be large than the 
+        Ethernet MTU 1500 bytes!
+
+Notes for TCP connections:
+
+ Stg ONLY supports the "greedy" mode for a TCP connection.
+
+
+A UDP Traffic Config Example:
+
+type: udp
+start_time: 1
+on-off: 5
+
+on:       packet: 1000   greedy            length:  uniform     100  1000
+on:       time:   30     const 0.001       length:  const       400
+off:      time:   20
+on:       packet: 15     uniform 1.5 4     length:  uniform     500
+on:       time:   25     exponential 1 3 5 length:  const       300
+off:      time:   20
+on:       packet: 100    uniform 0.1 0.5   length:  exponential 500 100 1000
+
+end
+
+
+A TCP Traffic Config Example:
+
+type:       tcp
+start_time: 1
+on-off:     1
+
+on:   time: 30   greedy
+off:  time: 10
+
+end
+
+    </CONTENT>
+</APP>
+<APP>
+    <NAME>
+        ttcp 
+    </NAME>
+    <CONTENT>
+Usage: ttcp -t [-options] host [ < in ]
+       ttcp -r [-options > out]
+Common options:
+        -l ##    length of buf read from or written to network (default 1000)
+        -u       use UDP instead of TCP
+        -p port  port number to send to or listen at (default 5001)
+        -s       -t: source a pattern to network
+                 -r: sink (discard) all data from network
+        -A       align the start of buffers to this modulus (default 16384)
+        -O       start buffers at this offset from the modulus (default 0)
+        -v       verbose: print more statistics
+        -d       set SO_DEBUG socket option
+        -b ##    set socket buffer size (if supported)
+        -f X     format for rate: k,K = kilo{bit,byte}; m,M = mega; g,G = giga
+Options specific to -t:
+        -n ##    number of source bufs written to network (default 2^20)
+        -D       don't buffer TCP writes (sets TCP_NODELAY socket option)
+Options specific to -r:
+        -B       for -s, only output full blocks as specified by -l (for TAR)
+        -T       "touch": access each byte as it's read
+        -w name  log per-second throughput to file    
+    </CONTENT>
+</APP>
+<APP>
+	<NAME>
+		rtprecvonly
+	</NAME>
+	<CONTENT>
+Description:
+        A simple rtp_receive_only application for NCTUns, developers can rewrite 
+        it to suit their needs.
+
+Usage: rtprecvonly [local_ip] [local_port] [CNAME] [local_sdp]
+
+        [local_ip]      : The IP address of the local host.
+        [local_port]    : The port number used by the application.
+        [CNAME]         : The CNAME used by the application, the definition of CNAME 
+                          is specified in RFC3550.
+        [local_sdp]     : The SDP file read by the application, the SDP format is 
+                          specified in RFC2327.
+	</CONTENT>
+</APP>
+<APP>
+	<NAME>
+		rtpsendrecv
+	</NAME>
+	<CONTENT>
+Description:
+        A simple rtp_send_receive application for NCTUns, developers can rewrite 
+        it to suit their needs.
+
+Usage: rtpsendrecv [local_ip] [local_port] [CNAME] [local_sdp] [-options]
+
+        [local_ip]      : The IP address of the local host.
+        [local_port]    : The port number used by the application.
+        [CNAME]         : The CNAME used by the application, the definition of CNAME 
+                          is specified in RFC3550.
+        [local_sdp]     : The SDP file read by the application, the SDP format is 
+                          specified in RFC2327.
+
+
+[-options]
+
+        [-t  trace_file]: Trace Mode.
+
+        Trace File Format:
+
+        Each line in a trace file represents a packet that should be transmitted.
+        In each line, the first column indicates the length of the packet in byte.
+        The second column indicates the idle time between transmitting the current 
+        and the next packet.
+
+        Format:
+                PacketSize(in byte) IntervalTime(in second)
+	</CONTENT>
+</APP>

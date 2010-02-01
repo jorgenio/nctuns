@@ -1,0 +1,52 @@
+#
+# NCTUns 6.0 Network Simulator /etc README file
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+coordinator.cfg -> The configuration file that will be read by the coordinator.
+                   This file tells the coordinator what IP address and port 
+                   number are currently used by the dispatcher. Such 
+                   information is necessary for the coordinator to make 
+                   connections to the dispatcher. 
+                   
+                   The default IP address is set to 127.0.0.1, which normally 
+                   is the IP address assigned to the loopback interface (lo) 
+                   by the operating system and should work properly. However, 
+                   if 127.0.0.1 is not automatically assigned to the lo on 
+                   your system, this default setting will not work. In such a 
+                   case, you should change 127.0.0.1 to the IP address that is 
+                   currently used by your machine, which should always 
+                   succeed.
+
+dispatcher.cfg  -> The configuration file that will be read by the dispatcher.
+                   The file specifies the port numbers that should be used 
+                   by the dispatcher on which to accept connection requests 
+                   issued from the GUI program or the coordinator. 
+
+mdf/    -> The module description file that will be read by the GUI program 
+           (nctunsclient). If you add your own modules to the simulator
+           (the simulation engine) and want the GUI program's node editor
+           to recognize and display them. You should add these modules'
+           descriptions to this file. Starting from NCTUns 3.0, a new way of
+	   storing the descriptions of modules are supported. A module
+	   developer can store the description of a module individually in the
+           mdf subdirectory of this directory. The developer can create 
+	   subdirectories inside the mdf subdirectory and store his (her)
+           modules in any created subdirectory. The created subdirectories
+           need not correspond to the module groups declared in these modules. 
+           The GUI program will read both the orignal mdf.cfg file and all 
+           module description files inside the mdf subdirectory. Therefore,
+           the original way and the new way are both supported.
+
+app.xml -> The application (traffic generator) usage description file that 
+           will be read by the nctunscleint (the GUI program). If you add your 
+           own application programs to the simulator's traffic generator
+           directory (/usr/local/nctuns/tools) and want the GUI program to 
+           display their usage descriptions when a GUI user presses the 
+           "App. Usage" button, you should add these application programs' 
+           usage descriptions to this file. 
