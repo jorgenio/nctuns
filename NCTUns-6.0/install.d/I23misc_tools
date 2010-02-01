@@ -1,0 +1,383 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator I23misc_tools script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+#
+# I23 build misc tools
+#
+
+# configure key
+conf_key="install_misc_tools"
+
+# show banner
+show_banner "Build Miscellaneous Tools"
+
+if [ $quiet = 1 ]; then
+    export MAKEFLAGS="s"
+fi
+
+# if step by step, then ask user if install it
+step_proc $conf_key "proceed?...[yes/no](No)"
+
+cont_confirm $conf_key
+if [ $? == 1 ]; then
+    # build printPtr
+
+    info "build printPtr"
+    file="$pkgdir/tools/misc/printPtr"
+    if [ -d "$file" ]; then
+        pushd $file > /dev/null
+
+        cmd "make" "make failed..."
+
+        if [ -f "$file/printPtr" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file/printPtr' '$installdir/bin'"
+            else
+                cmd "${CP} '$file/printPtr' '$installdir/bin'"
+            fi
+            buildptr="ok"
+        else
+            error "build printPtr failed..."
+            buildptr="fail"
+        fi
+
+        cmd "make clean" "make clean failed..."
+
+        popd > /dev/null
+    else
+        error "Cannot find $file"
+        buildptr="fail"
+    fi
+
+    # copy pkt_trace.format
+
+    info "copy package trace format file"
+    file="$pkgdir/tools/misc/printPtr/pkt_trace.format"
+    if [ -f "$file" ]; then
+        if [ ! -z "$INSTALL" ]; then
+            cmd "${INSTALL} -m 644 '$file' '$installdir/etc'"
+        else
+            cmd "${CP} '$file' '$installdir/etc'"
+        fi
+        buildformat="ok"
+    else
+        error "Cannot find $file"
+        buildformat="fail"
+    fi
+
+    # build ripd
+
+    info "build ripd"
+    file="$pkgdir/tools/misc/ripd"
+    if [ -d "$file" ]; then
+        pushd $file > /dev/null
+
+        cmd "make" "make failed..."
+
+        if [ -f "$file/rip" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file/rip' '$installdir/tools'"
+            else
+                cmd "${CP} '$file/rip' '$installdir/tools'"
+            fi
+            buildrip="ok"
+        else
+            error "build ripd failed..."
+            buildrip="fail"
+        fi
+
+        cmd "make clean" "make clean failed..."
+
+        popd > /dev/null
+    else
+        error "Cannot find $file"
+        buildrip="fail"
+    fi
+
+    # build ospfd
+
+    info "build ospfd"
+    file="$pkgdir/tools/misc/ospfd"
+    if [ -d "$file" ]; then
+        pushd $file > /dev/null
+
+        cmd "make" "make failed..."
+
+        if [ -f "$file/ospfd" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file/ospfd' '$installdir/tools'"
+            else
+                cmd "${CP} '$file/ospfd' '$installdir/tools'"
+            fi
+            buildospf="ok"
+        else
+            error "build ospfd failed..."
+            buildospf="fail"
+        fi
+
+        cmd "make clean" "make clean failed..."
+
+        popd > /dev/null
+    else
+        error "Cannot find $file"
+        buildospf="fail"
+    fi
+
+    # build agent of mipd
+
+    info "build agent of mipd"
+    file="$pkgdir/tools/misc/mipd/agent"
+    if [ -d "$file" ]; then
+        pushd $file > /dev/null
+
+        cmd "make" "make failed..."
+
+        if [ -f "$file/agent" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file/agent' '$installdir/tools'"
+            else
+                cmd "${CP} '$file/agent' '$installdir/tools'"
+            fi
+            buildagent="ok"
+        else
+            error "build agent of mipd failed..."
+            buildagent="fail"
+        fi
+
+        cmd "make clean" "make clean failed..."
+
+        popd > /dev/null
+    else
+        error "Cannot find $file"
+        buildagent="fail"
+    fi
+
+    # build mnd of mipd
+
+    info "build mnd of mipd"
+    file="$pkgdir/tools/misc/mipd/mnd"
+    if [ -d "$file" ]; then
+        pushd $file > /dev/null
+
+        cmd "make" "make failed..."
+
+        if [ -f "$file/mnd" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file/mnd' '$installdir/tools'"
+            else
+                cmd "${CP} '$file/mnd' '$installdir/tools'"
+            fi
+            buildmnd="ok"
+        else
+            error "build mnd of mipd failed..."
+            buildmnd="fail"
+        fi
+
+        cmd "make clean" "make clean failed..."
+
+        popd > /dev/null
+    else
+        error "Cannot find $file"
+        buildmnd="fail"
+    fi
+
+    # build rod of mipd
+
+    info "build rod of mipd"
+    file="$pkgdir/tools/misc/mipd/rod"
+    if [ -d "$file" ]; then
+        pushd $file > /dev/null
+
+        cmd "make" "make failed..."
+
+        if [ -f "$file/rod" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file/rod' '$installdir/tools'"
+            else
+                cmd "${CP} '$file/rod' '$installdir/tools'"
+            fi
+            buildrod="ok"
+        else
+            error "build rod of mipd failed..."
+            buildrod="fail"
+        fi
+
+        cmd "make clean" "make clean failed..."
+
+        popd > /dev/null
+    else
+        error "Cannot find $file"
+        buildrod="fail"
+    fi
+
+else
+    info "skip... build misc tools"
+    buildptr="skip"
+    buildformat="skip"
+    buildrip="skip"
+    buildospf="skip"
+    buildagent="skip"
+    buildmnd="skip"
+    buildrod="skip"
+fi
+
+report "build and install printPtr ... $buildptr"
+report "copy package trace format file ... $buildformat"
+report "build and install ripd ... $buildrip"
+report "build and install ospfd ... $buildospf"
+report "build and install agent of mipd... $buildagent"
+report "build and install mnd of mipd... $buildmnd"
+report "build and install rod of mipd... $buildrod"
+
+unset MAKEFLAGS
+unset buildptr buildrip buildospf
+unset buildagent buildmnd buildrod
+
+# configure key
+conf_key="install_binary"
+
+# show banner
+show_banner "Install the Programs of System Utility Commands (e.g., route, ping, etc.)"
+
+# if step by step, then ask user if install it
+step_proc $conf_key "proceed?...[yes/no](No)"
+
+cont_confirm $conf_key
+if [ $? == 1 ]; then
+    info "copy nctuns.csh and nctuns.bash"
+    file="$pkgdir/etc"
+    if [ -f "$file/nctuns.csh" -a -f "$file/nctuns.bash" ]; then
+
+	# create nctuns.csh
+        tmp="$file/nctuns.csh.$$"
+        cmd "echo 'setenv NCTUNSHOME $installdir' > '$tmp'" "write script to $tmp failed..."
+        cmd "${GREP} -v '^\(export\|setenv\) NCTUNSHOME' '$file/nctuns.csh' >> '$tmp'" "append script to $tmp failed..."
+
+	# create nctuns.bash
+        tmp="$file/nctuns.bash.$$"
+        cmd "echo 'export NCTUNSHOME=$installdir' > '$tmp'" "write script to $tmp failed..."
+        cmd "${GREP} -v '^\(export\|setenv\) NCTUNSHOME' '$file/nctuns.bash' >> '$tmp'" "append script to $tmp failed..."
+
+        if [ ! -z "$INSTALL" ]; then
+            cmd "${INSTALL} -m 644 '$file/nctuns.csh.$$' '$installdir/etc/nctuns.csh'"
+            cmd "${INSTALL} -m 644 '$file/nctuns.bash.$$' '$installdir/etc/nctuns.bash'"
+        else
+            cmd "${CP} '$file/nctuns.csh.$$' '$installdir/etc/nctuns.csh'"
+            cmd "${CP} '$file/nctuns.bash.$$' '$installdir/etc/nctuns.bash'"
+        fi
+        cmd "${RM} -rf '$file/nctuns.csh.$$' '$file/nctuns.bash.$$'"
+        installetc="ok"
+    else
+        installetc="skip"
+    fi
+
+    # route command
+
+    info "copy or link route command"
+    file="/sbin/route"
+    if [ -f "$file" ]; then
+        cmd "${LN} '$file' '$installdir/tools'"
+        installroute="link"
+    else
+        file="$pkgdir/bin/route"
+        if [ -f "$file" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file' '$installdir/tools'"
+            else
+                cmd "${CP} '$file' '$installdir/tools'"
+            fi
+            installroute="copy"
+        else
+            error "Cannot find $file"
+            installroute="fail"
+        fi
+    fi
+
+    # tcpdump command
+
+    info "copy or link tcpdump command"
+    file="/usr/sbin/tcpdump"
+    if [ -f "$file" ]; then
+        cmd "${LN} '$file' '$installdir/tools'"
+        installtcpdump="link"
+    else
+        file="$pkgdir/bin/tcpdump"
+        if [ -f "$file" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 4755 '$file' '$installdir/tools'"
+            else
+                cmd "${CP} '$file' '$installdir/tools'"
+                cmd "${CHMOD} 4755 '$installdir/tools/tcpdump"
+            fi
+            installtcpdump="copy"
+        else
+            error "Cannot find $file"
+            installtcpdump="fail"
+        fi
+    fi
+
+    # ping command
+
+    info "install ping which be hacked"
+
+    file="$pkgdir/bin/ping"
+    if [ -f "$file" ]; then
+        if [ ! -z "$INSTALL" ]; then
+            cmd "${INSTALL} -m 4755 '$file' '$installdir/tools'"
+        else
+            cmd "${CP} '$file' '$installdir/tools'"
+            cmd "${CHMOD} 4755 '$installdir/tools/ping"
+        fi
+        installping="copy"
+    else
+        error "Cannot find $file"
+        installping="fail"
+    fi
+
+    # ifconfig command
+
+    info "copy or link ifconfig command"
+    file="/sbin/ifconfig"
+    if [ -f "$file" ]; then
+        cmd "${LN} '$file' '$installdir/tools'"
+        installifconfig="link"
+    else
+        file="$pkgdir/bin/ifconfig"
+        if [ -f "$file" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file' '$installdir/tools'"
+            else
+                cmd "${CP} '$file' '$installdir/tools'"
+            fi
+            installifconfig="copy"
+        else
+            error "Cannot find $file"
+            installifconfig="fail"
+        fi
+    fi
+else
+    info "skip... install binary"
+    installetc="skip"
+    installroute="skip"
+    installtcpdump="skip"
+    installping="skip"
+    installifconfig="skip"
+fi
+
+report "install nctuns.csh and nctuns.bash ... $installetc"
+report "install route command ... $installroute"
+report "install tcpdump command ... $installtcpdump"
+report "install ping command ... $installping"
+report "install ifconfig command ... $installifconfig"
+
+unset installetc installroute installtcpdump
+unset installping installifconfig

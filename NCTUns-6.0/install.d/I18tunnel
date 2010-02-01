@@ -1,0 +1,50 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator I18tunnel script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+#
+# I18 create tunnels
+#
+
+# configure key
+conf_key="install_tunnel"
+
+# show banner
+show_banner "Create Tunnels"
+
+# if step by step, then ask user if install it
+step_proc $conf_key "proceed?...[yes/no](No)"
+
+cont_confirm $conf_key
+if [ $? == 1 ]; then
+    # install rules of udev for nctuns_tun
+
+    file="$pkgdir/etc/conf/udev/55-nctuns.rules"
+    dst_dir="/etc/udev/rules.d/"
+    if [ -f "$file" -a -d "$dst_dir" ]; then
+        if [ ! -z "$INSTALL" ]; then
+            cmd "${INSTALL} -m 644 '$file' '$dst_dir'"
+        else
+            cmd "${CP} '$file' '$dst_dir'"
+        fi
+        createtunnel="ok"
+    else
+        error "create rules of udev for nctuns tunnel failed.."
+        createtunnel="fail"
+    fi
+else
+    info "skip... create rules of udev for nctuns tunnel"
+    createtunnel="skip"
+fi
+
+report "create rules of udev for nctuns tunnel ... $createtunnel"
+
+unset createtunnel

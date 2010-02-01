@@ -1,0 +1,194 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator I20command_console script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+xinetd_rpm="xinetd-2.3.14-22.fc11.i586.rpm"
+rsh_rpm="rsh-server-0.17-54.fc11.i586.rpm"
+xterm_rpm="xterm-242-3.fc11.i586.rpm"
+
+#
+# I20 Install and enable rsh-server for command-console
+#
+
+# configure key
+conf_key="install_command_console"
+
+show_banner "Install and enable rsh-server for command console"
+
+if [ $quiet = 1 ]; then
+    rpmarg=' --quiet'
+else
+    rpmarg='vh'
+fi
+
+# if step by step, then ask user if install it
+step_proc $conf_key "proceed?...[yes/no](No)"
+
+cont_confirm $conf_key
+if [ $? == 1 ]; then
+    # install xinetd rpm
+
+    info "install Xinetd Internet services daemon"
+
+    file="$pkgdir/RPMS/$xinetd_rpm"
+    tmp=`${RPM} -q xinetd | ${GREP} -v package`
+    if [ -z "$tmp" ]; then
+        cmd "${RPM} -U$rpmarg $file" "install xinetd daemon rpmfile failed..."
+        cmd "service xinetd start"
+        installxinetd="ok"
+    else
+        info "The xinetd daemon is already installed."
+        installxinetd="skip"
+    fi
+
+    # install rsh server rpm
+
+    info "install rsh server"
+
+    file="$pkgdir/RPMS/$rsh_rpm"
+    tmp=`${RPM} -q rsh-server | ${GREP} -v package`
+    echo "$tmp"
+    if [ -z "$tmp" ]; then
+        cmd "${RPM} -U$rpmarg $file" "install rsh-server rpmfile failed..."
+        installrsh="ok"
+    else
+        info "The rsh server is already installed."
+        installrsh="skip"
+    fi
+
+    # enable rlogin and rsh in /etc/xinetd.d/{rsh, rlogin}
+
+    info "enable rlogin and rsh"
+    for file in /etc/xinetd.d/rlogin /etc/xinetd.d/rsh; do
+        if [ -f "$file" ]; then
+            cmd "${SED} -i'' 's/yes/no/g' '$file'" "sed command failed..."
+            installrshconf="ok"
+        else
+            error "$file do not exist!" \
+                  "Please check if you have installed the rsh server"
+            installrshconf="fail"
+        fi
+    done
+
+    # disabled authentication for rlogin
+    info "skip rlogin authentication for pam.d"
+
+    file="/etc/pam.d/rlogin"
+    if [ -f "$file" ]; then
+        cmd "${SED} -i'' -e 's/^\(auth\s*\(include\|required\).*system-auth\)$/#\1/' '$file'" "sed command failed..."
+        installpamd="ok"
+    else
+        error "$file do not exist!"
+        installpamd="fail"
+    fi
+
+    # We clone and rename xterm so that the GUI can easily use the
+    # system("killall nctunsxterm") command to kill all command console
+    # xterm when a simulation is done.
+
+    file="$pkgdir/RPMS/$xterm_rpm"
+    tmp=`${RPM} -q xterm | ${GREP} -v package`
+    if [ -z "$tmp" ]; then
+        cmd "${RPM} -U$rpmarg $file" "install xterm rpmfile failed..."
+    else
+        info "The xterm is already installed."
+    fi
+
+    file=`$WHICH xterm 2>/dev/null`
+    info "link $file to $installdir/bin/nctunsxterm"
+    if [ -f "$file" ]; then
+        cmd "${LN} '$file' '$installdir/bin/nctunsxterm'" "link xterm failed..."
+        installxterm="link"
+    else
+        cmd "${CP} '$pkgdir/bin/nctunsxterm' '$installdir/bin'" "copy nctunsxterm failed..."
+        installxterm="copy"
+    fi
+
+    # build nctuns-tcsh
+
+    info "build nctuns-tcsh"
+    file="$pkgdir/tools/misc/nctuns-tcsh"
+    if [ -d "$file" ]; then
+        pushd $file > /dev/null
+
+        cmd "./configure && make" "configure or make failed..."
+
+        if [ -f "$file/tcsh" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 4755 '$file/tcsh' '$installdir/tools/nctunstcsh'" "install nctunstcsh failed..."
+            else
+                cmd "${CP} '$file/tcsh' '$installdir/tools/nctunstcsh'" "copy nctunstcsh failed..."
+                cmd "${CHMOD} u+s '$installdir/tools/nctunstcsh'" "chmod nctunstcsh failed..."
+            fi
+            buildtcsh="ok"
+        else
+            error "build nctunstcsh failed..."
+            buildtcsh="fail"
+        fi
+
+	cmd "make clean" "make clean failed..."
+
+        popd > /dev/null
+    else
+        error "Cannot find $file"
+        buildtcsh="fail"
+    fi
+
+    info "build shell"
+    file="$pkgdir/tools/misc/shell"
+    if [ -d "$file" ]; then
+        pushd $file > /dev/null
+
+        cmd "make" "make failed..."
+        if [ -f "$file/script" -a -f "$file/tsetenv" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file/script' '$installdir/tools'"
+                cmd "${INSTALL} -m 755 '$file/tsetenv' '$installdir/tools'"
+            else
+                cmd "${CP} '$file/script' '$installdir/tools'"
+                cmd "${CP} '$file/tsetenv' '$installdir/tools'"
+            fi
+            buildshell="ok"
+        else
+            error "build shell failed..."
+            buildshell="fail"
+        fi
+
+        cmd "make clean" "make clean failed..."
+
+        popd > /dev/null
+    else
+        error "Cannot find $file"
+        buildshell="fail"
+    fi
+else
+    info "skip install and enable rsh-server for command console"
+    installxinetd="skip"
+    installrsh="skip"
+    installrshconf="skip"
+    installpamd="skip"
+    installxterm="skip"
+    buildtcsh="skip"
+    buildshell="skip"
+fi
+
+report "install Xinetd Internet services daemon ... $installxinetd"
+report "install rsh server ... $installrsh"
+report "enable rlogin and rsh ... $installrshconf"
+report "skip rlogin authentication for pam.d ... $installpamd"
+report "install xterm ... $installxterm"
+report "build and install nctuns-tcsh ... $buildtcsh"
+report "build and install shell ... $buildshell"
+
+unset rpmarg
+unset installxinetd installrsh installrshconf
+unset installpamd installxterm
+unset buildtcsh buildshell

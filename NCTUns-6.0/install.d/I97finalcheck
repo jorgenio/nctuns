@@ -1,0 +1,63 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator I95finalcheck script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+#
+# I95. final check
+#
+
+# show banner
+show_banner "Final Check"
+
+# open the file permission mode of the files in the example directory
+# so that all user can modify them when trying these examples
+file="$pkgdir/examples"
+if [ -d "$file" ]; then
+    cmd "find $file -type d | ${XARGS} ${CHMOD} +x" "skip"
+fi
+
+echo "** Results:"
+echo "**"
+${CAT} $result
+
+${CAT} <<ending
+**
+** Please press the "Enter" key to continue
+
+ending
+read line
+
+cmd "${CAT} $pkgdir/FINALCHECK"
+
+${CAT} <<ending
+
+ Important Notice!
+
+ If your X-window system adopts KDE as the default desktop manager program, 
+ please BE SURE to upgrade your KDE version to 4.0.5 or higher. It is found 
+ that KDE 4.0.3 is likely to trigger unexpected signals to the NCTUns
+ simulation engine, which may cause the simulation engine to run abnormally.
+
+ Besides, we suggest to upgrade the OpenGL library into the newest version
+ because of the display of the GUI. If you have a video card equipped on your
+ machine, please find the latest driver for your video card.
+
+ To upgrade KDE and OpenGL libraries, you can use the following command:
+
+   yum update
+
+ Although this command will update all programs contained in Fedora 11
+ (including KDE, OpenGL libraries) and thus may take a long time, it is the
+ easiest way to upgrade KDE. If you just upgrade KDE, some dependency problems
+ may result.
+
+ending
+

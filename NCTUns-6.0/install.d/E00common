@@ -1,0 +1,187 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator E00common script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+# default configure
+installdir_default="/usr/local/nctuns"
+logfile="install.log"
+quiet=0
+strip_symbol=0
+stepbystep=0
+verbose=0
+color=1
+out_null=''
+
+set -o pipefail
+
+# set common tools path
+WHICH="/usr/bin/which --skip-function --skip-alias"
+CP="/bin/cp -f"
+LN="/bin/ln -sf"
+RM="/bin/rm"
+CAT="/bin/cat"
+AWK="/bin/awk"
+SED="/bin/sed"
+CUT="/bin/cut"
+GREP="/bin/grep"
+CHMOD="/bin/chmod"
+
+function error()
+{
+    local i
+    if [ ! -z "$1" ]; then
+        for i; do
+            echo -e "${color_errtag}   ERROR: ${color_errstr}$i${color_resume}" >&2
+            log "   ERROR: $1"
+	done
+        exit 1
+    fi
+}
+
+function warn()
+{
+    local i
+    if [ ! -z "$1" ]; then
+        for i; do
+            echo -e "${color_warntag} WARNING: ${color_warnstr}$i${color_resume}" >&2
+            log " WARNING: $1"
+        done
+    fi
+}
+
+function info()
+{
+    local i
+    if [ ! -z "$1" ]; then
+        for i; do
+            if [ $quiet = 0 ]; then
+                echo -e "${color_infotag}   STATE: ${color_infostr}$1${color_resume}"
+            fi
+            log "   STATE: $1"
+        done
+    fi
+}
+
+function report()
+{
+    local i
+    if [ ! -z "$1" ]; then
+        for i; do
+            if [ $quiet = 0 ]; then
+                echo -e "${color_reporttag}  REPORT: ${color_reportstr}$1${color_resume}"
+            fi
+            log "  REPORT: $1"
+            echo -e "**   $1" >> $result
+        done
+    fi
+}
+
+function debug()
+{
+    local i
+    if [ $debug = 1 -a ! -z "$1" ]; then
+        for i; do
+            echo -e "${color_debugtag}   DEBUG: ${color_debugstr}$i${color_resume}" >&2
+        done
+	return 1
+    fi
+}
+
+function show_banner()
+{
+    if [ ! -z "$1" ]; then
+        echo -e "\n\n\n**                                                            "
+        printf "**        %-45s       \n" "$1"
+        echo          "**                                                            "
+        log " INSTALL: $1"
+    fi
+}
+
+function read_prompt()
+{
+    local i
+    local key 
+
+    key=$1
+    shift;
+    if [ ! -z "$key" -a ! -z "$1" ]; then
+        for i; do
+            echo -e "** ${color_readprompt}$i${color_resume}"
+        done
+        echo -n "> "
+    	read $key;
+    fi
+}
+
+function step_proc()
+{
+    local key
+
+    key=$1
+    if [ $stepbystep = 1 ]; then
+        read_prompt $*
+    elif [ ! -z "$key" -a -z "`eval echo \\\$$key`" ]; then
+        eval "$key=y"
+    fi
+}
+
+function cont_confirm()
+{
+    if [[ `eval echo \\\$$1` =~ ^[Yy]\([Ee][Ss]\)?$ ]]; then
+        return 1;
+    else
+        return 0;
+    fi
+}
+
+function cmd()
+{
+    local pipe
+
+    if [ ! -z "$TEE" ]; then
+        pipe=" 2>&1 | $TEE -a $logfile"
+    fi
+    if [ ! -z "$1" ]; then
+        if [ $verbose = 1 ]; then
+            echo -e "${color_cmdtag}    EXEC: ${color_cmdstr}$1${color_resume}"
+        fi
+        eval "$1 $pipe"
+	ret=$?
+	case $ret
+	in
+		130) # ctrl+c
+			warn "Abort"
+			stop_log
+			;;
+		0) # success
+			;;
+		*)
+			echo $ERR
+			if [ -z "$2" ]; then
+				error "command failed"
+			elif [ "$2" != "skip" ]; then
+				error "$2"
+			fi
+			;;
+	esac
+	return $ret
+    fi
+}
+
+function log()
+{
+    local i
+    if [ ! -z "$logfile" -a ! -z "$1" ]; then
+        for i; do
+            echo "$i" >> "$logfile"
+        done
+    fi
+}

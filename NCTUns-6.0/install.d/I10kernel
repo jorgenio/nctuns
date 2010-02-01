@@ -1,0 +1,79 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator I10kernel script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+rpmname="kernel-nctuns"
+kernelver="2.6.28.9-nctuns-20090901" 
+kernelrpm="kernel-nctuns-2.6.28.9nctuns20090901-7"
+
+#
+# I10 install kernel
+#
+
+# configure key
+conf_key="install_kernel"
+
+# show banner
+show_banner "Install the NCTUns Kernel"
+
+if [ $quiet = 1 ]; then
+    rpmarg=' --quiet'
+else
+    rpmarg='-ivh'
+fi
+
+# if step by step, then ask user if install it
+step_proc $conf_key "proceed?...[yes/no](No)"
+
+cont_confirm $conf_key
+if [ $? == 1 ]; then
+    file="$pkgdir/RPMS/$kernelrpm.i386.rpm"
+    if [ -r "$file" ]; then
+        info "install new nctuns kernel or upgrade older nctuns kernel"
+        cmd "${RPM} --force $rpmarg $file" "skip"
+            if [ $? != 0 ]; then
+                org_kernel=`${RPM} -q ${rpmname} | ${GREP} -v package`
+                if [ -z "$org_kernel" ]; then
+                    error "Cannot install nctuns kernel"
+		    installkernel="fail"
+                else
+                    info "You already have the latest version."
+                fi
+            else
+                cmd "${CP} '/boot/System.map-$kernelver' '$installdir/etc/System.map'" "copy System.map failed..."
+            fi
+
+        # update grub.conf
+        file="/boot/grub/grub.conf"
+        if [ -f "$file" -a -f "/sbin/grub" ]; then
+            info "modifiy grub configuration to disable hiddenmenu function and extend timeout limit"
+            # disable hidden menu
+            cmd "${SED} -i'' 's/^\(hiddenmenu.*\)$/#\1/' $file" "sed command failed..."
+           
+
+            timeout=`${CAT} $file | ${GREP} 'timeout' | ${CUT} -d '=' -f 2`
+            # if timeout is less than 15 sec, then set it to 15 sec
+            if [ "$timeout" -lt 15 ]; then
+                cmd "${SED} -i'' 's/^\(timeout=\).*/\115/' $file" "sed command failed..."
+            fi
+        fi
+        installkernel="ok"
+    else
+       installkernel="fail"
+    fi
+   
+else
+    info "skip... install the NCTUns kernel"
+    installkernel="skip";
+fi
+
+report "install the NCTUns kernel ... $installkernel"
+
+unset installkernel rpmarg

@@ -1,0 +1,205 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator I21traffic_gen script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+#
+# I21 build traffic generator
+#
+
+# configure key
+conf_key="install_traffic_gen"
+
+# show banner
+show_banner "Build Traffic Generator"
+
+if [ $quiet = 1 ]; then
+    export MAKEFLAGS="s"
+fi
+
+# if step by step, then ask user if install it
+step_proc $conf_key "proceed?...[yes/no](No)"
+
+cont_confirm $conf_key
+if [ $? == 1 ]; then
+    # build stcp and rtcp
+
+    info "build stcp and rtcp"
+    file="$pkgdir/tools/traffic-gen/srtcp"
+    if [ -d "$file" ]; then
+        pushd $file > /dev/null
+
+        cmd "make" "make failed..."
+
+        if [ -f "$file/stcp" -a -f "$file/rtcp" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file/stcp' '$installdir/tools'"
+                cmd "${INSTALL} -m 755 '$file/rtcp' '$installdir/tools'"
+            else
+                cmd "${CP} '$file/stcp' '$installdir/tools'"
+                cmd "${CP} '$file/rtcp' '$installdir/tools'"
+            fi
+            buildsrtcp="ok"
+        else
+            error "build stcp and rtcp failed..."
+            buildsrtcp="fail"
+        fi
+
+        cmd "make clean" "make clean failed..."
+
+        popd > /dev/null
+    else
+        error "Cannot find $file"
+        buildsrtcp="fail"
+    fi
+
+    # build ttcp
+
+    info "build ttcp"
+    file="$pkgdir/tools/traffic-gen/ttcp"
+    if [ -d "$file" ]; then
+        pushd $file > /dev/null
+
+        cmd "make" "make failed..."
+
+        if [ -f "$file/ttcp" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file/ttcp' '$installdir/tools'"
+            else
+                cmd "${CP} '$file/ttcp' '$installdir/tools'"
+            fi
+            buildttcp="ok"
+        else
+            error "build ttcp failed..."
+            buildttcp="fail"
+        fi
+
+        cmd "make clean" "make clean failed..."
+
+        popd > /dev/null
+    else
+        error "Cannot find $file"
+        buildttcp="fail"
+    fi
+
+    # build stg and rtg
+
+    info "build stg and rtg"
+    file="$pkgdir/tools/traffic-gen/srtg"
+    if [ -d "$file" ]; then
+        pushd $file > /dev/null
+
+        cmd "make" "make failed..."
+
+        if [ -f "$file/stg" -a -f "$file/rtg" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file/stg' '$installdir/tools'"
+                cmd "${INSTALL} -m 755 '$file/rtg' '$installdir/tools'"
+            else
+                cmd "${CP} '$file/stg' '$installdir/tools'"
+                cmd "${CP} '$file/rtg' '$installdir/tools'"
+            fi
+            buildsrtg="ok"
+        else
+            error "build stg and rtg failed..."
+            buildsrtg="fail"
+        fi
+
+        cmd "make clean" "make clean failed..."
+
+        popd > /dev/null
+    else
+        error "Cannot find $file"
+        buildsrtg="fail"
+    fi
+
+    # build rtp library and rtp example tools
+
+    info "build rtp library and rtp example tools"
+    file="$pkgdir/lib/librtp"
+    if [ -d "$file" ]; then
+        pushd $file > /dev/null
+
+        cmd "make" "make failed..."
+
+        if [ -f "$file/librtp.so" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file/librtp.so' '$installdir/lib'"
+            else
+                cmd "${CP} '$file/librtp.so' '$installdir/lib'"
+            fi
+            info "configure dynamic linker run time bindings"
+            cmd "/sbin/ldconfig $out_null"
+            buildlibrtp="ok"
+        else
+            error "build rtp library failed..."
+            buildlibrtp="fail"
+        fi
+
+        file="$pkgdir/tools/traffic-gen/rtp/"
+        if [ -d "$file" ]; then
+            pushd $file > /dev/null
+
+            cmd "make" "make failed..."
+
+            # adapt_bw adapt_sessionbw rtprecvonly rtpsendrecv
+            if [ -f "$file/adapt_bw" -a -f "$file/adapt_sessionbw" \
+                 -a -f "$file/rtprecvonly" -a -f "$file/rtpsendrecv" ]; then
+
+                if [ ! -z "$INSTALL" ]; then
+                    cmd "${INSTALL} -m 755 '$file/adapt_bw' '$installdir/tools'"
+                    cmd "${INSTALL} -m 755 '$file/adapt_sessionbw' '$installdir/tools'"
+                    cmd "${INSTALL} -m 755 '$file/rtprecvonly' '$installdir/tools'"
+                    cmd "${INSTALL} -m 755 '$file/rtpsendrecv' '$installdir/tools'"
+                else
+                    cmd "${CP} '$file/adapt_bw' '$installdir/tools'"
+                    cmd "${CP} '$file/adapt_sessionbw' '$installdir/tools'"
+                    cmd "${CP} '$file/rtprecvonly' '$installdir/tools'"
+                    cmd "${CP} '$file/rtpsendrecv' '$installdir/tools'"
+                fi
+                buildrtp="ok"
+            else
+                error "build rtp example tools failed..."
+                buildrtp="fail"
+            fi
+
+            cmd "make clean" "make clean failed..."
+
+            popd > /dev/null
+        else
+            error "Cannot find $file"
+            buildrtp="fail"
+        fi
+
+        cmd "make clean" "make clean failed..."
+
+        popd > /dev/null
+    else
+        error "Cannot find $file"
+        buildlibrtp="fail"
+    fi
+else
+    info "skip... build traffic generator"
+    buildsrtcp="skip"
+    buildttcp="skip"
+    buildsrtg="skip"
+    buildlibrtp="skip"
+    buildrtp="skip"
+fi
+
+report "build and install stcp and rtcp ... $buildsrtcp"
+report "build and install ttcp ... $buildttcp"
+report "build and install stg and rtg ... $buildsrtg"
+report "build and install rtp library ... $buildlibrtp"
+report "build and install rtp example tools ... $buildrtp"
+
+unset MAKEFLAGS
+unset buildsrtcp buildttcp buildsrtcp
+unset buildlibrtp buildrtp

@@ -1,0 +1,144 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator I11system_library script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+libtcl_rpm="tcl-8.5.6-6.fc11.i586.rpm"
+libpcap_rpm="libpcap-0.9.8-4.fc11.i586.rpm"
+
+#
+# I11 install library
+#
+
+# configure key
+conf_key="install_system_library"
+
+# show banner
+show_banner "Install System Libraries"
+
+# if step by step, then ask user if install it
+step_proc $conf_key "proceed?...[yes/no](No)"
+
+cont_confirm $conf_key
+if [ $? == 1 ]; then
+    # install libstdc++
+
+    file="/usr/lib/libstdc++.so.6"
+    if [ ! -f "$file" ]; then
+        info "install libstdc++"
+
+        file="$pkgdir/lib/libstdc++.so.6.0.8"
+        if [ -f "$file" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file' '$installdir/lib'"
+            else
+                cmd "${CP} '$file' '$installdir/lib'"
+            fi
+            cmd "${LN} '$installdir/lib/libstdc++.so.6.0.8' '$installdir/libstdc++.so.6'"
+            installlib[0]="ok"
+        else
+            error "Cannot find $file"
+            installlib[0]="fail"
+        fi
+    else
+        info "libstdc++.so.6 existed"
+        installlib[0]="skip"
+    fi
+
+    # install libtcl8.5
+
+    file="$pkgdir/RPMS/$libtcl_rpm"
+    tmp=`${RPM} -q tcl | ${GREP} -v package`
+    if [ -z "$tmp" ]; then
+        cmd "${RPM} -U$rpmarg $file" "skip"
+        if [ $? == 0 ]; then
+            installlib[1]="ok..install rpmfile"
+        else
+            file="/usr/lib/libtcl8.5.so"
+            if [ ! -f "$file" ]; then
+                info "install libtcl8.5"
+
+                file="$pkgdir/src/nctuns/tcl_linux/libtcl8.5.so"
+                if [ -f "$file" ]; then
+                    if [ ! -z "$INSTALL" ]; then
+                        cmd "${INSTALL} -m 755 '$file' '$installdir/lib'" "install libtcl8.5 failed..."
+                    else
+                        cmd "${CP} '$file' '$installdir/lib'" "copy libtcl8.5 failed..."
+                    fi
+                    installlib[1]="ok..copy libtcl8.5 files"
+                else
+                    error "Cannot find $file"
+                    installlib[1]="fail"
+                fi
+
+                file="$pkgdir/src/nctuns/tcl_linux/tcl8.5"
+                if [ -d "$file" ]; then
+                    cmd "${CP} -rf '$file' '$installdir/lib'"
+                else
+                    error "Cannot find $file"
+                fi
+            else
+                info "libtcl8.5.so existed"
+                installlib[1]="skip"
+            fi
+        fi
+    else
+        info "The tcl library is already installed."
+        installlib[1]="skip"
+    fi
+
+    # install libpcap
+
+    file="$pkgdir/RPMS/$libpcap_rpm"
+    tmp=`${RPM} -q libpcap | ${GREP} -v package`
+    if [ -z "$tmp" ]; then
+        cmd "${RPM} -U$rpmarg $file" "skip"
+        if [ $? == 0 ]; then
+            installlib[2]="ok..install rpmfile"
+        else
+            file="/usr/lib/libpcap.so.0.9"
+            if [ ! -f "$file" ]; then
+                info "install libpcap"
+
+                file="$pkgdir/lib/libpcap"
+                if [ -d "$file" ]; then
+                    cmd "${CP} '$file/*' '$installdir/lib'" "copy libpcap failed..."
+                    cmd "${LN} '$installdir/lib/libpcap.so.0.9.5' '$installdir/lib/libpcap.so.0.9'" "link libpcap failed..."
+                    installlib[2]="ok..copy libpcap files"
+                else
+                    error "Cannot find $file"
+                    installlib[2]="fail"
+                fi
+            else
+                info "libpcap.so.0.9 existed"
+                installlib[2]="skip"
+            fi
+        fi
+    else
+        info "The pcap library is already installed."
+        installlib[2]="skip"
+    fi
+
+    # re-cache ld.so.cache
+    info "configure dynamic linker run time bindings"
+    cmd "echo '$installdir/lib' > /etc/ld.so.conf.d/nctuns.conf" "write into /etc/ld.so.conf.d/nctuns.conf failed..."
+    cmd "/sbin/ldconfig $out_null"
+else
+    info "skip... install library"
+    installlib[0]="skip"
+    installlib[1]="skip"
+    installlib[2]="skip"
+fi
+
+report "install libstdc++.so.6 ... .${installlib[0]}"
+report "install libtcl8.5 ... ${installlib[1]}"
+report "install libpcap.so.0.9 ... ${installlib[2]}"
+
+unset installlib

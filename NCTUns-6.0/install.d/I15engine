@@ -1,0 +1,85 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator I15engine script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+#
+# I15 build nctuns
+#
+
+# configure key
+conf_key="install_engine"
+
+# show banner
+show_banner "Build the simulation engine and libraries"
+
+if [ $quiet = 1 ]; then
+    export MAKEFLAGS="s"
+elif [ $verbose = 1 ]; then
+    export V=1
+fi
+
+# if step by step, then ask user if install it
+step_proc $conf_key "proceed?...[yes/no](No)"
+
+cont_confirm $conf_key
+if [ $? == 1 ]; then
+    file="$pkgdir/src/nctuns"
+    if [ -d "$file" ]; then
+        pushd $file > /dev/null
+
+        info "build nctuns and libawp.so"
+        cmd "make" "make failed..."
+
+        if [ -f "$file/module/phy/libawp.so" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file/module/phy/libawp.so' '$installdir/lib'" "install command failed..."
+            else
+                cmd "${CP} '$file/module/phy/libawp.so' '$installdir/lib'" "install awp library failed..."
+            fi
+            cmd "${LN} '$installdir/lib/libawp.so' '$installdir/lib/libawp.so.1'" "link awp library failed..."
+            cmd "${LN} '$installdir/lib/libawp.so' '$installdir/lib/libawp.so.1.0'" "link awp library failed..."
+            cmd "${LN} '$installdir/lib/libawp.so' '$installdir/lib/libawp.so.1.0.0'" "link awp library failed..."
+            buildlibawp="ok"
+        else
+            error "build libawp.so failed..."
+            buildlibawp="fail"
+        fi
+
+        if [ -f "$file/nctuns" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file/nctuns' '$installdir/bin/nctunsse'" "install nctuns failed..."
+            else
+                cmd "${CP} '$file/nctuns' '$installdir/bin/nctunsse'" "copy nctuns failed..."
+            fi
+            buildnctuns="ok"
+        else
+            error "build nctuns failed..."
+            buildnctuns="fail"
+        fi
+
+        cmd "make clean" "make clean failed..."
+        popd > /dev/null
+    else
+        error "Cannot find $file"
+        buildnctuns="fail"
+        buildlibawp="fail"
+    fi
+else
+    info "skip... build nctuns and libawp.so"
+    buildnctuns="skip"
+    buildlibawp="skip"
+fi
+
+report "build and install nctuns ... $buildnctuns"
+report "build and install advanced wireless phy library ... $buildlibawp"
+
+unset MAKEFLAGS V
+unset buildnctuns buildlibawp

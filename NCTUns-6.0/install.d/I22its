@@ -1,0 +1,92 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator I22tactic script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+agent_list="Magent1 Magent2 Magent3 Magent4 Magent5-c Magent5-t CarAgent SignalAgent1 RSUAgent CarAgent_Broken CarAgent_Down CarAgent_LaneSwitch CarAgent_SlowDown WSM WSM_Forwarding"
+
+#
+# I22 build tactic network agent
+#
+
+# configure key
+conf_key="install_its"
+
+# show banner
+show_banner "Build Tactic Network Agent"
+
+if [ $quiet = 1 ]; then
+    export MAKEFLAGS="s"
+fi
+
+# if step by step, then ask user if install it
+step_proc $conf_key "proceed?...[yes/no](No)"
+
+cont_confirm $conf_key
+if [ $? == 1 ]; then
+    # build Magent* agent
+
+    info "build Magent* agent"
+    file="$pkgdir/tools/tacticMANET/lib"
+    if [ -d "$file" ]; then
+        pushd $file > /dev/null
+
+        cmd "make" "make failed..."
+
+        buildmagent="ok"
+        for agent in $agent_list; do
+            if [ ! -f "$file/$agent" ]; then
+                buildmagent="fail"
+            fi
+        done
+        if [ "$buildmagent" == "ok" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                for agent in $agent_list; do
+                    cmd "${INSTALL} -m 755 '$file/$agent' '$installdir/tools'"
+                done
+            else
+                for agent in $agent_list; do
+		    cmd "${CP} '$file/$agent' '$installdir/tools'"
+                done
+            fi
+            buildmagent="ok"
+        else
+            error "build tactical agent failed..."
+            buildmagent="fail"
+        fi
+
+        cmd "make clean" "make clean failed..."
+        popd > /dev/null
+    else
+        error "Cannot find $file"
+        buildmagent="fail"
+    fi
+
+    info "install ITS profile"
+    file="$pkgdir/etc/ITS"
+    if [ -d "$file" ]; then
+        cmd "${CP} -r '$file' '$installdir/etc'"
+        its_profile="ok"
+    else
+        error "Cannot find $file"
+        its_profile="fail"
+    fi
+
+else
+    info "skip... build tactic network agent"
+    buildmagent="skip"
+    its_profile="fail"
+fi
+
+report "build tactic network agent ... $buildmagent"
+report "install ITS profile ... $its_profile"
+
+unset buildmagent
+unset its_profile

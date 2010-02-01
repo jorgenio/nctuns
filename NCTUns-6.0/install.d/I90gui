@@ -1,0 +1,128 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator I90gui script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+#
+# I90 install nctunsclient
+#
+
+# configure key
+conf_key="install_gui"
+
+# show banner
+show_banner "Install GUI And Related Files"
+
+# if step by step, then ask user if install it
+step_proc $conf_key "proceed?...[yes/no](No)"
+
+cont_confirm $conf_key
+if [ $? == 1 ]; then
+    # install nctunsclient and nctunsclient.bin
+
+    file="$pkgdir/gui/nctunsclient.bin"
+    if [ -f "$file" ]; then
+        info "install nctunsclient.bin"
+        if [ ! -z "$INSTALL" ]; then
+            cmd "${INSTALL} -m 755 '$file' '$installdir/bin'"
+        else
+            cmd "${CP} '$file' '$installdir/bin'"
+        fi
+        installgui[0]="ok"
+
+        if [ ! -f $installdir/bin/nctunsclient ]; then
+            info "build nctunsclient"
+            echo "#!/bin/sh" > "$installdir/bin/nctunsclient"
+            echo "env LC_ALL=C LANG=en_US $installdir/bin/nctunsclient.bin" >> "$installdir/bin/nctunsclient"
+            chmod +x "$installdir/bin/nctunsclient"
+            installgui[1]="ok"
+        else
+            installgui[1]="skip"
+        fi
+    else
+        error "Cannot find GUI execute file"
+        installgui[0]="fail"
+    fi
+
+    # install BMP for gui
+
+    info "install GUI related files"
+    file="$pkgdir/gui/BMP"
+    if [ -d "$file" ]; then
+        cmd "${CP} -r '$file' '$installdir'"
+        installgui[2]="ok"
+    else
+        error "Cannot find $file"
+        installgui[2]="fail"
+    fi
+
+    # install app.xml for gui
+
+    file="$pkgdir/etc/app.xml"
+    if [ -f "$file" ]; then
+        cmd "${CP} '$file' '$installdir/etc'"
+        installgui[3]="ok"
+    else
+        error "Cannot find $file"
+        installgui[3]="fail"
+    fi
+
+    # install ps.cfg for gui
+
+    file="$pkgdir/etc/ps.cfg"
+    if [ -f "$file" ]; then
+        cmd "${CP} $file '$installdir/etc'"
+        installgui[4]="ok"
+    else
+        error "Cannot find $file"
+        installgui[4]="fail"
+    fi
+
+    # install mdf for gui
+
+    file="$pkgdir/etc/mdf"
+    if [ -d "$file" ]; then
+        cmd "${CP} -r '$file' '$installdir/etc'"
+        installgui[5]="ok"
+    else
+        error "Cannot find $file"
+        installgui[5]="fail"
+    fi
+    
+    # install agp for gui
+
+    file="$pkgdir/etc/agp"
+    if [ -d "$file" ]; then
+        cmd "${CP} -r '$file' '$installdir/etc'"
+        installgui[6]="ok"
+    else
+        error "Cannot find $file"
+        installgui[6]="fail"
+    fi
+else
+    info "skip... install GUI and related files"
+    installgui[0]="skip"
+    installgui[1]="skip"
+    installgui[2]="skip"
+    installgui[3]="skip"
+    installgui[4]="skip"
+    installgui[5]="skip"
+    installgui[6]="skip"
+fi
+
+report "install nctunsclient.bin ... ${installgui[0]}"
+report "install nctunsclient ... ${installgui[1]}"
+report "install BMP for gui ... ${installgui[2]}"
+report "install app.xml for gui ... ${installgui[3]}"
+report "install ps.cfg for gui ... ${installgui[4]}"
+report "install mdf for gui ... ${installgui[5]}"
+report "install agp for gui ... ${installgui[6]}"
+
+unset installgui

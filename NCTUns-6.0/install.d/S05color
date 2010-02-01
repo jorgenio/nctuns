@@ -1,0 +1,37 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator S05color script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+if [ $color = 1 -a ! -z "$TERM" ]; then
+	color_resume='\e[m'
+
+	# error color
+	color_errtag='\e[1;31m'
+	color_errstr='\e[m'
+
+	# warning color
+	color_warntag='\e[1;32m'
+	color_warnstr=''
+
+	# information color
+	color_infotag='\e[m'
+	color_infostr='\e[m'
+
+	# report color
+	color_reporttag='\e[1;33m'
+	color_reportstr=''
+
+	# read prompt color
+	color_readprompt='\e[1;37m'
+
+	# command color
+	color_cmdtag='\e[0;33m'
+fi

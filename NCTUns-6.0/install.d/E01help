@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator E01help script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+function show_help()
+{
+${CAT}<<ending
+Usage[]: install.sh [options]
+         -h             display this information
+         -i directory   specify the directory where the package will be
+                        installed. The default is /usr/local/nctuns.
+         -l logfile     store all log messages occurring during installation 
+			into the specified file (default: install.log)
+         -s             specify that the installation should be performed
+                        step-by-step. That is, a pause should appear after
+                        every step for debugging purposes.
+         -c configfile  specify that the installation should be performed
+			according to the configuration settings stored 
+                        in the specified file. You can refer to the
+                        example configuration file (install.conf-example).
+         -m             disable colorful messages
+         -v             enable verbose mode
+         -q             enable silent mode
+ending
+exit 0;
+}

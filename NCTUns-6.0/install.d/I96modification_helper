@@ -1,0 +1,183 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator I96modification_helper script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+#shadow_utils_rpm="shadow-utils-4.1.2-9.fc10.i386.rpm"
+qtrc_option="qtrc"
+
+#
+# I96 Modify some configuration in this system
+#
+
+# if step by step, then ask user if install it
+
+
+function append_conf()
+{
+	conf="$1"
+        app_file="$2"
+
+        file="$HOME/$conf"
+        if [ -f "$file" ]; then
+            grep -v "$app_file" "$file" > "$file.$$"
+            echo "source $installdir/etc/$app_file" >> "$file.$$"
+            mv "$file.$$" "$file"
+        fi
+        file="/root/$conf"
+        if [ "$HOME" != "/root" -a -f "$file" ]; then
+            grep -v "$app_file" "$file" > "$file.$$"
+            echo "source $installdir/etc/$app_file" >> "$file.$$"
+            mv "$file.$$" "$file"
+        fi
+}
+
+
+    # modify SELinux configuration
+
+    show_banner "Modify the SELinux Configuration"
+
+    info "modify the SELinux configuration"
+
+${CAT} <<ending
+
+*
+* By default, the SELinux option is enabled in Fedora. However, 
+* if SELinux option is enabled, it will decline to execute the NCTUns engine or the
+* NCTUns client program. To run NCTUns correctly, you should disable SELinux.
+*
+ 
+ending
+
+    file="/etc/selinux/config"
+    read_prompt selinux "Would you want to disable SELinux? [yes/no](No)"
+
+    cont_confirm selinux
+    if [ $? == 1 ]; then
+        ${SED} -i'' 's/\(SELINUX\)=.*/\1=disabled/' $file
+        echo "ldconfig # NCTUns" >> /etc/rc.local
+        echo "sed -i'' '/# NCTUns\$/d' /etc/rc.local # NCTUns" >> /etc/rc.local
+	modify_selinux="ok"
+    else
+	modify_selinux="skip"
+    fi
+
+    report "modify the SELinux configuration ... $modify_selinux"
+
+    # append environment variables to profile
+
+    show_banner "Append NCTUns Environment Varables to the Shell Profile"
+
+    info "append NCTUns environment variables to profile"
+
+${CAT} <<ending
+
+* To run up NCTUns programs correctly, some NCTUns-related environment variables
+* must be set up first in each xterm. If you answer "yes" to the following
+* question, this installation program will append these environment variables
+* to the shell profile of the account of the installing user. Doing so can save
+* you much time in the future because you need not set up these environment
+* variables manually each time when you open a xterm.
+* 
+
+ending
+
+    read_prompt environ "Would you want this installation program to automatically append some" "NCTUns-related environment variables to the shell profile" "of the account that you use to install NCTUns? [yes/no](No)"
+
+    cont_confirm environ
+    if [ $? == 1 ]; then
+	append_conf ".login" "nctuns.csh"
+	append_conf ".bash_profile" "nctuns.bash"
+
+	append_profile="ok"
+    else
+	append_profile="skip"
+    fi
+
+    report "append NCTUns environment variables to the profile of the installing user's account ... $append_profile"
+
+
+    
+    # add a user account for user
+
+    show_banner "Create the Default Simulation User Account"
+
+    info "create a new user account (nctuns) as the default simulation user account"
+
+
+${CAT} <<ending
+
+*  The initial account name/password of this newly created account is nctuns/nctuns.
+*  The GUI program will use this account/password as the default simulation user account/password.
+*  Creating this account here is for a lazy user's convenience because he (she) does not need to
+*  create an account and then use the account/password in the GUI program to run up a simulation.
+*  A prudent user should change the initial password of this account to a new one and then use the
+*  new password in the GUI program to run up a simulation."
+
+ending
+
+    read_prompt adduser "Would you want to create a new user account (nctuns) as the default simulation user account [yes/no](No)"
+
+    cont_confirm adduser
+    if [ $? == 1 ]; then
+	cmd "adduser nctuns" "skip"
+	cmd "echo nctuns:nctuns | chpasswd" "skip"
+
+	user_add="ok"
+    else
+	user_add="skip"
+    fi
+
+    report "create a new user account (ncutns) ... $user_add"
+
+    # install modified qtrc file
+
+    show_banner "Install Modified qtrc File"
+
+    info "install modified qtrc file for better looking in the GUI program"
+
+    file="$pkgdir/gui/$qtrc_option"
+
+#* To have a better looking in the GUI program, the qtrc file of the QT library
+#* should be modified. Otherwise, the original qtrc file will result in ugly
+#* looking in the GUI program if it is used. If you answer "yes" to the following
+#* question, the modified qtrc file will be copied to the home directory of
+#* the installing user's account, which is "root."
+${CAT} <<ending
+
+* For the best display quality of the GUI program, NCTUns has to modify the QT 
+* library configuration file (the qtrc file) to force the desktop manager, e.g.,
+* KDE and GNOME, to use 10-size font for display. If the original qtrc file
+* is used, the font size used by the GUI program may be incorrect, resulting in
+* low display quality. (It is recommended to use the KDE desktop manager with 
+* the version 4.0.5 or higher and our provided qtrc file to achieve the best
+* GUI display quality. If you answer "yes" to the following question, the modified 
+* qtrc file will be copied to the home directory of the installing user's account, 
+* which is "root."
+
+ending
+
+    read_prompt QtrcModify "Would you want to install the modified qtrc? [yes/no](No)"
+
+    cont_confirm QtrcModify
+    if [ $? == 1 ]; then
+	cmd "${CP} $file $HOME/" "skip" 
+
+	qtrc_modify="ok"
+    else
+	qtrc_modify="skip"
+    fi
+
+    report "install modified qtrc file for better looking in the GUI program ... $qtrc_modify"
+
+unset modify_selinux
+unset append_profile
+unset user_add
+unset qtrc_modify

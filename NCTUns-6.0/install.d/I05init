@@ -1,0 +1,78 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator I05init script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+#
+# I05. initialize environment
+#
+
+if [ -z "$installdir" ]; then
+    installdir=$installdir_default
+fi
+
+if [ -z "$installdir" -o -z "$pkgdir" ]; then
+	error "Cannot file variable installdir or pkgdir"
+fi
+
+# create install directory
+mkdir -p "$installdir/bin"
+mkdir -p "$installdir/lib"
+mkdir -p "$installdir/tools"
+mkdir -p "$installdir/etc"
+mkdir -p "$installdir/BMP"
+
+# initialize logfile
+if [ ! -z "$logfile" ]; then
+    date +"-------------------- [%c] Begin --------------" >> $logfile
+fi
+
+# initialize current install result logfile
+result="$pkgdir/result.log"
+echo > $result
+
+trap stop_log 2
+function stop_log()
+{
+    date +"-------------------- [%c] End ----------------" >> $logfile
+    exit 0
+}
+
+if [ $verbose = 0 ]; then
+    clear
+fi
+
+${CAT} <<ending
+
+*
+* The NCTUns 6.0 Network Simulator Installation Script Program
+*
+*    Notes: 1. You must be the root user to successfully run this program.
+*           2. Normally, you can simply answer "y" or "yes" to all questions.
+*           3. The related files of NCTUns will be installed in $installdir by default.
+*
+*
+*
+*
+*
+*
+*
+*
+*
+* In the following, this script will begin to install NCTUns. If you want
+* to abort this installation, you should press "control+C" NOW!
+*
+* Otherwise, you can press the "Enter" key to begin.
+*
+
+ending
+read line
+
+unset line

@@ -1,0 +1,65 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator S06check script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+# test gcc compiler whether exists
+CC=gcc
+CXX=g++
+export CC=`$WHICH $CC 2>/dev/null`
+export CXX=`$WHICH $CXX 2>/dev/null`
+
+if [ -z "$CC" -o -z "$CXX" ]; then
+	error "Cannot find gcc or g++ compiler"
+fi
+
+unset CC
+unset CXX
+
+# check user id
+if [ "`id -u`" != 0 ]; then
+	error "Please switch to root to install NCTUns package again"
+fi
+
+# test rpm package manager whether exists
+RPM=rpm
+export RPM=`$WHICH $RPM 2>/dev/null`
+
+if [ -z "$RPM" ]; then
+	error "Cannot find rpm package manager"
+fi
+
+# test tee whether exists
+TEE=tee
+export TEE=`$WHICH $TEE 2>/dev/null`
+
+if [ -z "$TEE" ]; then
+	warning "Cannot find tee command"
+fi
+
+# test install whether exists
+INSTALL=install
+export INSTALL=`$WHICH $INSTALL 2>/dev/null`
+
+if [ -z "$INSTALL" ]; then
+	warning "Cannot find install command"
+else
+    if [ $strip_symbol = 1 ]; then
+        INSTALL="$INSTALL -s"
+    fi
+fi
+
+# test xargs whether exists
+XARGS=xargs
+export XARGS=`$WHICH $XARGS 2>/dev/null`
+
+if [ -z "$XARGS" ]; then
+	warning "Cannot find xargs command"
+fi

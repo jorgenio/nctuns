@@ -1,0 +1,133 @@
+#!/bin/bash
+#
+# NCTUns 6.0 Network Simulator I16precede script
+# Last updated: 09/01/2009
+#
+# Network and System Laboratory 
+# Department of Computer Science 
+# College of Computer Science
+# National Chiao Tung University, Taiwan
+# All Rights Reserved.
+#
+
+#
+# I16 build coordinator & dispatcher
+#
+
+# configure key
+conf_key="install_precede"
+
+# show banner
+show_banner "Build coordinator & dispatcher"
+
+if [ $quiet = 1 ]; then
+    export MAKEFLAGS="s"
+fi
+
+# if step by step, then ask user if install it
+step_proc $conf_key "proceed?...[yes/no](No)"
+
+cont_confirm $conf_key
+if [ $? == 1 ]; then
+    # build coordinator and install
+
+    info "build coordinator"
+    file="$pkgdir/src/coordinator"
+    if [ -d "$file" ]; then
+        pushd $file > /dev/null
+
+        cmd "make" "make failed..."
+
+        if [ -f "$file/coordinator" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file/coordinator' '$installdir/bin'" "install coordinator failed..."
+            else
+                cmd "${CP} '$file/coordinator' '$installdir/bin'" "copy coordinator failed..."
+            fi
+            buildcoordinator[0]="ok"
+        else
+            error "build coordinator failed..."
+            buildcoordinator[0]="fail"
+        fi
+
+        cmd "make clean" "make clean failed..."
+
+        popd > /dev/null
+    else
+        error "Cannot find $file"
+        buildcoordinator[0]="fail"
+    fi
+
+    # install dispatcher configure file
+
+    file="$pkgdir/etc/dispatcher.cfg"
+    if [ -f "$file" ]; then
+        if [ ! -z "$INSTALL" ]; then
+            cmd "${INSTALL} -m 644 '$file' '$installdir/etc'"
+        else
+            cmd "${CP} '$file' '$installdir/etc'"
+        fi
+        buildcoordinator[1]="ok"
+    else
+        error "Cannot find $file"
+        buildcoordinator[1]="fail"
+    fi
+
+    # build dispatcher and install
+
+    info "build dispatcher"
+    file="$pkgdir/src/dispatcher"
+    if [ -d "$file" ]; then
+        pushd $file > /dev/null
+
+        cmd "make" "make failed..."
+
+        if [ -f "$file/dispatcher" ]; then
+            if [ ! -z "$INSTALL" ]; then
+                cmd "${INSTALL} -m 755 '$file/dispatcher' '$installdir/bin'" "install dispatcher failed..."
+            else
+                cmd "${CP} '$file/dispatcher' '$installdir/bin'" "copy dispatcher failed..."
+            fi
+            buildispatcher[0]="ok"
+        else
+            error "build dispatcher failed..."
+            buildispatcher[0]="fail"
+        fi
+
+        cmd "make clean" "make clean failed..."
+
+        popd > /dev/null
+    else
+        error "Cannot find $file"
+        buildispatcher[0]="fail"
+    fi
+
+    # install coordinator configure file
+
+    file="$pkgdir/etc/coordinator.cfg"
+    if [ -f "$file" ]; then
+        if [ ! -z "$INSTALL" ]; then
+            cmd "${INSTALL} -m 644 '$file' '$installdir/etc'"
+        else
+            cmd "${CP} '$file' '$installdir/etc'"
+        fi
+        buildispatcher[1]="ok"
+    else
+        error "Cannot find $file"
+        buildispatcher[1]="fail"
+    fi
+else
+    info "skip... build coordinator and dispatcher"
+    buildcoordinator[0]="skip"
+    buildcoordinator[1]="skip"
+    buildispatcher[0]="skip"
+    buildispatcher[1]="skip"
+fi
+
+report "build and install coordinator ... ${buildcoordinator[0]}"
+report "install coordinator configuration file ... ${buildcoordinator[1]}"
+report "build and install dispatcher ... ${buildispatcher[0]}"
+report "install dispatcher configuration file ... ${buildispatcher[1]}"
+
+unset MAKEFLAGS
+unset buildcoordinator buildispatcher
