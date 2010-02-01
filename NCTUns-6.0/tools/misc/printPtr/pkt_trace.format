@@ -1,0 +1,109 @@
+The printPtr utility program can convert a binary packet transfer 
+log file (.ptr) into a readable text file. This enables the user to  
+observe each packet transmission's (1) starting time, (2) ending time,
+(3) real source node ID, (4) real destination node ID, (4) intermediate 
+source node ID, (5) intermediate destination node ID, etc.
+
+
+1. The format of the lines in a converted file:
+
+	Field 1: <protocol> 
+		- 802.3
+		- 802.11
+		- OPHY
+		- GPRS
+
+	Field 2: <event type>
+		- TX	(transmit)
+		- RX	(receive)
+		- RTX	(re-transmit)
+		- BTX	(broadcast transmit)
+		- BRX	(broadcast receive)
+		- DROP	(drop)
+
+	Field 3: <time (unit: tick) at which the event is started>
+	Field 4: <duration (unit: tick) of this event>
+
+	Field 5: <packet type>
+		- DATA		(802.3/802.11 Data packet)	
+		- RTS		(802.11 RequestToSend packet)
+		- CTS		(802.11 ClearToSend packet)
+		- ACK		(802.11 Acknowledgement packet)
+		- BCON		(802.11 Beacon packet)
+		- PROBQ		(802.11 Probe Request packet)
+		- PROBR		(802.11 Probe Response packet)
+		- ASSQ		(802.11 Association Request packet)
+		- ASSR		(802.11 Association Response packet)
+		- REASSQ	(802.11 Reassociation Request packet)
+		- REASSR	(802.11 Reassociation Response packet)
+		- DISASS	(802.11 Disassociation packet)
+		- OBS_DATA	(OPHY OBS data packet)
+		- OBS_CTL_NOM	(OPHY OBS normal control packet)
+		- OBS_CTL_SW	(OPHY OBS switching control packet)
+		- O_LP		(OPHY Light path configuration packet)
+		- O_DATA	(OPHY Light path data packet)
+		- GPRS_DATA	(GPRS user data)
+		- GPRS_ACCESS	(GPRS access burst)
+		- GPRS_DUMMY	(GPRS dummy burst)
+		- GPRS_CTL	(GPRS control burst)
+		- ACTION        (802.11e action packet)
+		- QoS_DATA	(802.11e Data packet)
+		- QoS_ACK	(802.11e Ack packet)
+		- QoS_POLL	(802.11e Poll packet)
+		- QoS_NULL	(802.11e Null packet)
+
+	Field 6: <source/destination node IDs based on the IP addresses>
+		- e.g.
+			"<3 5>" means that the packet is sent from node 3
+			to node 5, and, in this packet's IP header, the
+			content of the source field is node 3's IP address
+			and the content of the destination field is node 5's  
+   			IP address. 
+	
+	Field 7: <transmitted/received node IDs based on the MAC addresses>
+
+		[802.11]
+		  - format <physical src, physical dest, mac-address dest>
+
+		  - e.g.
+			"<3 5 5>" means that the packet is transmitted from 
+			node 3 to node 5 and is exactly received by node 5.
+			In this packet's MAC header, the content of the source
+			field is node 3's MAC address and the content of the
+			destination field is node 5's MAC address. 
+			"<3 4 5>" may appear because node 4 is located
+			within node 3's transmission range and it may 
+			receive the packet sent from node 3 to node 5.
+
+
+		[802.3]/[OPHY]/[GPRS]
+		  - format <physical src, physical dest>
+
+		  - e.g.
+			"<3 5>" means that the packet is transmitted from
+			node 3 to node 5. 
+
+	Field 8: <packet's ID>
+	Field 9: 
+		 [802.11]/[802.3]/[OPHY]		   
+		   - <packet's length (unit: byte)>
+
+		 [GPRS]
+		   - <burst's length (unit: bit)>
+
+	Field 10: <count of successive retransmissions >
+
+	Field 11: <drop reason>
+		- COLL	(collision) 
+		- CAP	(capture)
+		- DUPX	(duplicate)
+		- BER	(bit error)
+		- RXERR	(receiving a pkt when transmitting another one)
+
+	Field 12: <frequency channel (for 802.11/OPHY/GPRS protocol)>
+
+
+2. An example usage is as follows:
+
+   % ./printPtr example.ptr
+

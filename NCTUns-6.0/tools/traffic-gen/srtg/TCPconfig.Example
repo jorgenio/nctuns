@@ -1,0 +1,7 @@
+type: tcp
+start_time: 0
+on-off: 1
+
+on:  time: 100 greedy
+
+end

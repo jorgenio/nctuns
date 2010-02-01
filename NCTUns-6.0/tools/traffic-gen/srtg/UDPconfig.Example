@@ -1,0 +1,7 @@
+type: udp
+start_time: 0
+on-off: 1
+
+on:  time: 100 const 0.01 length: const 1000
+
+end

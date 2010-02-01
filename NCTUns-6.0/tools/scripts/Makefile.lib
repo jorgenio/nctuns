@@ -1,0 +1,40 @@
+# Figure out what we need to build from the various variables
+# ===========================================================================
+
+
+# ---------------------------------------------------------------------------
+# o if we encounter foo/ in $(obj-y), replace it by foo/built-in.o
+#   and add the directory to the list of dirs to descend into: $(subdir-y)
+
+obj-y		:= $(patsubst %, %.o, $(TARGET))
+
+# if $(foo-objs) exists, foo.o is a composite object 
+multi-used-y	:= $(sort $(foreach m,$(obj-y), $(if $(strip $($(m:.o=-objs)) $($(m:.o=-y))), $(m))))
+
+# Build list of the parts of our composite objects, our composite
+# objects depend on those (obviously)
+multi-objs-y	:= $(foreach m, $(multi-used-y), $($(m:.o=-objs)) $($(m:.o=-y)))
+
+obj-y		:= $(filter-out $(SHARE_OBJS), $(filter-out $(multi-used-y), $(obj-y)) $(multi-objs-y)) $(SHARE_OBJS)
+
+ifneq ("$(obj)","")
+  always	:= $(addprefix $(obj)/,$(always))
+  targets	:= $(addprefix $(obj)/,$(targets))
+  obj-y		:= $(addprefix $(obj)/,$(obj-y))
+  multi-used-y	:= $(addprefix $(obj)/,$(multi-used-y))
+  multi-objs-y	:= $(addprefix $(obj)/,$(multi-objs-y))
+endif
+
+# These flags are needed for modversions and compiling, so we define them here
+# already
+
+__c_flags       = $(CFLAGS) $(EXTRA_CFLAGS) $(CFLAGS_$(*F).o)
+__cxx_flags     = $(CXXFLAGS) $(EXTRA_CXXFLAGS) $(CXXFLAGS_$(*F).o)
+__a_flags       = $(AFLAGS) $(EXTRA_AFLAGS) $(AFLAGS_$(*F).o)
+__cpp_flags     = $(CPPFLAGS) $(EXTRA_CPPFLAGS) $(CPPFLAGS_$(@F))
+
+c_flags        = -Wp,-MMD,$(depfile) $(CPPFLAGS) $(__c_flags)
+cxx_flags      = -Wp,-MMD,$(depfile) $(CPPFLAGS) $(__cxx_flags)
+a_flags        = -Wp,-MMD,$(depfile) $(CPPFLAGS) $(__a_flags)
+cpp_flags      = -Wp,-MMD,$(depfile) $(__cpp_flags)
+ld_flags       = $(LDFLAGS) $(EXTRA_LDFLAGS)
