@@ -1,6 +1,6 @@
 /*
  * Automatically generated C config: don't edit
- * Thu Jan 21 19:59:43 2010
+ * Tue Feb  2 18:44:49 2010
  */
 #define CONFIG_VERSION "6.0"
 #define CONFIG_KERNELVERSION "2.6.28.9-nctuns-20090901"

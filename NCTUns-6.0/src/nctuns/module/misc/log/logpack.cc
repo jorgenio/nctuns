@@ -88,6 +88,7 @@ void logRidvan(DebugLevel LEVEL,const char* text, ...)
 		token  = strtok(NULL,"%");
 	}
 	fprintf(fin,"\n");
+	fflush(fin);
 	va_end( marker );
 	fclose(fin);
 }

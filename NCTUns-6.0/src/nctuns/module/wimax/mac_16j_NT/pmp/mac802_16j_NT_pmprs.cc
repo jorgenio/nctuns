@@ -721,6 +721,8 @@ int mac802_16j_NT_PMPRS::recv(ePacket_ *epkt) {
 								pkt->pkt_addinfo("way", "u", sizeof(char));
 								pkt->pkt_addinfo("cid", (char *) &cid,
 										sizeof(int));
+								pkt->pkt_addinfo("len", (char *) &len,
+										sizeof(int));
 								pkt->pkt_setflow(PF_RECV);
 								ePacket_ *deliver_epkt = createEvent();
 								deliver_epkt->DataInfo_ = pkt;
@@ -801,6 +803,8 @@ int mac802_16j_NT_PMPRS::recv(ePacket_ *epkt) {
 								pkt->pkt_addinfo("way", "d", sizeof(char));
 								pkt->pkt_addinfo("cid", (char *) &cid,
 										sizeof(int));
+								pkt->pkt_addinfo("len", (char *) &len,
+										sizeof(int));
 								pkt->pkt_setflow(PF_RECV);
 								ePacket_ *deliver_epkt = createEvent();
 								deliver_epkt->DataInfo_ = pkt;
@@ -848,6 +852,7 @@ int mac802_16j_NT_PMPRS::send(ePacket_ *epkt) {
 			State);
 	DataConnection *pDtConn = NULL;
 	Packet *pkt = (Packet *) epkt->DataInfo_;
+	epkt->DataInfo_ = NULL;
 	//Packet *pkt;
 	freePacket(epkt);
 
