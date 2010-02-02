@@ -39,7 +39,7 @@ int cross802_16j_NT_PMPRS::recv(ePacket_ *epkt) {
 	memcpy(buf, ptr2, len);
 	pkt->pkt_sprepend(buf, len);
 	pkt->pkt_addinfo("cid", (char *) &cid, sizeof(int));
-#define RDV
+
 
 	if (way == 'u') {
 		logRidvan(WARN, "RS CROSS ip packet received packet src:%s dst:%s",
