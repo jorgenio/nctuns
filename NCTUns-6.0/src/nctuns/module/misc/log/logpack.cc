@@ -61,7 +61,7 @@ void logRidvan(DebugLevel LEVEL,const char* text, ...)
 	va_start( marker, text);
 	strcpy(text2,text);
 	time(&t);
-	fprintf(fin,"\n\n_______________________________\n%s",ctime(&t));
+	fprintf(fin,"\n\n_______________________________\n%d",/*ctime(&t)*/GetSimulationTime());
 	token  = strtok(text2,"%");
 	while( token != NULL  )
 	{

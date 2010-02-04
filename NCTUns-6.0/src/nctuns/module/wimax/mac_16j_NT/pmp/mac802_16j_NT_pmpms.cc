@@ -1049,6 +1049,8 @@ void mac802_16j_NT_PMPMS::WaitForRangingOpportunity()
 
 	if (++RngTime > RngEnd)
 	{
+		AS=NULL;
+		RngTime -=10;
 		printf("Rng Exhausted\n");
 		return;
 	}

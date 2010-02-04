@@ -128,8 +128,8 @@ enum DebugLevel
 	ERROR=3
 };
 
-#define DEBUG_LEVEL ERROR
-#define RDVN
+#define DEBUG_LEVEL TRACE
+#define RDV
 void logRidvan(DebugLevel,const char* , ...);
 
 class logpack {

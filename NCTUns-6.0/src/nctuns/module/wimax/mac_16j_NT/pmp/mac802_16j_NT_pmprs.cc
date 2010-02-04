@@ -1,37 +1,37 @@
 /*
- * Copyright (c) from 2000 to 2009
- *
- * Network and System Laboratory
- * Department of Computer Science
- * College of Computer Science
- * National Chiao Tung University, Taiwan
- * All Rights Reserved.
- *
- * This source code file is part of the NCTUns 6.0 network simulator.
- *
- * Permission to use, copy, modify, and distribute this software and
- * its documentation is hereby granted (excluding for commercial or
- * for-profit use), provided that both the copyright notice and this
- * permission notice appear in all copies of the software, derivative
- * works, or modified versions, and any portions thereof, and that
- * both notices appear in supporting documentation, and that credit
- * is given to National Chiao Tung University, Taiwan in all publications
- * reporting on direct or indirect use of this code or its derivatives.
- *
- * National Chiao Tung University, Taiwan makes no representations
- * about the suitability of this software for any purpose. It is provided
- * "AS IS" without express or implied warranty.
- *
- * A Web site containing the latest NCTUns 6.0 network simulator software
- * and its documentations is set up at http://NSL.csie.nctu.edu.tw/nctuns.html.
- *
- * Project Chief-Technology-Officer
- *
- * Prof. Shie-Yuan Wang <shieyuan@csie.nctu.edu.tw>
- * National Chiao Tung University, Taiwan
- *
- * 09/01/2009
- */
+* Copyright (c) from 2000 to 2009
+*
+* Network and System Laboratory
+* Department of Computer Science
+* College of Computer Science
+* National Chiao Tung University, Taiwan
+* All Rights Reserved.
+*
+* This source code file is part of the NCTUns 6.0 network simulator.
+*
+* Permission to use, copy, modify, and distribute this software and
+* its documentation is hereby granted (excluding for commercial or
+* for-profit use), provided that both the copyright notice and this
+* permission notice appear in all copies of the software, derivative
+* works, or modified versions, and any portions thereof, and that
+* both notices appear in supporting documentation, and that credit
+* is given to National Chiao Tung University, Taiwan in all publications
+* reporting on direct or indirect use of this code or its derivatives.
+*
+* National Chiao Tung University, Taiwan makes no representations
+* about the suitability of this software for any purpose. It is provided
+* "AS IS" without express or implied warranty.
+*
+* A Web site containing the latest NCTUns 6.0 network simulator software
+* and its documentations is set up at http://NSL.csie.nctu.edu.tw/nctuns.html.
+*
+* Project Chief-Technology-Officer
+*
+* Prof. Shie-Yuan Wang <shieyuan@csie.nctu.edu.tw>
+* National Chiao Tung University, Taiwan
+*
+* 09/01/2009
+*/
 
 #include "mac802_16j_NT_pmprs.h"
 #include <hash_map>
@@ -395,8 +395,8 @@ int mac802_16j_NT_PMPRS::recv(ePacket_ *epkt) {
 	}
 #if 0
 	/*
-	 * When RS is scanning, we measure the SNR value and ignore the received packet
-	 */
+	* When RS is scanning, we measure the SNR value and ignore the received packet
+	*/
 	if (ScanFlag == true)
 	{
 		NbrMRBS_NT *pNbrMRBS_NT = NeighborMRBSList->getNbrbyChID(LastSignalInfo.ChannelID);
@@ -559,8 +559,8 @@ int mac802_16j_NT_PMPRS::recv(ePacket_ *epkt) {
 				{
 					State |= NTRS_Negcap;
 					/*
-					 * Here, we skip procedure RS authorization and key exchange (Spec 6.3.9.8).
-					 */
+					* Here, we skip procedure RS authorization and key exchange (Spec 6.3.9.8).
+					*/
 					SendREGREQ();
 				}
 			}
@@ -718,54 +718,54 @@ int mac802_16j_NT_PMPRS::recv(ePacket_ *epkt) {
 							(*iter)->insert(hg, len);
 							while ((ptr2 = (*iter)->getPacket(len)) != NULL) {
 								Packet *pkt = asPacket(ptr2, len);
-								pkt->pkt_addinfo("way", "u", sizeof(char));
-								pkt->pkt_addinfo("cid", (char *) &cid,
-										sizeof(int));
-								pkt->pkt_addinfo("len", (char *) &len,
-										sizeof(int));
-								pkt->pkt_setflow(PF_RECV);
-								ePacket_ *deliver_epkt = createEvent();
-								deliver_epkt->DataInfo_ = pkt;
-								put(deliver_epkt, recvtarget_);
-								/*
-								 #ifdef RDV
-								 struct ip* ip = (struct ip *) ptr2;
+								//pkt->pkt_addinfo("way", "u", sizeof(char));
+								//pkt->pkt_addinfo("cid", (char *) &cid,
+								//		sizeof(int));
+								//pkt->pkt_addinfo("len", (char *) &len,
+								//		sizeof(int));
+								pkt->pkt_setflow(PF_SEND);
+								//ePacket_ *deliver_epkt = createEvent();
+								//deliver_epkt->DataInfo_ = pkt;
+								//put(deliver_epkt, recvtarget_);
 
-								 logRidvan(
-								 WARN,
-								 "RS UL ethernet packet received packet type:%d src:%s dst:%s",
-								 hg->type, ipToStr(ip->ip_src), ipToStr(
-								 ip->ip_dst));
-								 int myCid = 0;
+								#ifdef RDV
+								struct ip* ip = (struct ip *) ptr2;
 
-								 hash_map<uint32_t, int>::const_iterator viter;
-								 viter = routingTable.find(ip->ip_dst);
-								 if (viter != routingTable.end()) {
+								logRidvan(
+								  WARN,
+								  "RS UL ethernet packet received packet type:%d src:%s dst:%s",
+								  hg->type, ipToStr(ip->ip_src), ipToStr(
+								  ip->ip_dst));
+								int myCid = 0;
 
-								 logRidvan(
-								 WARN,
-								 "routingTable[ethernet->ip_dst]=%d",
-								 viter->second);
-								 myCid = viter->second;
+								hash_map<uint32_t, int>::const_iterator viter;
+								viter = routingTable.find(ip->ip_dst);
+								if (viter != routingTable.end()) {
 
-								 logRidvan(WARN, "getcid %d myCid %d",
-								 GHDR_GET_CID(hg), myCid);
-								 pDtConn = getDLRelayDtConn(myCid);
-								 } else
-								 #endif
-								 pDtConn = getULRelayDtConn(cid);
+								  logRidvan(
+									    WARN,
+									    "routingTable[ethernet->ip_dst]=%d",
+									    viter->second);
+								  myCid = viter->second;
 
-								 if (pDtConn->nf_pending_packet()
-								 <= static_cast<size_t> (_maxqlen)) {
-								 pDtConn->Insert(pkt);
-								 deleteFlag = false;
-								 }
-								 if (deleteFlag) {
-								 printf(">>>RS(%d)::Drop Pakcet<<<\n",
-								 get_nid());
-								 delete pkt;
-								 }
-								 */
+								  logRidvan(WARN, "getcid %d myCid %d",
+								  GHDR_GET_CID(hg), myCid);
+								  pDtConn = getDLRelayDtConn(myCid);
+								} else
+								  #endif
+								  pDtConn = getULRelayDtConn(cid);
+
+								if (pDtConn->nf_pending_packet()
+								<= static_cast<size_t> (_maxqlen)) {
+								      pDtConn->Insert(pkt);
+								      deleteFlag = false;
+								}
+								if (deleteFlag) {
+								printf(">>>RS(%d)::Drop Pakcet<<<\n",
+								get_nid());
+								delete pkt;
+								}
+
 							}
 							break;
 						}
@@ -800,28 +800,29 @@ int mac802_16j_NT_PMPRS::recv(ePacket_ *epkt) {
 								logRidvan(WARN, "routingTable[ip->ip_dst]=%d",
 										routingTable[ip->ip_dst]);
 								Packet *pkt = asPacket(ptr2, len);
-								pkt->pkt_addinfo("way", "d", sizeof(char));
-								pkt->pkt_addinfo("cid", (char *) &cid,
-										sizeof(int));
-								pkt->pkt_addinfo("len", (char *) &len,
-										sizeof(int));
-								pkt->pkt_setflow(PF_RECV);
-								ePacket_ *deliver_epkt = createEvent();
-								deliver_epkt->DataInfo_ = pkt;
-								put(deliver_epkt, recvtarget_);
-								/*
-								 pDtConn = getDLRelayDtConn(cid);
-								 if (pDtConn->nf_pending_packet()
-								 <= static_cast<size_t> (_maxqlen)) {
-								 pDtConn->Insert(pkt);
-								 deleteFlag = false;
-								 }
-								 if (deleteFlag) {
-								 printf(">>>RS(%d)::Drop Pakcet<<<\n",
-								 get_nid());
-								 delete pkt;
-								 }
-								 */
+								//pkt->pkt_addinfo("way", "d", sizeof(char));
+								//pkt->pkt_addinfo("cid", (char *) &cid,
+								//		sizeof(int));
+								//pkt->pkt_addinfo("len", (char *) &len,
+								//		sizeof(int));
+								pkt->pkt_setflow(PF_SEND);
+								//ePacket_ *deliver_epkt = createEvent();
+								//deliver_epkt->DataInfo_ = pkt;
+								//put(deliver_epkt, recvtarget_);
+
+								pDtConn = getDLRelayDtConn(cid);
+								routingTable[ip->ip_dst] = cid;
+								if (pDtConn->nf_pending_packet()
+								<= static_cast<size_t> (_maxqlen)) {
+								  pDtConn->Insert(pkt);
+								  deleteFlag = false;
+								}
+								if (deleteFlag) {
+								  printf(">>>RS(%d)::Drop Pakcet<<<\n",
+								  get_nid());
+								  delete pkt;
+								}
+
 							}
 							break;
 						}
@@ -928,8 +929,8 @@ void mac802_16j_NT_PMPRS::PushPDUintoConnection(uint16_t cid, ifmgmt *pdu) {
 }
 
 /*
- * for sending RNG-REQ at CDMA allocation interval
- */
+* for sending RNG-REQ at CDMA allocation interval
+*/
 uint64_t mac802_16j_NT_PMPRS::computeSendTime(int numSlots, int duration,
 		int fastime) {
 
@@ -955,8 +956,8 @@ uint64_t mac802_16j_NT_PMPRS::computeSendTime(int numSlots, int duration,
 }
 
 /*
- * for sending ranging code at contention slots
- */
+* for sending ranging code at contention slots
+*/
 uint64_t mac802_16j_NT_PMPRS::computeSendTime(
 		const struct OFDMA_ULMAP_IE_12 &ie_12, int txopOffset, int fastime) {
 	int64_t tick = 0;
@@ -979,8 +980,8 @@ uint64_t mac802_16j_NT_PMPRS::computeSendTime(
 }
 
 /*
- * Periodically transmit downlink burst.
- */
+* Periodically transmit downlink burst.
+*/
 void mac802_16j_NT_PMPRS::DLPacketScheduling() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::DLPacketScheduling State: %x",
@@ -1019,8 +1020,8 @@ void mac802_16j_NT_PMPRS::DLPacketScheduling() {
 }
 
 /*
- * Periodically transmit uplink burst.
- */
+* Periodically transmit uplink burst.
+*/
 void mac802_16j_NT_PMPRS::ULPacketScheduling() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::ULPacketScheduling State: %x",
@@ -1043,8 +1044,8 @@ void mac802_16j_NT_PMPRS::ULPacketScheduling() {
 }
 
 /*
- * Wait for DCD timeout
- */
+* Wait for DCD timeout
+*/
 void mac802_16j_NT_PMPRS::T1() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::T1 State: %x", get_nid(),
@@ -1055,8 +1056,8 @@ void mac802_16j_NT_PMPRS::T1() {
 }
 
 /*
- * Wait for Broadcast Ranging timeout
- */
+* Wait for Broadcast Ranging timeout
+*/
 void mac802_16j_NT_PMPRS::T2() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::T2 State: %x", get_nid(),
@@ -1067,9 +1068,9 @@ void mac802_16j_NT_PMPRS::T2() {
 }
 
 /*
- * Ranging Response reception timeout following the
- * transmission of a Ranging Request
- */
+* Ranging Response reception timeout following the
+* transmission of a Ranging Request
+*/
 void mac802_16j_NT_PMPRS::T3() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::T3 State: %x", get_nid(),
@@ -1092,8 +1093,8 @@ void mac802_16j_NT_PMPRS::T3() {
 }
 
 /*
- * Wait for registration response
- */
+* Wait for registration response
+*/
 void mac802_16j_NT_PMPRS::T6() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::T6 State: %x", get_nid(),
@@ -1110,8 +1111,8 @@ void mac802_16j_NT_PMPRS::T6() {
 }
 
 /*
- * Wait for DSA/DSC Acknowledge timeout
- */
+* Wait for DSA/DSC Acknowledge timeout
+*/
 void mac802_16j_NT_PMPRS::T8() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::T8 State: %x", get_nid(),
@@ -1128,8 +1129,8 @@ void mac802_16j_NT_PMPRS::T8() {
 }
 
 /*
- * Wait for UCD timeout
- */
+* Wait for UCD timeout
+*/
 void mac802_16j_NT_PMPRS::T12() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::T12 State: %x", get_nid(),
@@ -1140,8 +1141,8 @@ void mac802_16j_NT_PMPRS::T12() {
 }
 
 /*
- * Wait for SBC-RSP timeout
- */
+* Wait for SBC-RSP timeout
+*/
 void mac802_16j_NT_PMPRS::T18() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::T18 State: %x", get_nid(),
@@ -1158,8 +1159,8 @@ void mac802_16j_NT_PMPRS::T18() {
 }
 
 /*
- * MOB_HO-IND timeout when sent with HO_IND_type = 0b10
- */
+* MOB_HO-IND timeout when sent with HO_IND_type = 0b10
+*/
 void mac802_16j_NT_PMPRS::T42() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::T42 State: %x", get_nid(),
@@ -1191,8 +1192,8 @@ void mac802_16j_NT_PMPRS::T67() {
 }
 
 /*
- * Wait for DL-MAP timeout
- */
+* Wait for DL-MAP timeout
+*/
 void mac802_16j_NT_PMPRS::LostDLMAP() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::LostDLMAP State: %x",
@@ -1203,8 +1204,8 @@ void mac802_16j_NT_PMPRS::LostDLMAP() {
 }
 
 /*
- * Wait for UL-MAP timeout
- */
+* Wait for UL-MAP timeout
+*/
 void mac802_16j_NT_PMPRS::LostULMAP() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::LostULMAP State: %x",
@@ -1215,8 +1216,8 @@ void mac802_16j_NT_PMPRS::LostULMAP() {
 }
 
 /*
- * Handover Retransmission Timeout
- */
+* Handover Retransmission Timeout
+*/
 void mac802_16j_NT_PMPRS::HOmsgRetransmit() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::HOmsgRetransmit State: %x",
@@ -1245,8 +1246,8 @@ void mac802_16j_NT_PMPRS::HOmsgRetransmit() {
 }
 
 /*
- * Start Waiting for Period Ranging Opportunity
- */
+* Start Waiting for Period Ranging Opportunity
+*/
 void mac802_16j_NT_PMPRS::StartPeriodRanging() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::StartPeriodRanging State: %x",
@@ -1259,8 +1260,8 @@ void mac802_16j_NT_PMPRS::StartPeriodRanging() {
 }
 
 /*
- * Start Scanning Status, change the channel ID and ignore the incoming packets
- */
+* Start Scanning Status, change the channel ID and ignore the incoming packets
+*/
 void mac802_16j_NT_PMPRS::StartScanNbrMRBS_NTs() {
 
 	logRidvan(TRACE,
@@ -1308,8 +1309,8 @@ void mac802_16j_NT_PMPRS::StartScanNbrMRBS_NTs() {
 		ScanFlag = false;
 
 		/*
-		 * Check handover conditions
-		 */
+		* Check handover conditions
+		*/
 		if (NeighborMRBSList->checkHOterms() == true) {
 			timerSendScanReq->cancel();
 			SendMOB_MSHOREQ(); // Send MOB_MSHO-REQ
@@ -1329,8 +1330,8 @@ void mac802_16j_NT_PMPRS::StartScanNbrMRBS_NTs() {
 }
 
 /*
- * When RS performs handover, these registers need to clear
- */
+* When RS performs handover, these registers need to clear
+*/
 void mac802_16j_NT_PMPRS::StartHandover() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::StartHandover State: %x",
@@ -1396,8 +1397,8 @@ void mac802_16j_NT_PMPRS::StartHandover() {
 }
 
 /*
- *  Wait for Initial Ranging opportunity (Fig.60)
- */
+*  Wait for Initial Ranging opportunity (Fig.60)
+*/
 void mac802_16j_NT_PMPRS::WaitForRangingOpportunity() {
 
 	logRidvan(TRACE,
@@ -1413,8 +1414,8 @@ void mac802_16j_NT_PMPRS::WaitForRangingOpportunity() {
 }
 
 /*
- *    Processing DCD
- */
+*    Processing DCD
+*/
 int mac802_16j_NT_PMPRS::procDCD(struct mgmt_msg *recvmm, int cid, int len) {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::procDCD State: %x", get_nid(),
@@ -1484,8 +1485,8 @@ int mac802_16j_NT_PMPRS::procDCD(struct mgmt_msg *recvmm, int cid, int len) {
 }
 
 /*
- *    Processing UCD
- */
+*    Processing UCD
+*/
 int mac802_16j_NT_PMPRS::procUCD(struct mgmt_msg *recvmm, int cid, int len) {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::procUCD State: %x", get_nid(),
@@ -1552,8 +1553,8 @@ int mac802_16j_NT_PMPRS::procUCD(struct mgmt_msg *recvmm, int cid, int len) {
 }
 
 /*
- * Processing DL-MAP
- */
+* Processing DL-MAP
+*/
 int mac802_16j_NT_PMPRS::procRMAP(struct mgmt_msg *recvmm, int cid, int len) {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::procRMAP State: %x",
@@ -1707,8 +1708,8 @@ int mac802_16j_NT_PMPRS::procRMAP(struct mgmt_msg *recvmm, int cid, int len) {
 }
 
 /*
- * Processing UL-MAP
- */
+* Processing UL-MAP
+*/
 int mac802_16j_NT_PMPRS::procULMAP(struct mgmt_msg *recvmm, int cid, int len) {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::procULMAP State: %x",
@@ -1950,8 +1951,8 @@ int mac802_16j_NT_PMPRS::procULMAP(struct mgmt_msg *recvmm, int cid, int len) {
 }
 
 /*
- *  Processing MOB_NBR-ADV
- */
+*  Processing MOB_NBR-ADV
+*/
 int mac802_16j_NT_PMPRS::procMOB_NBRADV(struct mgmt_msg *recvmm, int cid,
 		int len) {
 
@@ -2051,16 +2052,16 @@ int mac802_16j_NT_PMPRS::procMOB_NBRADV(struct mgmt_msg *recvmm, int cid,
 			loopLen -= 1;
 
 			/*
-			 * Here we need to record the index of the nerghbor BS in MOB_NBR-ADV message
-			 */
+			* Here we need to record the index of the nerghbor BS in MOB_NBR-ADV message
+			*/
 			pNbrMRBS_NT->Index = i;
 
 			if (loopLen == 0) {
 				continue;
 			} else {
 				/*
-				 * TLV Encoded Neighbor Infotmation
-				 */
+				* TLV Encoded Neighbor Infotmation
+				*/
 			}
 		}
 	}
@@ -2071,8 +2072,8 @@ int mac802_16j_NT_PMPRS::procMOB_NBRADV(struct mgmt_msg *recvmm, int cid,
 }
 
 /*
- *  Processing RNG-RSP (Fig.61)
- */
+*  Processing RNG-RSP (Fig.61)
+*/
 int mac802_16j_NT_PMPRS::procRNGRSP(struct mgmt_msg *recvmm, int cid, int len) {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::procRNGRSP State: %x",
@@ -2454,8 +2455,8 @@ int mac802_16j_NT_PMPRS::procMOB_SCNRSP(struct mgmt_msg *recvmm, int cid,
 		delete ifmm;
 
 		/*
-		 * TLV encoded information
-		 */
+		* TLV encoded information
+		*/
 		if ((tmpBits / 8) != (len - 1)) {
 			int type = 0;
 			uint8_t hmac[21] = "";
@@ -2848,8 +2849,8 @@ int mac802_16j_NT_PMPRS::procMOB_BSHORSP(struct mgmt_msg *recvmm, int cid,
 
 	//printf("========================================\n");
 	/*
-	 * TLV encoded information
-	 */
+	* TLV encoded information
+	*/
 
 	SendMOB_HOIND(HO_operation_mode);
 
@@ -2901,8 +2902,8 @@ uint8_t mac802_16j_NT_PMPRS::selectDIUC(double recvSNR) {
 }
 
 /*
- * Send Initial or Handover Ranging Code
- */
+* Send Initial or Handover Ranging Code
+*/
 int mac802_16j_NT_PMPRS::SendRNGCODE() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::SendRNGCODE State: %x",
@@ -3180,8 +3181,8 @@ int mac802_16j_NT_PMPRS::SendSBCREQ() {
 }
 
 /*
- * RS requests a scanning interval for scanning BSs
- */
+* RS requests a scanning interval for scanning BSs
+*/
 int mac802_16j_NT_PMPRS::SendMOB_SCNREQ() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::SendMOB_SCNREQ State: %x",
@@ -3199,8 +3200,8 @@ int mac802_16j_NT_PMPRS::SendMOB_SCNREQ() {
 
 	//printf("\nTime:%llu:RS(%d): mac802_16j_NT_PMPRS::%s()\n", GetCurrentTime(), get_nid(), __func__);
 	/*
-	 * Compute all field bits
-	 */
+	* Compute all field bits
+	*/
 	tmpBits += 32;
 
 	if (N_RecBS_index != 0)
@@ -3220,8 +3221,8 @@ int mac802_16j_NT_PMPRS::SendMOB_SCNREQ() {
 		ifmmLen = tmpBits / 8;
 
 	/*
-	 * Generate MOB_SCN-REQ Message
-	 */
+	* Generate MOB_SCN-REQ Message
+	*/
 
 	// max = 5
 	scanDuration = NeighborMRBSList->nbrBSs_Index.size()
@@ -3259,8 +3260,8 @@ int mac802_16j_NT_PMPRS::SendMOB_SCNREQ() {
 		ifmm->appendBitField(8 - tmpBits % 8, padding);
 
 	/*
-	 * TLV encoded information
-	 */
+	* TLV encoded information
+	*/
 
 	PushPDUintoConnection(BasicCID, ifmm);
 
@@ -3268,8 +3269,8 @@ int mac802_16j_NT_PMPRS::SendMOB_SCNREQ() {
 }
 
 /*
- * MS reports the scanning results to its serving BS
- */
+* MS reports the scanning results to its serving BS
+*/
 int mac802_16j_NT_PMPRS::SendMOB_SCNREP() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::SendMOB_SCNREP State: %x",
@@ -3295,8 +3296,8 @@ int mac802_16j_NT_PMPRS::SendMOB_SCNREP() {
 	uint8_t neighborBS_ID[6] = "";
 
 	/*
-	 * Compute all field bits
-	 */
+	* Compute all field bits
+	*/
 
 	tmpBits += (1 + 1 + 3 + 3 + 8);
 
@@ -3352,8 +3353,8 @@ int mac802_16j_NT_PMPRS::SendMOB_SCNREP() {
 	ifmmLen = tmpBits / 8;
 
 	/*
-	 * Generate MOB_SCN-REP Message
-	 */
+	* Generate MOB_SCN-REP Message
+	*/
 	ifmm = new ifmgmt(MG_MOB_SCNREP, ifmmLen);
 
 	ifmm->appendBitField(1, repMode);
@@ -3424,8 +3425,8 @@ int mac802_16j_NT_PMPRS::SendMOB_SCNREP() {
 	}
 
 	/*
-	 * TLV encoded information
-	 */
+	* TLV encoded information
+	*/
 
 	PushPDUintoConnection(PriCID, ifmm);
 
@@ -3433,8 +3434,8 @@ int mac802_16j_NT_PMPRS::SendMOB_SCNREP() {
 }
 
 /*
- * If RS wants to initial handover procedure, RS shall send MOB_MSHO-REQ
- */
+* If RS wants to initial handover procedure, RS shall send MOB_MSHO-REQ
+*/
 int mac802_16j_NT_PMPRS::SendMOB_MSHOREQ() {
 
 	logRidvan(TRACE, "-->%d	mac802_16j_NT_PMPRS::SendMOB_MSHOREQ State: %x",
@@ -3462,8 +3463,8 @@ int mac802_16j_NT_PMPRS::SendMOB_MSHOREQ() {
 	//printf("\n\e[1;36mTime:%llu RS(%d) %s()\e[0m\n", GetCurrentTime(), get_nid(), __func__);
 
 	/*
-	 * Compute handover arget BSs
-	 */
+	* Compute handover arget BSs
+	*/
 	for (iter = NeighborMRBSList->nbrBSs_Index.begin(); iter
 			!= NeighborMRBSList->nbrBSs_Index.end(); iter++) {
 		if ((*iter)->targetHO == true)
@@ -3477,8 +3478,8 @@ int mac802_16j_NT_PMPRS::SendMOB_MSHOREQ() {
 	}
 
 	/*
-	 * Compute all field bits
-	 */
+	* Compute all field bits
+	*/
 	tmpBits += 16;
 
 	if (N_BS_Index != 0)
@@ -3544,8 +3545,8 @@ int mac802_16j_NT_PMPRS::SendMOB_MSHOREQ() {
 		ifmmLen = tmpBits / 8;
 
 	/*
-	 * Generate Menegement Message
-	 */
+	* Generate Menegement Message
+	*/
 	ifmm = new ifmgmt(MG_MOB_MSHOREQ, ifmmLen);
 
 	ifmm->appendBitField(8, repMetric); // Report Metric
@@ -3637,8 +3638,8 @@ int mac802_16j_NT_PMPRS::SendMOB_MSHOREQ() {
 	}
 
 	/*
-	 * TLV encoding information
-	 */
+	* TLV encoding information
+	*/
 
 	ifmm->copyTo(saved_msg);
 
@@ -3695,8 +3696,8 @@ int mac802_16j_NT_PMPRS::SendMOB_HOIND(uint8_t HO_operation_mode) {
 	}
 
 	/*
-	 * Compute all field bits
-	 */
+	* Compute all field bits
+	*/
 	tmpBits += 8;
 
 	if (Mode == 0x0) {
@@ -3722,8 +3723,8 @@ int mac802_16j_NT_PMPRS::SendMOB_HOIND(uint8_t HO_operation_mode) {
 		ifmmLen = tmpBits / 8;
 
 	/*
-	 * Generate MOB_HO-IND Message
-	 */
+	* Generate MOB_HO-IND Message
+	*/
 	ifmm = new ifmgmt(MG_MOB_HOIND, ifmmLen);
 	ifmm->appendBitField(6, rsv);
 	ifmm->appendBitField(2, Mode);
@@ -3759,8 +3760,8 @@ int mac802_16j_NT_PMPRS::SendMOB_HOIND(uint8_t HO_operation_mode) {
 	}
 
 	/*
-	 * TLV encoding Information
-	 */
+	* TLV encoding Information
+	*/
 	uint8_t hmac[21] = "";
 	ifmm->appendTLV(149, 21, hmac); // HMAC/CMAC Tuple
 
@@ -3773,8 +3774,8 @@ int mac802_16j_NT_PMPRS::SendMOB_HOIND(uint8_t HO_operation_mode) {
 	PushPDUintoConnection(BasicCID, ifmm);
 
 	/*
-	 * start HO timer
-	 */
+	* start HO timer
+	*/
 	if (HO_IND_type == 0) {
 		uint64_t tick = 0;
 
@@ -3975,11 +3976,11 @@ void mac802_16j_NT_PMPRS::procRS_AccessMAP(struct mgmt_msg *recvmm, int cid,
 				ulmap_ies->extractField(1, &ALie.ie_14.bwReq);
 
 				/*   // the following fields should be zero
-				 printf("RS(%d) receive frameIndex = %d\n", get_nid(), ALie.ie_14.frameIndex);
-				 printf("RS(%d) receive rangCode = %d\n", get_nid(), ALie.ie_14.rangCode);
-				 printf("RS(%d) receive rangSym = %d\n", get_nid(), ALie.ie_14.rangSym);
-				 printf("RS(%d) receive rangCh = %d\n", get_nid(), ALie.ie_14.rangCh);
-				 */
+				printf("RS(%d) receive frameIndex = %d\n", get_nid(), ALie.ie_14.frameIndex);
+				printf("RS(%d) receive rangCode = %d\n", get_nid(), ALie.ie_14.rangCode);
+				printf("RS(%d) receive rangSym = %d\n", get_nid(), ALie.ie_14.rangSym);
+				printf("RS(%d) receive rangCh = %d\n", get_nid(), ALie.ie_14.rangCh);
+				*/
 				leftBits -= 60;
 				ALie_count++;
 				relay_AL.push_back(ALie);
